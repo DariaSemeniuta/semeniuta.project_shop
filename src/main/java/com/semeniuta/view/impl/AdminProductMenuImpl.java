@@ -1,4 +1,17 @@
 package com.semeniuta.view.impl;
 
-public class AdminProductMenuImpl {
+import com.semeniuta.view.Menu;
+
+import java.io.IOException;
+
+public class AdminProductMenuImpl implements Menu {
+    @Override
+    public void showMenu() throws IOException {
+
+    }
+
+    @Override
+    public void showMenuItems(String[] menuItems) {
+
+    }
 }

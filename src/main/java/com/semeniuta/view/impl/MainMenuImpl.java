@@ -12,8 +12,8 @@ public class MainMenuImpl implements Menu{
     private final ClientMenuImpl clientMenuImpl = new ClientMenuImpl();
 
     private final static String[] menuItems = {"1. Admin", "2. Client", "0. Exit"};
-    private final Menu mainMenu = new MainMenuImpl();
-    private final Menu adminClientMenu = new AdminClientMenuImpl();
+    private Menu menu;
+    //private final Menu clientMenu = new ClientMenuImpl();
     /*@Override
     public void showMenuItems(String[] menuItems) {
         System.out.println("_________________________________");
@@ -27,25 +27,27 @@ public class MainMenuImpl implements Menu{
     public void showMenu() throws IOException{
         boolean isRunning = true;
         while (isRunning) {
-            mainMenu.showMenuItems(menuItems);
+            this.showMenuItems(menuItems);
             String input = br.readLine();
             switch (input){
                 case "1":
-                    System.out.println("show 1 menu for admin");
+                    menu = new AdminMainMenuImpl();
+                    menu.showMenu();
                     break;
                 case "2":
-                    System.out.println("show 2 menu for client");
+                    menu = new ClientMenuImpl();
+                    menu.showMenu();
                     break;
                 case "0":
                     isRunning=false;
                     break;
                 default:
-                    System.out.println("wrong input");
+                    System.out.println("Please enter correct number");
                     break;
             }
 
         }
-        System.out.println("bye");
+        System.out.println("bye-bye");
         System.exit(0);
     }
 
