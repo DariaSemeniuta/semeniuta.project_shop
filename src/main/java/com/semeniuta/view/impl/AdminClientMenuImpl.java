@@ -12,7 +12,7 @@ public class AdminClientMenuImpl implements Menu {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
     private final ClientService clientService = new ClientServiceImpl();
     private Menu menu;
-    private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
+    private final static String[] menuItems = {"1.Create client", "2. Update client", "3. Delete client", "4. Return to main menu", "0. Exit"};
 
 
     @Override
@@ -24,19 +24,17 @@ public class AdminClientMenuImpl implements Menu {
             String input = br.readLine();
             switch (input){
                 case "1":
-                    menu = new AdminClientMenuImpl();
-                    menu.showMenu();
+                    clientService.createClient("rew", "qwe");
                     break;
                 case "2":
-                    menu = new AdminProductMenuImpl();
-                    menu.showMenu();
+                    clientService.updateClient();
                     break;
                 case "3":
                     menu = new AdminOrderMenuImpl();
                     menu.showMenu();
                     break;
                 case "4":
-                    menu = new MainMenuImpl();
+                    menu = new AdminMainMenuImpl();
                     menu.showMenu();
                     break;
                 case "0":
