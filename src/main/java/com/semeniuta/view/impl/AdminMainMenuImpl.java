@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AdminMainMenuImpl implements Menu{
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
-    //private final ClientService clientService = new ClientServiceImpl();
-    private Menu menu;
+    protected final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
+    protected final ClientService clientService = new ClientServiceImpl();
+    protected Menu menu;
 
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
 
@@ -48,6 +48,8 @@ public class AdminMainMenuImpl implements Menu{
             }
 
         }
+        System.out.println("bye-bye");
+        System.exit(0);
     }
 
 }

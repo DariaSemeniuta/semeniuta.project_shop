@@ -8,11 +8,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class AdminClientMenuImpl implements Menu {
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
-    private final ClientService clientService = new ClientServiceImpl();
-    private Menu menu;
-    private final static String[] menuItems = {"1.Create client", "2. Update client", "3. Delete client", "4. Return to main menu", "0. Exit"};
+public class AdminClientMenuImpl extends AdminMainMenuImpl {
+
+    private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "4. Return to main menu", "0. Exit"};
 
 
     @Override
@@ -30,15 +28,12 @@ public class AdminClientMenuImpl implements Menu {
                     clientService.updateClient();
                     break;
                 case "3":
-                    menu = new AdminOrderMenuImpl();
-                    menu.showMenu();
                     break;
                 case "4":
                     menu = new AdminMainMenuImpl();
                     menu.showMenu();
                     break;
                 case "0":
-                    isRunning=false;
                     break;
                 default:
                     System.out.println("Please enter correct number");
@@ -46,6 +41,12 @@ public class AdminClientMenuImpl implements Menu {
             }
 
         }
+        System.out.println("bye-bye");
+        System.exit(0);
+    }
+
+    private void addClient(){
+        System.out.println("Please enter data");
     }
 
 }
