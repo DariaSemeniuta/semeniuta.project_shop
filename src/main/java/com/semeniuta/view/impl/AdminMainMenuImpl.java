@@ -9,42 +9,47 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AdminMainMenuImpl implements Menu{
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
-    private final ClientService clientService = new ClientServiceImpl();
+    protected final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
+    protected final ClientService clientService = new ClientServiceImpl();
+    protected Menu menu;
 
-    //private final static String menuItems = new String[]{"1. Create client", "2. Update clien info", "3. Delete client"};
-
-
+    private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
 
     @Override
     public void showMenu() throws IOException{
         boolean isRunning = true;
 
         while (isRunning) {
-
-            showMenuItems();
+            this.showMenuItems(menuItems);
             String input = br.readLine();
             switch (input){
                 case "1":
-                    System.out.println("show 1 menu for admin");
+                    menu = new AdminClientMenuImpl();
+                    menu.showMenu();
                     break;
                 case "2":
-                    System.out.println("show 2 menu for client");
+                    menu = new AdminProductMenuImpl();
+                    menu.showMenu();
+                    break;
+                case "3":
+                    menu = new AdminOrderMenuImpl();
+                    menu.showMenu();
+                    break;
+                case "4":
+                    menu = new MainMenuImpl();
+                    menu.showMenu();
                     break;
                 case "0":
                     isRunning=false;
                     break;
                 default:
-                    System.out.println("wrong input");
+                    System.out.println("Please enter correct number");
                     break;
             }
 
         }
+        System.out.println("bye-bye");
+        System.exit(0);
     }
 
-    private void showMenuItems() {
-        System.out.println("1. Add client");
-        System.out.println("2. Remove client");
-        System.out.println("3. Add product");
-    }
 }
