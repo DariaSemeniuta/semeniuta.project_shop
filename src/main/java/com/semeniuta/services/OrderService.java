@@ -1,7 +1,14 @@
 package com.semeniuta.services;
 
+import com.semeniuta.domain.Order;
+
+import java.util.List;
+
 public interface OrderService {
-    void editOrder();
-    void createOrder();
-    void deleteOrder();
+    boolean editOrder();
+    boolean createOrder(long productId);
+
+    boolean deleteOrder();
+    List<Order> showOrders();
+    Order findOrder();
 }

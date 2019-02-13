@@ -8,18 +8,24 @@ import com.semeniuta.services.ClientService;
 public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao = new ClientDaoImpl();
     @Override
-    public void createClient(String name, String phone) {
+    public boolean createClient(String name, String phone) {
         Client client = new Client(name, phone);
         boolean res = clientDao.saveClient();
+        return res;
     }
 
     @Override
-    public void updateClient() {
-
+    public boolean updateClient(String name) {
+        return false;
     }
 
     @Override
-    public void deleteClient() {
+    public boolean deleteClient(String name) {
+        return false;
+    }
+
+    @Override
+    public void showClients() {
 
     }
 }

@@ -4,8 +4,8 @@ public interface ClientService {
     /**
      * add documentation
      */
-    void createClient(String name, String phone);
-
-    void updateClient();
-    void deleteClient();
+    boolean createClient(String name, String phone);
+    boolean updateClient(String name);
+    boolean deleteClient(String name);
+    void showClients();
 }

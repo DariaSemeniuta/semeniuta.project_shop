@@ -1,16 +1,11 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.services.ClientService;
-import com.semeniuta.services.impl.ClientServiceImpl;
-import com.semeniuta.view.Menu;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 public class AdminClientMenuImpl extends AdminMainMenuImpl {
 
-    private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "4. Return to main menu", "0. Exit"};
+    private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "5. Show all clients", "4. Return to main menu", "0. Exit"};
 
 
     @Override
@@ -22,14 +17,14 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
             String input = br.readLine();
             switch (input){
                 case "1":
-                    clientService.createClient("rew", "qwe");
                     break;
                 case "2":
-                    clientService.updateClient();
                     break;
                 case "3":
                     break;
                 case "4":
+                    break;
+                case "5":
                     menu = new AdminMainMenuImpl();
                     menu.showMenu();
                     break;

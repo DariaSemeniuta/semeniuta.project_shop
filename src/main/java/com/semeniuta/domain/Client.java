@@ -12,13 +12,13 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+                "\nid=" + id +
+                ", \nname='" + name +
+                ", \nsurname='" + surname +
+                ", \nage=" + age +
+                ", \nemail='" + email +
+                ", \nphone='" + phone +
+                "\n}";
     }
 
     public Client(String name, String surname, int age, String email, String phone) {
