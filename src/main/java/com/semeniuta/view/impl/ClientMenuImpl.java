@@ -55,16 +55,16 @@ public class ClientMenuImpl implements Menu{
         System.exit(0);
     }
 
-    private void showProducts(){
+    public  void showProducts(){
         System.out.println("All products:");
         List<Product> products = productService.showProducts();
         products.forEach(System.out::println);
     }
 
-    private void createOrder() throws IOException{
-        System.out.println("Enter product id:");
-        long id = new Long(br.readLine());
-        if(orderService.createOrder(id)){
+    public void createOrder() throws IOException{
+        System.out.println("Enter product name:");
+        String name = br.readLine();
+        if(orderService.createOrder(name)){
             System.out.println("Order was added");
         }
         else {
@@ -72,7 +72,7 @@ public class ClientMenuImpl implements Menu{
         }
     }
 
-    private void showOrders(){
+    public void showOrders(){
         System.out.println("All orders");
         List<Order> orders = orderService.showOrders();
         orders.forEach(System.out::println);

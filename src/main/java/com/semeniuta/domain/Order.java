@@ -1,5 +1,6 @@
 package com.semeniuta.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,12 +8,17 @@ import java.util.List;
 public class Order {
     private long id;
     private String status;
-    private List<Long> productIds;
+    private List<Product> products;
 
-    public Order(long productId) {
+    private static long idCounter = 0;
+
+
+    public Order(Product product) {
+        this.id = ++idCounter;
         this.status = "New";
-        productIds = new ArrayList<>();
-        productIds.add(productId);
+        products = new ArrayList<>();
+        products.add(product);
+
     }
 
     @Override
@@ -20,7 +26,7 @@ public class Order {
         return "Order{" +
                 "\nid=" + id +
                 ", \nstatus='" + status +
-                ", \nproductIds=" + productIds +
+                ", \nproducts=" + products.toString() +
                 "}";
     }
 
@@ -40,11 +46,15 @@ public class Order {
         this.status = status;
     }
 
-    public List<Long> getProductIds() {
-        return productIds;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductIds(List<Long> productIds) {
-        this.productIds = productIds;
+    public void addProduct(Product product){
+        products.add(product);
+    }
+
+    public void deleteProduct(Product product){
+        products.remove(product);
     }
 }

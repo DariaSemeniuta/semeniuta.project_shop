@@ -82,7 +82,6 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
     private void updateClient() throws IOException{
         System.out.print("Please enter name of client that you need to update=> ");
         String name = br.readLine();
-        Client client = clientService.findClient(name);
 
         System.out.print("Please enter new name => ");
         String newName = br.readLine();
@@ -109,7 +108,7 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
         System.out.print("Please enter new phone number => ");
         String phone = br.readLine();
 
-        if(clientService.updateClient(client, newName, surname, age, email, phone)){
+        if(clientService.updateClient(name, newName, surname, age, email, phone)){
             System.out.println("Client was updated");
         }
         else{
@@ -120,9 +119,8 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
     private void deleteClient() throws IOException{
         System.out.println("Please enter name of client that you need to delete");
         String name = br.readLine();
-        Client client = clientService.findClient(name);
 
-        if(clientService.deleteClient(client)){
+        if(clientService.deleteClient(name)){
             System.out.println("Client was deleted");
         }
         else{

@@ -16,12 +16,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateClient(Client client, String name, String surname, int age, String email, String phone) {
+    public boolean updateClient(String oldName, String name, String surname, int age, String email, String phone) {
+        Client client = clientDao.findClient(oldName);
         return clientDao.editClient(client, name, surname, age, email, phone);
     }
 
     @Override
-    public boolean deleteClient(Client client) {
+    public boolean deleteClient(String name) {
+        Client client = clientDao.findClient(name);
         return clientDao.deleteClient(client);
     }
 
@@ -30,8 +32,5 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.returnAllClient();
     }
 
-    @Override
-    public Client findClient(String name) {
-        return clientDao.findClient(name);
-    }
+
 }

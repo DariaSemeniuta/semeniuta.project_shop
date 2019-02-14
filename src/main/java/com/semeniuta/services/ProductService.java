@@ -6,31 +6,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductService {
-    /**
-     * Add product to shop
-     * @param name
-     * @param price
-     * @return boolean value
-     */
+
     boolean addProduct(String name, BigDecimal price);
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    boolean editProduct(long id);
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    boolean deleteProduct(long id);
+    boolean editProduct(String oldName, String name, BigDecimal price);
 
-    /**
-     *
-     * @return
-     */
+    boolean deleteProduct(String name);
+
     List<Product> showProducts();
 }

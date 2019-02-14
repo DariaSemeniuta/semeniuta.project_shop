@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface OrderService {
     boolean editOrder();
-    boolean createOrder(long productId);
-
-    boolean deleteOrder();
+    boolean createOrder(String productName);
+    boolean editOrderStatus(long id, String status);
+    boolean addProductToOrder(long orderId, String productName);
+    boolean removeProductFromOrder(long orderId, String productName);
+    boolean deleteOrder(long orderId);
     List<Order> showOrders();
-    Order findOrder();
+
 }

@@ -13,7 +13,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public boolean addProduct(String name, BigDecimal price) {
-        return false;
+        Product product = new Product(name, price);
+        return productDao.addProduct(product);
     }
 
     @Override
@@ -22,12 +23,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public boolean editProduct(long id) {
-        return false;
+    public boolean editProduct(String oldName, String name, BigDecimal price) {
+        Product product = productDao.findProduct(oldName);
+        return productDao.editProduct(product, name, price);
     }
 
     @Override
-    public boolean deleteProduct(long id) {
-        return false;
+    public boolean deleteProduct(String name) {
+        Product product = productDao.findProduct(name);
+        return productDao.deleteProduct(product);
     }
 }

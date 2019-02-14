@@ -9,8 +9,7 @@ public interface ClientService {
      * add documentation
      */
     boolean createClient(String name, String surname, int age, String email, String phone);
-    boolean updateClient(Client client, String name, String surname, int age, String email, String phone);
-    boolean deleteClient(Client client);
-    Client findClient(String name);
+    boolean updateClient(String oldName, String name, String surname, int age, String email, String phone);
+    boolean deleteClient(String name);
     List<Client> showClients();
 }
