@@ -3,7 +3,6 @@ package com.semeniuta.dao.impl;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
-import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import java.util.ArrayList;
 import java.util.List;
