@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
-private List<Product> products;
+private List<Product> products = new ArrayList<>();
 
     public ProductDaoImpl() {
         products = new ArrayList<>();
     }
     @Override
     public List<Product> returnAllProducts() {
+
         return products;
     }
 

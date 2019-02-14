@@ -12,7 +12,7 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao = new OrderDaoImpl();
-    private final ProductDao productDao = new ProductDaoImpl();
+    private final ProductDao productDao = ProductServiceImpl.productDao;
 
     @Override
     public boolean editOrder() {
