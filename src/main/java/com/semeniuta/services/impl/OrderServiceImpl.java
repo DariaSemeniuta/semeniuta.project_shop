@@ -16,12 +16,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean createOrder(long productId) {
-        if(orderDao.addOrder(new Order(productId))){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return orderDao.addOrder(new Order(productId));
     }
 
     @Override

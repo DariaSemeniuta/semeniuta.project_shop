@@ -1,5 +1,7 @@
 package com.semeniuta.view.impl;
 
+import com.semeniuta.domain.Client;
+
 import java.io.IOException;
 
 
@@ -17,12 +19,16 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
             String input = br.readLine();
             switch (input){
                 case "1":
+                    createClient();
                     break;
                 case "2":
+                    updateClient();
                     break;
                 case "3":
+                    deleteClient();
                     break;
                 case "4":
+                    showClients();
                     break;
                 case "5":
                     menu = new AdminMainMenuImpl();
@@ -40,8 +46,92 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
         System.exit(0);
     }
 
-    private void addClient(){
-        System.out.println("Please enter data");
+    private void createClient() throws IOException{
+        System.out.print("Please enter name => ");
+        String name = br.readLine();
+
+        System.out.print("Please enter second name => ");
+        String surname = br.readLine();
+
+        System.out.print("Please enter age => ");
+        int age;
+        while(true) {
+            try {
+                age = new Integer(br.readLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Incorrect format of input value!");
+                System.out.print("Please enter correct (Integer)age => ");
+            }
+        }
+
+        System.out.print("Please enter email => ");
+        String email = br.readLine();
+
+        System.out.print("Please enter phone number => ");
+        String phone = br.readLine();
+
+        if(clientService.createClient(name, surname, age, email, phone)){
+            System.out.println("Client was created");
+        }
+        else{
+            System.out.println("Client was created");
+        }
     }
 
+    private void updateClient() throws IOException{
+        System.out.print("Please enter name of client that you need to update=> ");
+        String name = br.readLine();
+        Client client = clientService.findClient(name);
+
+        System.out.print("Please enter new name => ");
+        String newName = br.readLine();
+
+        System.out.print("Please enter new second name => ");
+        String surname = br.readLine();
+
+        System.out.print("Please enter new age => ");
+        int age;
+
+        while(true) {
+            try {
+                age = new Integer(br.readLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Incorrect format of input value!");
+                System.out.print("Please enter correct (Integer)age => ");
+            }
+        }
+
+        System.out.print("Please enter new email => ");
+        String email = br.readLine();
+
+        System.out.print("Please enter new phone number => ");
+        String phone = br.readLine();
+
+        if(clientService.updateClient(client, newName, surname, age, email, phone)){
+            System.out.println("Client was updated");
+        }
+        else{
+            System.out.println("Client wasn't updated");
+        }
+    }
+
+    private void deleteClient() throws IOException{
+        System.out.println("Please enter name of client that you need to delete");
+        String name = br.readLine();
+        Client client = clientService.findClient(name);
+
+        if(clientService.deleteClient(client)){
+            System.out.println("Client was deleted");
+        }
+        else{
+            System.out.println("Client wasn't delete");
+        }
+    }
+
+    private void showClients(){
+        System.out.println("All clients");
+        clientService.showClients().forEach(System.out::println);
+    }
 }

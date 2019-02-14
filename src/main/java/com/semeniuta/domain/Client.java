@@ -8,6 +8,7 @@ public class Client {
     private int age;
     private String email;
     private String phone;
+    private static long idCounter = 0;
 
     @Override
     public String toString() {
@@ -22,6 +23,7 @@ public class Client {
     }
 
     public Client(String name, String surname, int age, String email, String phone) {
+        this.id = ++idCounter;
         this.name = name;
         this.surname = surname;
         this.age = age;
