@@ -26,7 +26,7 @@ public class Order {
         return "Order{" +
                 "\nid=" + id +
                 ", \nstatus='" + status +
-                ", \nproducts=" + products.toString() +
+                ", \nproducts=" + products.size() +
                 "}";
     }
 

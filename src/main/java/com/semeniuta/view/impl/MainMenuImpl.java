@@ -13,7 +13,7 @@ public class MainMenuImpl implements Menu{
     private Menu menu;
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
@@ -21,11 +21,11 @@ public class MainMenuImpl implements Menu{
             switch (input){
                 case "1":
                     menu = new AdminMainMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "2":
                     menu = new ClientMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

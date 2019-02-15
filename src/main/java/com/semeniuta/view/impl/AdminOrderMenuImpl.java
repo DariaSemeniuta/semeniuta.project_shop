@@ -13,7 +13,7 @@ private final static String[] menuItems = {"1. Create order", "2. Edit order sta
 private final OrderService orderService = new OrderServiceImpl();
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
         Menu menu = new  ClientMenuImpl();
         while (isRunning) {
@@ -33,7 +33,7 @@ private final OrderService orderService = new OrderServiceImpl();
                     ((ClientMenuImpl) menu).showOrders();
                     break;
                 case "5":
-                    new AdminMainMenuImpl().showMenu();
+                    new AdminMainMenuImpl().getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

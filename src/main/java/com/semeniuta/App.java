@@ -8,7 +8,7 @@ public class App {
     public static void main (String[] args){
         MainMenuImpl menu = new MainMenuImpl();
         try {
-            menu.showMenu();
+            menu.getUserResponse();
         }
         catch (IOException e){
             e.printStackTrace();

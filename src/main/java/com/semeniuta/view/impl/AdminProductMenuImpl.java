@@ -1,9 +1,7 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.dao.ProductDao;
 import com.semeniuta.services.ProductService;
 import com.semeniuta.services.impl.ProductServiceImpl;
-import com.semeniuta.view.Menu;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,7 +12,7 @@ public class AdminProductMenuImpl extends AdminMainMenuImpl {
     private final ProductService productService = new ProductServiceImpl();
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
 
         while (isRunning) {
@@ -34,7 +32,7 @@ public class AdminProductMenuImpl extends AdminMainMenuImpl {
                     new ClientMenuImpl().showProducts();
                     break;
                 case "5":
-                    new AdminMainMenuImpl().showMenu();
+                    new AdminMainMenuImpl().getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

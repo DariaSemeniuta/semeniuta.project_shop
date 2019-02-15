@@ -2,10 +2,8 @@ package com.semeniuta.view.impl;
 
 import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
-import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
-import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.services.impl.OrderServiceImpl;
 import com.semeniuta.services.impl.ProductServiceImpl;
 import com.semeniuta.view.Menu;
@@ -23,7 +21,7 @@ public class ClientMenuImpl implements Menu{
     private final static String[] menuItems = {"1. Show all products", "2. Create order", "3. Show all orders", "4. Return to main menu", "0. Exit"};
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
 
         while (isRunning) {
@@ -40,7 +38,7 @@ public class ClientMenuImpl implements Menu{
                     showOrders();
                     break;
                 case "4":
-                    new MainMenuImpl().showMenu();
+                    new MainMenuImpl().getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

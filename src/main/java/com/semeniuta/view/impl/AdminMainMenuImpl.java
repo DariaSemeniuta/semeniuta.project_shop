@@ -16,7 +16,7 @@ public class AdminMainMenuImpl implements Menu{
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
 
         while (isRunning) {
@@ -25,19 +25,19 @@ public class AdminMainMenuImpl implements Menu{
             switch (input){
                 case "1":
                     menu = new AdminClientMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "2":
                     menu = new AdminProductMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "3":
                     menu = new AdminOrderMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "4":
                     menu = new MainMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

@@ -1,7 +1,5 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.domain.Client;
-
 import java.io.IOException;
 
 
@@ -11,7 +9,7 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
 
 
     @Override
-    public void showMenu() throws IOException{
+    public void getUserResponse() throws IOException{
         boolean isRunning = true;
 
         while (isRunning) {
@@ -32,7 +30,7 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
                     break;
                 case "5":
                     menu = new AdminMainMenuImpl();
-                    menu.showMenu();
+                    menu.getUserResponse();
                     break;
                 case "0":
                     break;
