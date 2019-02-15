@@ -8,20 +8,22 @@ public class Client {
     private int age;
     private String email;
     private String phone;
+    private static long idCounter = 0;
 
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+                "\nid=" + id +
+                ", \nname='" + name +
+                ", \nsurname='" + surname +
+                ", \nage=" + age +
+                ", \nemail='" + email +
+                ", \nphone='" + phone +
+                "\n}";
     }
 
     public Client(String name, String surname, int age, String email, String phone) {
+        this.id = ++idCounter;
         this.name = name;
         this.surname = surname;
         this.age = age;
