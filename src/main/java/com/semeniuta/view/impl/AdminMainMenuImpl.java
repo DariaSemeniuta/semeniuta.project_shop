@@ -1,19 +1,28 @@
 package com.semeniuta.view.impl;
 
 import com.semeniuta.services.ClientService;
+import com.semeniuta.services.OrderService;
+import com.semeniuta.services.ProductService;
 import com.semeniuta.services.impl.ClientServiceImpl;
+import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class AdminMainMenuImpl implements Menu{
-    protected final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
-    protected final ClientService clientService = new ClientServiceImpl();
-    protected Menu menu;
+public class AdminMainMenuImpl extends  MainMenuImpl implements Menu{
 
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
+    private Menu adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, orderService, validationService);
+    private Menu adminProductMenu = new AdminProductMenuImpl(br, productService);
+    private Menu adminOrderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
+    Menu clientMenu = super.clientMenu;
+
+    public AdminMainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+        super(br, clientService, productService, orderService, validationService);
+    }
+
 
     @Override
     public void getUserResponse() throws IOException{
@@ -24,20 +33,16 @@ public class AdminMainMenuImpl implements Menu{
             String input = br.readLine();
             switch (input){
                 case "1":
-                    menu = new AdminClientMenuImpl();
-                    menu.getUserResponse();
+                    adminClientMenu.getUserResponse();
                     break;
                 case "2":
-                    menu = new AdminProductMenuImpl();
-                    menu.getUserResponse();
+                    adminProductMenu.getUserResponse();
                     break;
                 case "3":
-                    menu = new AdminOrderMenuImpl();
-                    menu.getUserResponse();
+                    adminOrderMenu.getUserResponse();
                     break;
                 case "4":
-                    menu = new MainMenuImpl();
-                    menu.getUserResponse();
+                    super.getUserResponse();
                     break;
                 case "0":
                     isRunning=false;
@@ -51,6 +56,4 @@ public class AdminMainMenuImpl implements Menu{
         System.out.println("bye-bye");
         System.exit(0);
     }
-
-
 }

@@ -8,21 +8,21 @@ import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.OrderService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-    private final OrderDao orderDao = new OrderDaoImpl();
-    private final ProductDao productDao = ProductServiceImpl.productDao;
+    private final OrderDao orderDao;
+    private final ProductDao productDao;
 
-    @Override
-    public boolean editOrder() {
-        return false;
+    public OrderServiceImpl(OrderDao orderDao, ProductDao productDao) {
+        this.orderDao = orderDao;
+        this.productDao = productDao;
     }
 
     @Override
-    public boolean createOrder(String productName) {
-        Product product = productDao.findProduct(productName);
-        Order order = new Order(product);
+    public boolean createOrder(List<Long> products) {
+        Order order = new Order(products);
         return orderDao.addOrder(order);
     }
 
@@ -32,19 +32,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.editOrderStatus(order, status);
     }
 
-    @Override
-    public boolean addProductToOrder(long orderId, String productName) {
-        Order order = orderDao.findOrder(orderId);
-        Product product = productDao.findProduct(productName);
-        return orderDao.addProductToOrder(order, product);
-    }
-
-    @Override
-    public boolean removeProductFromOrder(long orderId, String productName) {
-        Order order = orderDao.findOrder(orderId);
-        Product product = productDao.findProduct(productName);
-        return orderDao.removeProductFromOrder(order, product);
-    }
 
     @Override
     public boolean deleteOrder(long orderId) {

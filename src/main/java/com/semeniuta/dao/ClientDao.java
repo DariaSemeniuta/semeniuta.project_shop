@@ -15,10 +15,10 @@ public interface ClientDao {
 
     /**
      * Find client by name // other criterias for search will be implemented later
-     * @param name - String - name of client
+     * @param id - String - name of client
      * @return Client object
      */
-    Client findClient(String name);
+    Client findClient(long id);
 
     /**
      * Change info about client

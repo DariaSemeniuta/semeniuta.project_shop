@@ -8,7 +8,11 @@ import com.semeniuta.services.ClientService;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-    private ClientDao clientDao = new ClientDaoImpl();
+    private final ClientDao clientDao;
+
+    public ClientServiceImpl(ClientDao clientDao){
+        this.clientDao = clientDao;
+    }
     @Override
     public boolean createClient(String name, String surname, int age, String email, String phone) {
         Client client = new Client(name, surname, age, email, phone);
@@ -16,14 +20,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean updateClient(String oldName, String name, String surname, int age, String email, String phone) {
-        Client client = clientDao.findClient(oldName);
+    public boolean updateClient(long id, String name, String surname, int age, String email, String phone) {
+        Client client = clientDao.findClient(id);
         return clientDao.editClient(client, name, surname, age, email, phone);
     }
 
     @Override
-    public boolean deleteClient(String name) {
-        Client client = clientDao.findClient(name);
+    public boolean deleteClient(long id) {
+        Client client = clientDao.findClient(id);
         return clientDao.deleteClient(client);
     }
 
@@ -32,5 +36,19 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.returnAllClient();
     }
 
+    @Override
+    public Client showClientInfo(long id) {
+        return clientDao.findClient(id);
+    }
 
+    @Override
+    public boolean isClientExist(String phone) {
+        List<Client> clients = clientDao.returnAllClient();
+        for (Client client: clients ) {
+            if(client.getPhone()==phone){
+                return true;
+            }
+        }
+        return false;
+    }
 }

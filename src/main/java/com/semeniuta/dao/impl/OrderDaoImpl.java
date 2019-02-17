@@ -9,10 +9,16 @@ import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
 
-    private List<Order> orders = new ArrayList<>();
+    private List<Order> orders;
+    private static long generator = 0;
+
+    public OrderDaoImpl() {
+        this.orders = new ArrayList<>();
+    }
 
     @Override
     public boolean addOrder(Order order) {
+        order.setId(generator++);
         orders.add(order);
         return true;
     }
@@ -25,18 +31,6 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public boolean editOrderStatus(Order order, String status) {
         order.setStatus(status);
-        return true;
-    }
-
-    @Override
-    public boolean addProductToOrder(Order order, Product product) {
-        order.addProduct(product);
-        return true;
-    }
-
-    @Override
-    public boolean removeProductFromOrder(Order order, Product product) {
-        order.deleteProduct(product);
         return true;
     }
 

@@ -4,21 +4,36 @@ import com.semeniuta.dao.ClientDao;
 import com.semeniuta.domain.Client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientDaoImpl implements ClientDao {
-    private List<Client> clients = new ArrayList<>();
 
+    private ClientDaoImpl(){
+
+    }
+    private static ClientDao clientDao;
+    public static ClientDao getInstance(){
+        if (clientDao == null){
+            clientDao = new ClientDaoImpl();
+        }
+        return clientDao;
+    }
+
+    private Map<Long, Client> clients = new HashMap<>();
+    private static long generator = 0;
     @Override
     public boolean addClient(Client client) {
-        clients.add(client);
+        client.setId(generator++);
+        clients.put(client.getId(), client);
         return true;
     }
 
     @Override
-    public Client findClient(String name) {
-        for (Client client: clients) {
-            if(client.getName() == name){
+    public Client findClient(long id) {
+        for (Client client: clients.values()) {
+            if(client.getId() == id){
                 return client;
             }
         }
@@ -43,6 +58,6 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public List<Client> returnAllClient() {
-        return clients;
+        return new ArrayList<>(clients.values());
     }
 }

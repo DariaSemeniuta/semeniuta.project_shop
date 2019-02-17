@@ -28,21 +28,6 @@ public interface OrderDao {
      */
     boolean editOrderStatus(Order order, String status);
 
-    /**
-     * Add product to existent order
-     * @param order - Order - order object that should be updated by new product
-     * @param product - Product - product object that should be added to order
-     * @return true if product was successfully added, otherwise - false
-     */
-    boolean addProductToOrder(Order order, Product product);
-
-    /**
-     * Delete product from order
-     * @param order - Order - order object that should be updated
-     * @param product - Product - product object that should be removed from order
-     * @return true if product was successfully removed, otherwise - false
-     */
-    boolean removeProductFromOrder(Order order, Product product);
 
     /**
      * Delete order from DAO

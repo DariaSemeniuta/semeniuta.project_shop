@@ -1,16 +1,33 @@
 package com.semeniuta.view.impl;
 
+import com.semeniuta.services.ClientService;
+import com.semeniuta.services.OrderService;
+import com.semeniuta.services.ProductService;
+import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class MainMenuImpl implements Menu{
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //get bytes and convert it to string
+    protected BufferedReader br = null;
+    protected ClientService clientService = null;
+    protected ProductService productService = null;
+    protected OrderService orderService = null;
+    public ValidationService validationService = null;
 
     private final static String[] menuItems = {"1. Admin", "2. Client", "0. Exit"};
-    private Menu menu;
+
+    public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+        this.br = br;
+        this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
+        this.validationService = validationService;
+    }
+
+    protected Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService,validationService);
+    public Menu clientMenu = new ClientMenuImpl(br, clientService, productService, orderService, validationService);
 
     @Override
     public void getUserResponse() throws IOException{
@@ -20,12 +37,10 @@ public class MainMenuImpl implements Menu{
             String input = br.readLine();
             switch (input){
                 case "1":
-                    menu = new AdminMainMenuImpl();
-                    menu.getUserResponse();
+                    adminMainMenu.getUserResponse();
                     break;
                 case "2":
-                    menu = new ClientMenuImpl();
-                    menu.getUserResponse();
+                    clientMenu.getUserResponse();
                     break;
                 case "0":
                     isRunning=false;

@@ -6,10 +6,8 @@ public class Product {
     private long id;
     private String name;
     private BigDecimal price;
-    private static long idCounter = 0;
 
     public Product(String name, BigDecimal price) {
-        this.id = ++idCounter;
         this.name = name;
         this.price = price;
     }
