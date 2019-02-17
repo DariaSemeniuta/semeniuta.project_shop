@@ -87,7 +87,7 @@ public class AdminProductMenuImpl implements Menu {
 
     private void editProduct() throws IOException{
         System.out.println("Please enter name of the product that should be edited => ");
-        String oldName = br.readLine();
+        long id = Long.getLong(br.readLine());
 
         System.out.println("Please enter new name of the product => ");
         String name = br.readLine();
@@ -104,7 +104,7 @@ public class AdminProductMenuImpl implements Menu {
             }
         }
 
-        if(productService.editProduct(oldName, name, price)){
+        if(productService.editProduct(id, name, price)){
             System.out.println("Product was changed");
         }
         else{

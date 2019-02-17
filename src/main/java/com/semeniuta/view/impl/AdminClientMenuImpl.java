@@ -40,8 +40,7 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
                     showClientInfo();
                     break;
                 case "6":
-                    super.getUserResponse();
-                    break;
+                    return;
                 case "0":
                     break;
                 default:

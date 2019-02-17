@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public boolean editProduct(String id, String name, BigDecimal price) {
+    public boolean editProduct(long id, String name, BigDecimal price) {
         Product product = productDao.findProduct(id);
         return productDao.editProduct(product, name, price);
     }

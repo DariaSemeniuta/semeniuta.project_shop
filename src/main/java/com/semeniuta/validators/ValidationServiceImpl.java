@@ -33,11 +33,9 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void readPhone(String inputPhone) throws BusinessExceptions {
-        String[] regex = {"^[+38067]\\d{7}", "^[067]\\d{7}","^[+38097]\\d{7}", "^[097]\\d{7}","^[+38050]\\d{7}", "^[050]\\d{7}"};
-        boolean flag = false;
+        String[] regex = {"^[+]\\d{12}", "^[0]\\d{9}", "^[+]\\d{1}[(]\\d{3}[)]\\d{3}\\d{2}\\d{2}", "^[(]\\d{3}[)]\\d{3}\\d{2}\\d{2}", "^[(]\\d{3}[)]\\d{3}[-]\\d{2}[-]\\d{2}", "^[+]\\d{1}[(]\\d{3}[)]\\d{3}[-]\\d{2}[-]\\d{2}", "^[+]\\d{1}[-]\\d{3}[-]\\d{3}[-]\\d{2}[-]\\d{2}", "^[0]\\d{2}[-]\\d{3}[-]\\d{2}[-]\\d{2}"};
         for(int i = 0; i < regex.length; ++i){
             if(inputPhone.matches(regex[i])){
-                flag = true;
                 return;
             }
         }
@@ -46,7 +44,8 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void readEmail(String inputEmail) throws BusinessExceptions {
-        String regex = "^*[@]*[.]\\D";
+
+        String regex = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
         if (!(inputEmail.matches(regex))){
             throw new BusinessExceptions("Invalid email address");
         }

@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
     public boolean isClientExist(String phone) {
         List<Client> clients = clientDao.returnAllClient();
         for (Client client: clients ) {
-            if(client.getPhone()==phone){
+            if(client.getPhone().equals(phone)){
                 return true;
             }
         }

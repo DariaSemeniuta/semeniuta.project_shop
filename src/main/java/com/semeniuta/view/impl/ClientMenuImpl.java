@@ -13,17 +13,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-public class ClientMenuImpl extends MainMenuImpl{
+public class ClientMenuImpl implements Menu{
 
     private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "0. Exit"};
 
+
+    protected final BufferedReader br;
+    protected final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
+    private final ValidationService validationService;
+
     public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
-        super(br, clientService, productService, orderService, validationService);
+        this.br = br;
+        this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
+        this.validationService = validationService;
     }
 
-    private AdminOrderMenuImpl orderMenu = new AdminOrderMenuImpl(br, orderService,validationService);
     @Override
     public void getUserResponse() throws IOException{
+        AdminOrderMenuImpl orderMenu = new AdminOrderMenuImpl(br, orderService,validationService);
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
@@ -48,8 +59,7 @@ public class ClientMenuImpl extends MainMenuImpl{
                     orderMenu.showOrders();
                     break;
                 case "7":
-                    super.getUserResponse();
-                    break;
+                    return;
                 case "0":
                     isRunning=false;
                     break;
@@ -152,7 +162,7 @@ public class ClientMenuImpl extends MainMenuImpl{
             System.out.println("Incorrect format of input value!");
             System.out.print("Please enter correct Number => ");
         }
-        return Long.getLong(input);
+        return Long.parseLong(input);
     }
 
     protected void updateClient() throws IOException{
@@ -184,7 +194,7 @@ public class ClientMenuImpl extends MainMenuImpl{
     protected void showClientInfo() throws IOException{
         System.out.println("Info about client:");
         long id = readId();
-        clientService.showClientInfo(id);
+        System.out.println(clientService.showClientInfo(id).toString());
     }
 
 

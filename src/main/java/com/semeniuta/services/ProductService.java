@@ -17,12 +17,12 @@ public interface ProductService {
 
     /**
      * Allow to change name or price of existent  product
-     * @param id - long - name of the existent product
+     * @param id - long - id of the existent product
      * @param name - String - new name of the changed product
      * @param price - BigDecimal - new price of the changed product
      * @return true if product was changed, otherwise - false
      */
-    boolean editProduct(String id, String name, BigDecimal price);
+    boolean editProduct(long id, String name, BigDecimal price);
 
     /**
      * Delete product

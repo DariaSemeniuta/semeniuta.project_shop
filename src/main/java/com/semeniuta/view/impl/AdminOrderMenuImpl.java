@@ -72,7 +72,7 @@ private final ValidationService validationService;
             System.out.println("Incorrect format of input value!");
             System.out.print("Please enter correct Number => ");
         }
-        return Long.getLong(input);
+        return Long.parseLong(input);
     }
 
     public void createOrder() throws IOException{

@@ -26,11 +26,11 @@ public class MainMenuImpl implements Menu{
         this.validationService = validationService;
     }
 
-    protected Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService,validationService);
-    public Menu clientMenu = new ClientMenuImpl(br, clientService, productService, orderService, validationService);
-
     @Override
     public void getUserResponse() throws IOException{
+        Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService,validationService);
+        Menu clientMenu = new ClientMenuImpl(br, clientService, productService, orderService, validationService);
+
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
