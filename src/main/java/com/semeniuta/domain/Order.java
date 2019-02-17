@@ -8,17 +8,11 @@ import java.util.List;
 public class Order {
     private long id;
     private String status;
-    private List<Product> products;
+    private List<Long> products;
 
-    private static long idCounter = 0;
-
-
-    public Order(Product product) {
-        this.id = ++idCounter;
+    public Order(List<Long> products) {
         this.status = "New";
-        products = new ArrayList<>();
-        products.add(product);
-
+        this.products = products;
     }
 
     @Override
@@ -26,7 +20,7 @@ public class Order {
         return "Order{" +
                 "\nid=" + id +
                 ", \nstatus='" + status +
-                ", \nproducts=" + products.size() +
+                ", \nproducts=" + products.toString() +
                 "}";
     }
 
@@ -46,15 +40,4 @@ public class Order {
         this.status = status;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void addProduct(Product product){
-        products.add(product);
-    }
-
-    public void deleteProduct(Product product){
-        products.remove(product);
-    }
 }

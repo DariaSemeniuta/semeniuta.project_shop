@@ -1,7 +1,6 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.ProductDao;
-import com.semeniuta.dao.impl.ProductDaoImpl;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.ProductService;
 
@@ -9,7 +8,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService{
-    static ProductDao productDao = new ProductDaoImpl();
+    private final ProductDao productDao;
+
+    public ProductServiceImpl(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
     @Override
     public boolean addProduct(String name, BigDecimal price) {
@@ -23,14 +26,23 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public boolean editProduct(String oldName, String name, BigDecimal price) {
-        Product product = productDao.findProduct(oldName);
+    public boolean editProduct(long id, String name, BigDecimal price) {
+        Product product = productDao.findProduct(id);
         return productDao.editProduct(product, name, price);
     }
 
     @Override
-    public boolean deleteProduct(String name) {
-        Product product = productDao.findProduct(name);
+    public boolean deleteProduct(long id) {
+        Product product = productDao.findProduct(id);
         return productDao.deleteProduct(product);
     }
+
+    @Override
+    public boolean isProductExist(long id) {
+        if (productDao.findProduct(id).equals(null)) {
+            return false;
+        }
+        return true;
+    }
+
 }

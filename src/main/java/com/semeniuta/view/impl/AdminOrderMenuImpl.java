@@ -1,27 +1,44 @@
 package com.semeniuta.view.impl;
 
+import com.semeniuta.domain.Order;
+import com.semeniuta.exceptions.BusinessExceptions;
+import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
+import com.semeniuta.services.ProductService;
 import com.semeniuta.services.impl.OrderServiceImpl;
+import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class AdminOrderMenuImpl extends AdminMainMenuImpl {
+public class AdminOrderMenuImpl implements Menu {
 
 private final static String[] menuItems = {"1. Create order", "2. Edit order status", "3. Delete order", "4. Show all orders", "5. Return to main menu", "0. Exit"};
-private final OrderService orderService = new OrderServiceImpl();
+
+
+private final BufferedReader br;
+private final OrderService orderService;
+private final ValidationService validationService;
+
+    public AdminOrderMenuImpl(BufferedReader br, OrderService orderService, ValidationService validationService) {
+        this.br = br;
+        this.orderService = orderService;
+        this.validationService = validationService;
+    }
 
     @Override
     public void getUserResponse() throws IOException{
         boolean isRunning = true;
-        Menu menu = new  ClientMenuImpl();
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
             switch (input){
                 case "1":
-                    ((ClientMenuImpl) menu).createOrder(); // why Idea change menu.createOrder() to ((ClientMenuImpl) menu).createOrder()?
+                    createOrder(); // why Idea change menu.createOrder() to ((ClientMenuImpl) menu).createOrder()?
                     break;
                 case "2":
                     editOrderStatus();
@@ -30,11 +47,10 @@ private final OrderService orderService = new OrderServiceImpl();
                     deleteOrder();
                     break;
                 case "4":
-                    ((ClientMenuImpl) menu).showOrders();
+                    showOrders();
                     break;
                 case "5":
-                    new AdminMainMenuImpl().getUserResponse();
-                    break;
+                    return;
                 case "0":
                     isRunning=false;
                     break;
@@ -48,19 +64,51 @@ private final OrderService orderService = new OrderServiceImpl();
         System.exit(0);
     }
 
+
+    public long readId() throws IOException{
+        System.out.print("Please enter id => ");
+        String input;
+        while(!(validationService.readInt(input = br.readLine()))){
+            System.out.println("Incorrect format of input value!");
+            System.out.print("Please enter correct Number => ");
+        }
+        return Long.parseLong(input);
+    }
+
+    public void createOrder() throws IOException{
+        boolean flag = true;
+        List<Long> ids = new ArrayList<>();
+        System.out.println("Enter product ids:");
+        while (br.readLine().equals("")) {
+            long id = readId();
+
+            while (flag) {
+                try {
+                    validationService.validateProductId(id);
+                } catch (BusinessExceptions e) {
+                    e.printStackTrace();
+                }
+            }
+            ids.add(id);
+        }
+
+        if(orderService.createOrder(ids)){
+            System.out.println("Order was added");
+        }
+        else {
+            System.out.println("Order wasn't added");
+        }
+    }
+
+    public void showOrders(){
+        System.out.println("All orders");
+        List<Order> orders = orderService.showOrders();
+        orders.forEach(System.out::println);
+    }
     private void editOrderStatus() throws IOException{
         System.out.println("Please enter orderId => ");
-        long id;
 
-        while(true) {
-            try {
-                id = new Long(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (Long) orderId => ");
-            }
-        }
+        long id = readId();
         System.out.println("Please enter new order status => ");
         String status = br.readLine();
         if(orderService.editOrderStatus(id, status)){
@@ -73,17 +121,8 @@ private final OrderService orderService = new OrderServiceImpl();
 
     private void deleteOrder() throws IOException{
         System.out.println("Please enter orderId => ");
-        long id;
+        long id = readId();
 
-        while(true) {
-            try {
-                id = new Long(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (Long) orderId => ");
-            }
-        }
         if(orderService.deleteOrder(id)){
             System.out.println("Order was deleted");
         }

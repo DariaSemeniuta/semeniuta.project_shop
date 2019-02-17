@@ -19,7 +19,7 @@ public interface ClientService {
 
     /**
      * Update existent client
-     * @param oldName - String - name of existent client
+     * @param id - long - id of existent client
      * @param name - String - new name of client
      * @param surname - String - new second name of client
      * @param age - int - new age of client
@@ -27,18 +27,22 @@ public interface ClientService {
      * @param phone - String - new phone of the client
      * @return true if client was successfully changed, otherwise - false
      */
-    boolean updateClient(String oldName, String name, String surname, int age, String email, String phone);
+    boolean updateClient(long id, String name, String surname, int age, String email, String phone);
 
     /**
      * Delete client
-     * @param name - String - name of existent client
+     * @param id - Long - id of existent client
      * @return true if client was successfully deleted, otherwise - false
      */
-    boolean deleteClient(String name);
+    boolean deleteClient(long id);
 
     /**
      * Get list of all clients
      * @return list of all clients
      */
     List<Client> showClients();
+
+    Client showClientInfo(long id);
+
+    boolean isClientExist(String phone);
 }

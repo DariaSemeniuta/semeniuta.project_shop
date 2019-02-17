@@ -38,9 +38,9 @@ public interface ProductDao {
 
     /**
      * Find product by name
-     * @param name - String - name of the product
+     * @param id - long - id of the product
      * @return Product object
      */
-    Product findProduct(String name);
+    Product findProduct(long id);
 }
 

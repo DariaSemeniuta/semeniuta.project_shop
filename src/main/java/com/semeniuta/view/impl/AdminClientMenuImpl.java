@@ -1,12 +1,20 @@
 package com.semeniuta.view.impl;
 
+import com.semeniuta.services.ClientService;
+import com.semeniuta.services.OrderService;
+import com.semeniuta.services.ProductService;
+import com.semeniuta.validators.ValidationService;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 
+public class AdminClientMenuImpl extends ClientMenuImpl {
 
-public class AdminClientMenuImpl extends AdminMainMenuImpl {
+    private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "4. Show all clients", "5. Show info about client", "6. Return to main menu", "0. Exit"};
 
-    private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "5. Show all clients", "4. Return to main menu", "0. Exit"};
-
+    public AdminClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+        super(br, clientService, productService, orderService, validationService);
+    }
 
     @Override
     public void getUserResponse() throws IOException{
@@ -29,9 +37,10 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
                     showClients();
                     break;
                 case "5":
-                    menu = new AdminMainMenuImpl();
-                    menu.getUserResponse();
+                    showClientInfo();
                     break;
+                case "6":
+                    return;
                 case "0":
                     break;
                 default:
@@ -44,81 +53,11 @@ public class AdminClientMenuImpl extends AdminMainMenuImpl {
         System.exit(0);
     }
 
-    private void createClient() throws IOException{
-        System.out.print("Please enter name => ");
-        String name = br.readLine();
-
-        System.out.print("Please enter second name => ");
-        String surname = br.readLine();
-
-        System.out.print("Please enter age => ");
-        int age;
-        while(true) {
-            try {
-                age = new Integer(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (Integer)age => ");
-            }
-        }
-
-        System.out.print("Please enter email => ");
-        String email = br.readLine();
-
-        System.out.print("Please enter phone number => ");
-        String phone = br.readLine();
-
-        if(clientService.createClient(name, surname, age, email, phone)){
-            System.out.println("Client was created");
-        }
-        else{
-            System.out.println("Client was created");
-        }
-    }
-
-    private void updateClient() throws IOException{
-        System.out.print("Please enter name of client that you need to update=> ");
-        String name = br.readLine();
-
-        System.out.print("Please enter new name => ");
-        String newName = br.readLine();
-
-        System.out.print("Please enter new second name => ");
-        String surname = br.readLine();
-
-        System.out.print("Please enter new age => ");
-        int age;
-
-        while(true) {
-            try {
-                age = new Integer(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (Integer)age => ");
-            }
-        }
-
-        System.out.print("Please enter new email => ");
-        String email = br.readLine();
-
-        System.out.print("Please enter new phone number => ");
-        String phone = br.readLine();
-
-        if(clientService.updateClient(name, newName, surname, age, email, phone)){
-            System.out.println("Client was updated");
-        }
-        else{
-            System.out.println("Client wasn't updated");
-        }
-    }
-
     private void deleteClient() throws IOException{
-        System.out.println("Please enter name of client that you need to delete");
-        String name = br.readLine();
+        System.out.println("Delete client:");
+        long id = readId();
 
-        if(clientService.deleteClient(name)){
+        if(clientService.deleteClient(id)){
             System.out.println("Client was deleted");
         }
         else{
