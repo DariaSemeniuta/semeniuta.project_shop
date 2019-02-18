@@ -16,13 +16,13 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateAge(int age) throws BusinessExceptions {
-        if(age<0||age>200){
+        if (age < 0 || age > 200) {
             throw new BusinessExceptions("Incorrect age!");
         }
     }
 
     @Override
-    public  boolean readInt(String inputInt){
+    public boolean readInt(String inputInt) {
         try {
             new Integer(inputInt);
         } catch (NumberFormatException e) {
@@ -33,9 +33,9 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void readPhone(String inputPhone) throws BusinessExceptions {
-        String[] regex = {"^(\\+38067)\\d{7}", "^(\\+38097)\\d{7}", "^(\\+38050)\\d{7}","^(\\067)\\d{7}", "^(\\097)\\d{7}", "^(050)\\d{7}" };
-        for(int i = 0; i < regex.length; ++i){
-            if(inputPhone.matches(regex[i])){
+        String[] regex = {"^(\\+38067)\\d{7}", "^(\\+38097)\\d{7}", "^(\\+38050)\\d{7}", "^(067)\\d{7}", "^(097)\\d{7}", "^(050)\\d{7}"};
+        for (int i = 0; i < regex.length; ++i) {
+            if (inputPhone.matches(regex[i])) {
                 return;
             }
         }
@@ -46,7 +46,7 @@ public class ValidationServiceImpl implements ValidationService {
     public void readEmail(String inputEmail) throws BusinessExceptions {
 
         String regex = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
-        if (!(inputEmail.matches(regex))){
+        if (!(inputEmail.matches(regex))) {
             throw new BusinessExceptions("Invalid email address");
         }
 
@@ -54,7 +54,7 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateClient(String phone) throws BusinessExceptions {
-        if(clientService.isClientExist(phone)){
+        if (clientService.isClientExist(phone)) {
             throw new BusinessExceptions("Client is already exist");
         }
 
@@ -62,8 +62,15 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateProductId(long id) throws BusinessExceptions {
-        if(!(productService.isProductExist(id))){
+        if (!(productService.isProductExist(id))) {
             throw new BusinessExceptions("There is no such product!");
+        }
+    }
+
+    @Override
+    public void validateClientId(long id) throws BusinessExceptions {
+        if(! clientService.isIdExist(id)){
+            throw new BusinessExceptions("There is no client with entered ID!");
         }
     }
 

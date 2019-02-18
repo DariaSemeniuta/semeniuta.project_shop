@@ -9,7 +9,8 @@ public interface ProductService {
 
     /**
      * Add new product
-     * @param name - String - name of the new product
+     *
+     * @param name  - String - name of the new product
      * @param price - BigDecimal - price of the new product
      * @return true if product was added, otherwise - false
      */
@@ -17,8 +18,9 @@ public interface ProductService {
 
     /**
      * Allow to change name or price of existent  product
-     * @param id - long - id of the existent product
-     * @param name - String - new name of the changed product
+     *
+     * @param id    - long - id of the existent product
+     * @param name  - String - new name of the changed product
      * @param price - BigDecimal - new price of the changed product
      * @return true if product was changed, otherwise - false
      */
@@ -26,6 +28,7 @@ public interface ProductService {
 
     /**
      * Delete product
+     *
      * @param id - long - id of the existent product that should be deleted
      * @return true if product was deleted, otherwise - false
      */
@@ -33,6 +36,7 @@ public interface ProductService {
 
     /**
      * Get list of all products
+     *
      * @return list of all existent products
      */
     List<Product> showProducts();

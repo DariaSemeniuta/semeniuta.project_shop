@@ -9,7 +9,7 @@ import com.semeniuta.view.Menu;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class MainMenuImpl implements Menu{
+public class MainMenuImpl implements Menu {
     protected BufferedReader br = null;
     protected ClientService clientService = null;
     protected ProductService productService = null;
@@ -27,15 +27,15 @@ public class MainMenuImpl implements Menu{
     }
 
     @Override
-    public void getUserResponse() throws IOException{
-        Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService,validationService);
+    public void getUserResponse() throws IOException {
+        Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService);
         Menu clientMenu = new ClientMenuImpl(br, clientService, productService, orderService, validationService);
 
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     adminMainMenu.getUserResponse();
                     break;
@@ -43,7 +43,7 @@ public class MainMenuImpl implements Menu{
                     clientMenu.getUserResponse();
                     break;
                 case "0":
-                    isRunning=false;
+                    isRunning = false;
                     break;
                 default:
                     System.out.println("Please enter correct number");

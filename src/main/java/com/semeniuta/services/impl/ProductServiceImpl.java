@@ -7,7 +7,7 @@ import com.semeniuta.services.ProductService;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     private final ProductDao productDao;
 
     public ProductServiceImpl(ProductDao productDao) {

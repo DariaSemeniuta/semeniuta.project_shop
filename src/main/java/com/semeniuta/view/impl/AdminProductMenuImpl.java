@@ -24,7 +24,7 @@ public class AdminProductMenuImpl implements Menu {
     }
 
     @Override
-    public void getUserResponse() throws IOException{
+    public void getUserResponse() throws IOException {
         System.out.println("product menu implementation is in progress");
         return;
         /*boolean isRunning = true;
@@ -59,15 +59,16 @@ public class AdminProductMenuImpl implements Menu {
         System.out.println("bye-bye");
         System.exit(0);*/
     }
+
     //TODO: add validation
-    private void createProduct() throws IOException{
+    private void createProduct() throws IOException {
         System.out.println("Please enter name of the product => ");
         String name = br.readLine();
 
         System.out.println("Please enter price of the product => ");
         BigDecimal price;
 
-        while(true) {
+        while (true) {
             try {
                 price = new BigDecimal(br.readLine());
                 break;
@@ -76,16 +77,15 @@ public class AdminProductMenuImpl implements Menu {
                 System.out.print("Please enter correct (BigDecimal) price => ");
             }
         }
-        if(productService.addProduct(name, price)){
+        if (productService.addProduct(name, price)) {
             System.out.println("Product was added");
-        }
-        else{
+        } else {
             System.out.println("Product wasn't added");
         }
 
     }
 
-    private void editProduct() throws IOException{
+    private void editProduct() throws IOException {
         System.out.println("Please enter name of the product that should be edited => ");
         long id = Long.getLong(br.readLine());
 
@@ -94,7 +94,7 @@ public class AdminProductMenuImpl implements Menu {
         System.out.println("Please enter new price of the product => ");
         BigDecimal price;
 
-        while(true) {
+        while (true) {
             try {
                 price = new BigDecimal(br.readLine());
                 break;
@@ -104,26 +104,23 @@ public class AdminProductMenuImpl implements Menu {
             }
         }
 
-        if(productService.editProduct(id, name, price)){
+        if (productService.editProduct(id, name, price)) {
             System.out.println("Product was changed");
-        }
-        else{
+        } else {
             System.out.println("Product wasn't changed");
         }
 
     }
 
-    private void deleteProduct() throws IOException{
+    private void deleteProduct() throws IOException {
         System.out.println("Please enter name of the product that should be deleted => ");
         long id = Long.getLong(br.readLine());
-        if(productService.deleteProduct(id)){
+        if (productService.deleteProduct(id)) {
             System.out.println("Product was deleted");
-        }
-        else{
+        } else {
             System.out.println("Product wasn't deleted");
         }
     }
-
 
 
 }

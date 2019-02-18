@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
-private List<Product> products ;
-private static long generator = 0;
+    private List<Product> products;
+    private static long generator = 0;
+
     public ProductDaoImpl() {
 
         products = new ArrayList<>();
     }
+
     @Override
     public List<Product> returnAllProducts() {
 
@@ -43,8 +45,8 @@ private static long generator = 0;
 
     @Override
     public Product findProduct(long id) {
-        for (Product product: products) {
-            if(product.getId() == id){
+        for (Product product : products) {
+            if (product.getId() == id) {
                 return product;
             }
         }

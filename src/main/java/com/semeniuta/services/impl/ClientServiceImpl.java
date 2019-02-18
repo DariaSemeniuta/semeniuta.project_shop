@@ -10,9 +10,10 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private final ClientDao clientDao;
 
-    public ClientServiceImpl(ClientDao clientDao){
+    public ClientServiceImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
     }
+
     @Override
     public boolean createClient(String name, String surname, int age, String email, String phone) {
         Client client = new Client(name, surname, age, email, phone);
@@ -21,14 +22,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean updateClient(long id, String name, String surname, int age, String email, String phone) {
-        Client client = clientDao.findClient(id);
-        return clientDao.editClient(client, name, surname, age, email, phone);
+        return clientDao.editClient(id, name, surname, age, email, phone);
     }
 
     @Override
     public boolean deleteClient(long id) {
-        Client client = clientDao.findClient(id);
-        return clientDao.deleteClient(client);
+        return clientDao.deleteClient(id);
     }
 
     @Override
@@ -44,11 +43,19 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean isClientExist(String phone) {
         List<Client> clients = clientDao.returnAllClient();
-        for (Client client: clients ) {
-            if(client.getPhone().equals(phone)){
+        for (Client client : clients) {
+            if (client.getPhone().equals(phone)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean isIdExist(long id) {
+        if(clientDao.findClient(id)==null){
+            return false;
+        }
+        return true;
     }
 }
