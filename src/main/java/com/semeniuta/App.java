@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class App {
-    public static void main (String[] args){
+    public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         ClientDao clientDao = ClientDaoImpl.getInstance();
@@ -36,11 +36,10 @@ public class App {
 
 
         ValidationService validationService = new ValidationServiceImpl(clientService, productService);
-        Menu menu = new MainMenuImpl(br, clientService, productService,orderService, validationService);
+        Menu menu = new MainMenuImpl(br, clientService, productService, orderService, validationService);
         try {
             menu.getUserResponse();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

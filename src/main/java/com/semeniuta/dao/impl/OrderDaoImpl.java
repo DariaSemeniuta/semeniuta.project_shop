@@ -42,8 +42,8 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order findOrder(long id) {
-        for (Order order: orders) {
-            if(order.getId() == id){
+        for (Order order : orders) {
+            if (order.getId() == id) {
                 return order;
             }
         }

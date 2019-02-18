@@ -1,5 +1,6 @@
 package com.semeniuta.view.impl;
 
+import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
@@ -17,13 +18,13 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
     }
 
     @Override
-    public void getUserResponse() throws IOException{
+    public void getUserResponse() throws IOException {
         boolean isRunning = true;
 
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     createClient();
                     break;
@@ -53,19 +54,23 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
         System.exit(0);
     }
 
-    private void deleteClient() throws IOException{
+    private void deleteClient() throws IOException {
         System.out.println("Delete client:");
         long id = readId();
+        try{
+            validationService.validateClientId(id);
+            if (clientService.deleteClient(id)) {
+                System.out.println("Client was deleted");
+            } else {
+                System.out.println("Client wasn't delete");
+            }
+        }catch (BusinessExceptions e){
+            e.printStackTrace();
+        }
 
-        if(clientService.deleteClient(id)){
-            System.out.println("Client was deleted");
-        }
-        else{
-            System.out.println("Client wasn't delete");
-        }
     }
 
-    private void showClients(){
+    private void showClients() {
         System.out.println("All clients");
         clientService.showClients().forEach(System.out::println);
     }

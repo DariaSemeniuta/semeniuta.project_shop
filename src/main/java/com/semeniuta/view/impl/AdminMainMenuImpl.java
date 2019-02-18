@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class AdminMainMenuImpl implements Menu{
+public class AdminMainMenuImpl implements Menu {
 
     private final BufferedReader br;
     private final ClientService clientService;
@@ -31,7 +31,7 @@ public class AdminMainMenuImpl implements Menu{
 
 
     @Override
-    public void getUserResponse() throws IOException{
+    public void getUserResponse() throws IOException {
         Menu adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, orderService, validationService);
         Menu adminProductMenu = new AdminProductMenuImpl(br, productService);
         Menu adminOrderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
@@ -41,7 +41,7 @@ public class AdminMainMenuImpl implements Menu{
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     adminClientMenu.getUserResponse();
                     break;
@@ -54,7 +54,7 @@ public class AdminMainMenuImpl implements Menu{
                 case "4":
                     return;
                 case "0":
-                    isRunning=false;
+                    isRunning = false;
                     break;
                 default:
                     System.out.println("Please enter correct number");

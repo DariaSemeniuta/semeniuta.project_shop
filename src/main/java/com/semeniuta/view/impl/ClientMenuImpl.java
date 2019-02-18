@@ -13,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-public class ClientMenuImpl implements Menu{
+public class ClientMenuImpl implements Menu {
 
     private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "0. Exit"};
 
@@ -22,7 +22,7 @@ public class ClientMenuImpl implements Menu{
     protected final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
-    private final ValidationService validationService;
+    protected final ValidationService validationService;
 
     public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
@@ -33,13 +33,13 @@ public class ClientMenuImpl implements Menu{
     }
 
     @Override
-    public void getUserResponse() throws IOException{
-        AdminOrderMenuImpl orderMenu = new AdminOrderMenuImpl(br, orderService,validationService);
+    public void getUserResponse() throws IOException {
+        AdminOrderMenuImpl orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     createClient();
                     break;
@@ -61,7 +61,7 @@ public class ClientMenuImpl implements Menu{
                 case "7":
                     return;
                 case "0":
-                    isRunning=false;
+                    isRunning = false;
                     break;
                 default:
                     System.out.println("Please enter correct number");
@@ -74,11 +74,11 @@ public class ClientMenuImpl implements Menu{
     }
 
 
-    public int inputAge() throws IOException{
+    public int inputAge() throws IOException {
         boolean flag = true;
-        int age=0;
+        int age = 0;
 
-        while(flag) {
+        while (flag) {
             System.out.print("Please enter age => ");
             String input;
             while (!(validationService.readInt(input = br.readLine()))) {
@@ -91,45 +91,48 @@ public class ClientMenuImpl implements Menu{
                 flag = false;
             } catch (BusinessExceptions e) {
                 e.printStackTrace();
+                System.out.println("Please enter correct age => ");
             }
         }
-        return  age;
+        return age;
     }
 
-    public String inputEmail() throws IOException{
+    public String inputEmail() throws IOException {
         boolean flag = true;
         String email = "";
 
-        while (flag){
+        while (flag) {
             System.out.print("Please enter email => ");
             try {
                 validationService.readEmail(email = br.readLine());
                 flag = false;
-            }catch (BusinessExceptions e){
+            } catch (BusinessExceptions e) {
                 e.printStackTrace();
+                System.out.println("Please enter correct email => ");
             }
         }
         return email;
     }
 
 
-    public String inputPhone() throws IOException{
+    public String inputPhone() throws IOException {
         boolean flag = true;
         String phone = "";
 
-        while (flag){
+        while (flag) {
             System.out.print("Please enter phone number => ");
             try {
                 validationService.readPhone(phone = br.readLine());
                 flag = false;
-            }catch (BusinessExceptions e){
+            } catch (BusinessExceptions e) {
                 e.printStackTrace();
+                System.out.println("Please enter correct phone => ");
             }
         }
         return phone;
     }
 
-    protected void createClient() throws IOException{
+    protected void createClient() throws IOException {
         System.out.print("Please enter name => ");
         String name = br.readLine();
 
@@ -139,72 +142,76 @@ public class ClientMenuImpl implements Menu{
 
         String email = inputEmail();
         String phone = inputPhone();
-        try{
+        try {
             validationService.validateClient(phone);
-            if(clientService.createClient(name, surname, age, email, phone)){
+            if (clientService.createClient(name, surname, age, email, phone)) {
                 System.out.println("Client was created");
-            }
-            else{
+            } else {
                 System.out.println("Client wasn't created");
             }
-        }catch(BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             e.printStackTrace();
         }
 
 
-
     }
 
-    public long readId() throws IOException{
+    public long readId() throws IOException {
         System.out.print("Please enter id => ");
         String input;
-        while(!(validationService.readInt(input = br.readLine()))){
+        while (!(validationService.readInt(input = br.readLine()))) {
             System.out.println("Incorrect format of input value!");
             System.out.print("Please enter correct Number => ");
         }
         return Long.parseLong(input);
     }
 
-    protected void updateClient() throws IOException{
+    protected void updateClient() throws IOException {
         System.out.print("Please enter your id => ");
         long id = readId();
-        System.out.print("Please enter new name => ");
-        String newName = br.readLine();
+        try{
+            validationService.validateClientId(id);
+            System.out.print("Please enter new name => ");
+            String newName = br.readLine();
 
-        System.out.print("Please enter new second name => ");
-        String surname = br.readLine();
+            System.out.print("Please enter new second name => ");
+            String surname = br.readLine();
 
-        System.out.print("Please enter new age => ");
-        int age = inputAge();
+            int age = inputAge();
+            String email = inputEmail();
+            String phone = inputPhone();
 
-        System.out.print("Please enter new email => ");
-        String email = inputEmail();
-
-        System.out.print("Please enter new phone number => ");
-        String phone = inputPhone();
-
-        if(clientService.updateClient(id, newName, surname, age, email, phone)){
-            System.out.println("Client was updated");
+            if (clientService.updateClient(id, newName, surname, age, email, phone)) {
+                System.out.println("Client was updated");
+            } else {
+                System.out.println("Client wasn't updated");
+            }
+        }catch (BusinessExceptions e){
+            e.printStackTrace();
+            System.out.println("Please enter correct ID!");
         }
-        else{
-            System.out.println("Client wasn't updated");
-        }
+
     }
 
-    protected void showClientInfo() throws IOException{
+    protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
         long id = readId();
-        System.out.println(clientService.showClientInfo(id).toString());
+        try{
+            validationService.validateClientId(id);
+            System.out.println(clientService.showClientInfo(id).toString());
+        }catch (BusinessExceptions e){
+            e.printStackTrace();
+            System.out.println("Please enter correct ID!");
+        }
+
     }
 
 
-    public void showProducts(){
+    public void showProducts() {
         System.out.println("All products:");
         List<Product> products = productService.showProducts();
         products.forEach(System.out::println);
     }
-
-
 
 
 }
