@@ -53,7 +53,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean isIdExist(long id) {
-        if(clientDao.findClient(id)==null){
+        if (clientDao.findClient(id) == null) {
             return false;
         }
         return true;

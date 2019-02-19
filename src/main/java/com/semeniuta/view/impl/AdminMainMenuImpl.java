@@ -36,7 +36,6 @@ public class AdminMainMenuImpl implements Menu {
 
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
 
-
     @Override
     public void getUserResponse() throws IOException {
 

@@ -57,14 +57,14 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
     private void deleteClient() throws IOException {
         System.out.println("Delete client:");
         long id = readId();
-        try{
+        try {
             validationService.validateClientId(id);
             if (clientService.deleteClient(id)) {
                 System.out.println("Client was deleted");
             } else {
                 System.out.println("Client wasn't delete");
             }
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 

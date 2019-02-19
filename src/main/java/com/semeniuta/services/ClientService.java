@@ -46,9 +46,27 @@ public interface ClientService {
      */
     List<Client> showClients();
 
+    /**
+     * return Client by id
+     *
+     * @param id - long - client id
+     * @return Client client
+     */
     Client showClientInfo(long id);
 
+    /**
+     * Check if client with entered phone is already exist
+     *
+     * @param phone - String - phone number of a client
+     * @return true if client is exist, otherwise - false
+     */
     boolean isClientExist(String phone);
 
+    /**
+     * Check if entered id is exist
+     *
+     * @param id - long - client id
+     * @return true if id is exist, otherwise - false
+     */
     boolean isIdExist(long id);
 }

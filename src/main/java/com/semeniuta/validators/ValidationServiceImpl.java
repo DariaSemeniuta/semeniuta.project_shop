@@ -69,7 +69,7 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateClientId(long id) throws BusinessExceptions {
-        if(! clientService.isIdExist(id)){
+        if (!clientService.isIdExist(id)) {
             throw new BusinessExceptions("There is no client with entered ID!");
         }
     }

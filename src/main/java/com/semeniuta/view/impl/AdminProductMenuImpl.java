@@ -31,7 +31,7 @@ public class AdminProductMenuImpl implements Menu {
         while (isRunning) {
             this.showMenuItems(menuItems);
             String input = br.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     createProduct();
                     break;
@@ -47,7 +47,7 @@ public class AdminProductMenuImpl implements Menu {
                 case "5":
                     return;
                 case "0":
-                    isRunning=false;
+                    isRunning = false;
                     break;
                 default:
                     System.out.println("Please enter correct number");

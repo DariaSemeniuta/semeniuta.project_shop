@@ -25,7 +25,7 @@ public interface ClientDao {
     /**
      * Change info about client
      *
-     * @param client  - Client - object that should be changed
+     * @param id      - long - object id that should be changed
      * @param name    - String - new name of client
      * @param surname - String - new second name of client
      * @param age     - int - new age of client
@@ -38,7 +38,7 @@ public interface ClientDao {
     /**
      * Delete client from DAO
      *
-     * @param client - Client - object that should be removed
+     * @param id - lond - object id that should be removed
      * @return true if client was successfully removed, otherwise - false
      */
     boolean deleteClient(long id);

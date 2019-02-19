@@ -168,7 +168,7 @@ public class ClientMenuImpl implements Menu {
     //TODO: add possibility to change all fields of client
     protected void updateClient() throws IOException {
         long id = readId();
-        try{
+        try {
             validationService.validateClientId(id);
             System.out.print("Please enter new name => ");
             String newName = br.readLine();
@@ -185,7 +185,7 @@ public class ClientMenuImpl implements Menu {
             } else {
                 System.out.println("Client wasn't updated");
             }
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 
@@ -194,10 +194,10 @@ public class ClientMenuImpl implements Menu {
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
         long id = readId();
-        try{
+        try {
             validationService.validateClientId(id);
             System.out.println(clientService.showClientInfo(id).toString());
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 

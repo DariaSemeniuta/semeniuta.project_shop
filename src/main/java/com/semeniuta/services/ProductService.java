@@ -41,5 +41,11 @@ public interface ProductService {
      */
     List<Product> showProducts();
 
+    /**
+     * Check if product with entered id is exist
+     *
+     * @param id - long - product id
+     * @return true if product is exist, otherwise - false
+     */
     boolean isProductExist(long id);
 }
