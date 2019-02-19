@@ -30,6 +30,8 @@ public class AdminOrderMenuImpl implements Menu {
         this.validationService = validationService;
     }
 
+    //TODO: add implementation for work with order
+    //TODO: add relation with client(add cliend Id)
     @Override
     public void getUserResponse() throws IOException {
         boolean isRunning = true;

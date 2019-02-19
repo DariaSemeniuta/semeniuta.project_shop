@@ -21,20 +21,22 @@ public class ClientMenuImpl implements Menu {
     protected final BufferedReader br;
     protected final ClientService clientService;
     private final ProductService productService;
-    private final OrderService orderService;
     protected final ValidationService validationService;
 
-    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+    private AdminOrderMenuImpl orderMenu;
+
+    //TODO: remove productService and add productMenu in constructor instead
+    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu) {
         this.br = br;
         this.clientService = clientService;
         this.productService = productService;
-        this.orderService = orderService;
         this.validationService = validationService;
+        this.orderMenu = orderMenu;
     }
 
     @Override
     public void getUserResponse() throws IOException {
-        AdminOrderMenuImpl orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
+
         boolean isRunning = true;
         while (isRunning) {
             this.showMenuItems(menuItems);
@@ -90,8 +92,7 @@ public class ClientMenuImpl implements Menu {
                 validationService.validateAge(age);
                 flag = false;
             } catch (BusinessExceptions e) {
-                e.printStackTrace();
-                System.out.println("Please enter correct age => ");
+                System.out.println(e.getMessage());
             }
         }
         return age;
@@ -107,8 +108,7 @@ public class ClientMenuImpl implements Menu {
                 validationService.readEmail(email = br.readLine());
                 flag = false;
             } catch (BusinessExceptions e) {
-                e.printStackTrace();
-                System.out.println("Please enter correct email => ");
+                System.out.println(e.getMessage());
             }
         }
         return email;
@@ -125,8 +125,7 @@ public class ClientMenuImpl implements Menu {
                 validationService.readPhone(phone = br.readLine());
                 flag = false;
             } catch (BusinessExceptions e) {
-                e.printStackTrace();
-                System.out.println("Please enter correct phone => ");
+                System.out.println(e.getMessage());
             }
         }
         return phone;
@@ -150,7 +149,7 @@ public class ClientMenuImpl implements Menu {
                 System.out.println("Client wasn't created");
             }
         } catch (BusinessExceptions e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
 
@@ -166,8 +165,8 @@ public class ClientMenuImpl implements Menu {
         return Long.parseLong(input);
     }
 
+    //TODO: add possibility to change all fields of client
     protected void updateClient() throws IOException {
-        System.out.print("Please enter your id => ");
         long id = readId();
         try{
             validationService.validateClientId(id);
@@ -187,8 +186,7 @@ public class ClientMenuImpl implements Menu {
                 System.out.println("Client wasn't updated");
             }
         }catch (BusinessExceptions e){
-            e.printStackTrace();
-            System.out.println("Please enter correct ID!");
+            System.out.println(e.getMessage());
         }
 
     }
@@ -200,14 +198,13 @@ public class ClientMenuImpl implements Menu {
             validationService.validateClientId(id);
             System.out.println(clientService.showClientInfo(id).toString());
         }catch (BusinessExceptions e){
-            e.printStackTrace();
-            System.out.println("Please enter correct ID!");
+            System.out.println(e.getMessage());
         }
 
     }
 
 
-    public void showProducts() {
+    private void showProducts() {
         System.out.println("All products:");
         List<Product> products = productService.showProducts();
         products.forEach(System.out::println);

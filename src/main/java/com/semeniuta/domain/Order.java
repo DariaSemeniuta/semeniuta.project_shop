@@ -19,7 +19,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "\nid=" + id +
-                ", \nstatus='" + status +
+                ", \nstatus=" + status +
                 ", \nproducts=" + products.toString() +
                 "}";
     }

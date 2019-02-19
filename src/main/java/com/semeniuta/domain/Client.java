@@ -14,11 +14,11 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "\nid=" + id +
-                ", \nname='" + name +
-                ", \nsurname='" + surname +
+                ", \nname=" + name +
+                ", \nsurname=" + surname +
                 ", \nage=" + age +
-                ", \nemail='" + email +
-                ", \nphone='" + phone +
+                ", \nemail=" + email +
+                ", \nphone=" + phone +
                 "\n}";
     }
 

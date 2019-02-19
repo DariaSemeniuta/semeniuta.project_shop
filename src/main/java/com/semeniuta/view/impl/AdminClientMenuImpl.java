@@ -13,8 +13,8 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
 
     private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "4. Show all clients", "5. Show info about client", "6. Return to main menu", "0. Exit"};
 
-    public AdminClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
-        super(br, clientService, productService, orderService, validationService);
+    public AdminClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu) {
+        super(br, clientService, productService, validationService, orderMenu);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
                 System.out.println("Client wasn't delete");
             }
         }catch (BusinessExceptions e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }

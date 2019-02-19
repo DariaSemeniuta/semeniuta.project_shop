@@ -1,15 +1,14 @@
 package com.semeniuta.view.impl;
 
 import com.semeniuta.domain.Product;
-import com.semeniuta.services.ClientService;
-import com.semeniuta.services.OrderService;
-import com.semeniuta.services.ProductService;
-import com.semeniuta.services.impl.ProductServiceImpl;
+import com.semeniuta.services.ProductService;;
+import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class AdminProductMenuImpl implements Menu {
 
@@ -18,16 +17,16 @@ public class AdminProductMenuImpl implements Menu {
     private final BufferedReader br;
     private final ProductService productService;
 
-    public AdminProductMenuImpl(BufferedReader br, ProductService productService) {
+    public AdminProductMenuImpl(BufferedReader br, ProductService productService, ValidationService validationService) {
         this.br = br;
         this.productService = productService;
     }
 
+    //TODO: add normal implementation for work with product menu
     @Override
     public void getUserResponse() throws IOException {
         System.out.println("product menu implementation is in progress");
-        return;
-        /*boolean isRunning = true;
+        boolean isRunning = true;
 
         while (isRunning) {
             this.showMenuItems(menuItems);
@@ -57,7 +56,7 @@ public class AdminProductMenuImpl implements Menu {
 
         }
         System.out.println("bye-bye");
-        System.exit(0);*/
+        System.exit(0);
     }
 
     //TODO: add validation
@@ -120,6 +119,12 @@ public class AdminProductMenuImpl implements Menu {
         } else {
             System.out.println("Product wasn't deleted");
         }
+    }
+
+    public void showProducts() {
+        System.out.println("All products:");
+        List<Product> products = productService.showProducts();
+        products.forEach(System.out::println);
     }
 
 

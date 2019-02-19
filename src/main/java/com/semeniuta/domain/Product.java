@@ -16,7 +16,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "\nid=" + id +
-                ", \nname='" + name +
+                ", \nname=" + name +
                 ", \nprice=" + price +
                 "\n}";
     }

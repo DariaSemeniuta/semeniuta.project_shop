@@ -19,12 +19,19 @@ public class AdminMainMenuImpl implements Menu {
     private final OrderService orderService;
     private final ValidationService validationService;
 
-    public AdminMainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+    private Menu adminClientMenu;
+    private Menu adminProductMenu;
+    private AdminOrderMenuImpl adminOrderMenu;
+
+    public AdminMainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService, Menu adminClientMenu, Menu adminProductMenu, AdminOrderMenuImpl adminOrderMenu) {
         this.br = br;
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
         this.validationService = validationService;
+        this.adminClientMenu = adminClientMenu;
+        this.adminProductMenu = adminProductMenu;
+        this.adminOrderMenu = adminOrderMenu;
     }
 
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
@@ -32,9 +39,6 @@ public class AdminMainMenuImpl implements Menu {
 
     @Override
     public void getUserResponse() throws IOException {
-        Menu adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, orderService, validationService);
-        Menu adminProductMenu = new AdminProductMenuImpl(br, productService);
-        Menu adminOrderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
 
         boolean isRunning = true;
 

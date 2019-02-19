@@ -18,18 +18,32 @@ public class MainMenuImpl implements Menu {
 
     private final static String[] menuItems = {"1. Admin", "2. Client", "0. Exit"};
 
+
+    private Menu adminMainMenu;
+    private Menu clientMenu;
+    private AdminOrderMenuImpl orderMenu;
+    private Menu adminClientMenu;
+    private Menu adminProductMenu;
+
     public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
         this.validationService = validationService;
+        this.orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
+        this.adminProductMenu = new AdminProductMenuImpl(br, productService, validationService);
+
+        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, validationService, orderMenu);
+        this.adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService, adminClientMenu, adminProductMenu, orderMenu);
+        this.clientMenu = new ClientMenuImpl(br, clientService, productService, validationService, orderMenu);
+
     }
+
 
     @Override
     public void getUserResponse() throws IOException {
-        Menu adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService);
-        Menu clientMenu = new ClientMenuImpl(br, clientService, productService, orderService, validationService);
+
 
         boolean isRunning = true;
         while (isRunning) {
