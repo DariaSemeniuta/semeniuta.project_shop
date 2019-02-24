@@ -1,6 +1,7 @@
 package com.semeniuta.view.impl;
 
 import com.semeniuta.domain.Product;
+import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ProductService;;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
@@ -16,13 +17,15 @@ public class AdminProductMenuImpl implements Menu {
 
     private final BufferedReader br;
     private final ProductService productService;
+    private final ValidationService validationService;
+
 
     public AdminProductMenuImpl(BufferedReader br, ProductService productService, ValidationService validationService) {
         this.br = br;
         this.productService = productService;
+        this.validationService = validationService;
     }
 
-    //TODO: add normal implementation for work with product menu
     @Override
     public void getUserResponse() throws IOException {
         System.out.println("product menu implementation is in progress");
@@ -59,23 +62,28 @@ public class AdminProductMenuImpl implements Menu {
         System.exit(0);
     }
 
-    //TODO: add validation
+    private BigDecimal readPrice() throws IOException{
+        boolean flag = true;
+        String input="0";
+        while (flag){
+            System.out.println("Please enter price of the product => ");
+            try {
+                validationService.validatePrice(input = br.readLine());
+                flag = false;
+            }
+            catch (BusinessExceptions e){
+                System.out.println("Please enter correct price!");
+            }
+        }
+        return new BigDecimal(input);
+    }
+
     private void createProduct() throws IOException {
         System.out.println("Please enter name of the product => ");
         String name = br.readLine();
 
-        System.out.println("Please enter price of the product => ");
-        BigDecimal price;
+        BigDecimal price = readPrice();
 
-        while (true) {
-            try {
-                price = new BigDecimal(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (BigDecimal) price => ");
-            }
-        }
         if (productService.addProduct(name, price)) {
             System.out.println("Product was added");
         } else {
@@ -84,41 +92,54 @@ public class AdminProductMenuImpl implements Menu {
 
     }
 
+    public long readId() throws IOException {
+        System.out.print("Please enter id => ");
+        String input;
+        while (!(validationService.readInt(input = br.readLine()))) {
+            System.out.println("Incorrect format of input value!");
+            System.out.print("Please enter correct Number => ");
+        }
+        return Long.parseLong(input);
+    }
+
     private void editProduct() throws IOException {
-        System.out.println("Please enter name of the product that should be edited => ");
-        long id = Long.getLong(br.readLine());
+        System.out.println("Please enter id of the product that should be edited => ");
+        long id = readId();
+        try {
+            validationService.validateProductId(id);
 
-        System.out.println("Please enter new name of the product => ");
-        String name = br.readLine();
-        System.out.println("Please enter new price of the product => ");
-        BigDecimal price;
+            System.out.println("Please enter new name of the product => ");
+            String name = br.readLine();
+            System.out.println("Please enter new price of the product => ");
+            BigDecimal price = readPrice();
 
-        while (true) {
-            try {
-                price = new BigDecimal(br.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format of input value!");
-                System.out.print("Please enter correct (BigDecimal) price => ");
+            if (productService.editProduct(id, name, price)) {
+                System.out.println("Product was changed");
+            } else {
+                System.out.println("Product wasn't changed");
             }
         }
-
-        if (productService.editProduct(id, name, price)) {
-            System.out.println("Product was changed");
-        } else {
-            System.out.println("Product wasn't changed");
+        catch (BusinessExceptions e){
+            System.out.println(e.getMessage());
         }
 
     }
 
     private void deleteProduct() throws IOException {
-        System.out.println("Please enter name of the product that should be deleted => ");
-        long id = Long.getLong(br.readLine());
-        if (productService.deleteProduct(id)) {
-            System.out.println("Product was deleted");
-        } else {
-            System.out.println("Product wasn't deleted");
+        System.out.println("Please enter id of the product that should be deleted => ");
+        long id = readId();
+        try{
+            validationService.validateProductId(id);
+            if (productService.deleteProduct(id)) {
+                System.out.println("Product was deleted");
+            } else {
+                System.out.println("Product wasn't deleted");
+            }
+
+        }catch (BusinessExceptions e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     public void showProducts() {

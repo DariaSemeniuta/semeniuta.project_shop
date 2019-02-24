@@ -23,7 +23,7 @@ public class MainMenuImpl implements Menu {
     private Menu clientMenu;
     private AdminOrderMenuImpl orderMenu;
     private Menu adminClientMenu;
-    private Menu adminProductMenu;
+    private AdminProductMenuImpl adminProductMenu;
 
     public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
@@ -34,9 +34,9 @@ public class MainMenuImpl implements Menu {
         this.orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
         this.adminProductMenu = new AdminProductMenuImpl(br, productService, validationService);
 
-        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, validationService, orderMenu);
+        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
         this.adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService, adminClientMenu, adminProductMenu, orderMenu);
-        this.clientMenu = new ClientMenuImpl(br, clientService, productService, validationService, orderMenu);
+        this.clientMenu = new ClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
 
     }
 

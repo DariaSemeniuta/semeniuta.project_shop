@@ -1,10 +1,8 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
 import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
-import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
@@ -24,14 +22,16 @@ public class ClientMenuImpl implements Menu {
     protected final ValidationService validationService;
 
     private AdminOrderMenuImpl orderMenu;
+    private AdminProductMenuImpl adminProductMenu;
 
     //TODO: remove productService and add productMenu in constructor instead
-    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu) {
+    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
         this.br = br;
         this.clientService = clientService;
         this.productService = productService;
         this.validationService = validationService;
         this.orderMenu = orderMenu;
+        this.adminProductMenu = adminProductMenu;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ClientMenuImpl implements Menu {
                     showClientInfo();
                     break;
                 case "4":
-                    showProducts();
+                    adminProductMenu.showProducts();
                     break;
                 case "5":
                     orderMenu.createOrder();
@@ -202,13 +202,5 @@ public class ClientMenuImpl implements Menu {
         }
 
     }
-
-
-    private void showProducts() {
-        System.out.println("All products:");
-        List<Product> products = productService.showProducts();
-        products.forEach(System.out::println);
-    }
-
 
 }

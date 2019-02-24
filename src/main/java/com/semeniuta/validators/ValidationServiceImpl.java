@@ -4,6 +4,8 @@ import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.ProductService;
 
+import java.math.BigDecimal;
+
 public class ValidationServiceImpl implements ValidationService {
 
     private final ClientService clientService;
@@ -74,5 +76,16 @@ public class ValidationServiceImpl implements ValidationService {
         }
     }
 
-    //TODO: add validation for id  order
+    @Override
+   public void validatePrice(String input) throws BusinessExceptions {
+        try{
+            new BigDecimal(input);
+        }
+        catch ( NumberFormatException e){
+            throw new BusinessExceptions("Price id incorrect!");
+        }
+    }
+
+
+//TODO: add validation for id  order
 }
