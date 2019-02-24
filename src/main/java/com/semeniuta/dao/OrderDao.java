@@ -25,20 +25,20 @@ public interface OrderDao {
     /**
      * Change status of order
      *
-     * @param order  - Order - order object that should be changed
+     * @param id  - long - id of order object that should be changed
      * @param status - String - new status of order
      * @return true if status was successfully changed, otherwise - false
      */
-    boolean editOrderStatus(Order order, String status);
+    boolean editOrderStatus(long id, String status);
 
 
     /**
      * Delete order from DAO
      *
-     * @param order - Order - order object that should be deleted
+     * @param id - long - id of order object that should be deleted
      * @return true if order was successfully removed, otherwise - false
      */
-    boolean deleteOrder(Order order);
+    boolean deleteOrder(long id);
 
     /**
      * Find order by id // other criterias for search will be implemented later

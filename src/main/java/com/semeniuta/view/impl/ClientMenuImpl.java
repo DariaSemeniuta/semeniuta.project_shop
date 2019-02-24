@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ClientMenuImpl implements Menu {
 
-    private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "0. Exit"};
+    private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "8. Log out", "0. Exit"};
 
 
     protected final BufferedReader br;
@@ -33,6 +33,29 @@ public class ClientMenuImpl implements Menu {
         this.orderMenu = orderMenu;
         this.adminProductMenu = adminProductMenu;
     }
+
+    private void getUser() throws IOException {
+        String[] items = {"1. Log in", "2. Registration", "3. Return to main menu", "0. Exit"};
+        this.showMenuItems(items);
+        boolean isRunning = true;
+        while (isRunning) {
+            this.showMenuItems(menuItems);
+            String input = br.readLine();
+            switch (input) {
+                case "1":
+
+                    break;
+                case "2":
+                    createClient();
+                    break;
+                case "3":
+                    return;
+                case "0":
+                    System.exit(0);
+            }
+        }
+    }
+    
 
     @Override
     public void getUserResponse() throws IOException {
@@ -62,6 +85,9 @@ public class ClientMenuImpl implements Menu {
                     break;
                 case "7":
                     return;
+                case "8":
+                    getUser();
+                    break;
                 case "0":
                     isRunning = false;
                     break;

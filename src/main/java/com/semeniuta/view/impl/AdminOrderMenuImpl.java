@@ -90,8 +90,9 @@ public class AdminOrderMenuImpl implements Menu {
             }
             ids.add(id);
         }
+        long idClient = readId();
 
-        if (orderService.createOrder(ids)) {
+        if (orderService.createOrder(ids, idClient)) {
             System.out.println("Order was added");
         } else {
             System.out.println("Order wasn't added");

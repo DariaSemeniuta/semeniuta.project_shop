@@ -4,15 +4,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+//TODO add enum for order statuses
 public class Order {
     private long id;
     private String status;
     private List<Long> products;
+    private long idClient;
 
-    public Order(List<Long> products) {
+    public Order(List<Long> products, long idClient) {
         this.status = "New";
         this.products = products;
+        this.idClient = idClient;
     }
 
     @Override
@@ -21,6 +23,7 @@ public class Order {
                 "\nid=" + id +
                 ", \nstatus=" + status +
                 ", \nproducts=" + products.toString() +
+                ", \nclientId=" + idClient +
                 "}";
     }
 
