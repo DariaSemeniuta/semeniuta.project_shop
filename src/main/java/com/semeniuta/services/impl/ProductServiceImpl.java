@@ -22,24 +22,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> showProducts() {
-        return productDao.returnAllProducts();
+        return productDao.getAllProducts();
     }
 
     @Override
     public boolean editProduct(long id, String name, BigDecimal price) {
-        Product product = productDao.findProduct(id);
-        return productDao.editProduct(product, name, price);
+        return productDao.editProduct(id, name, price);
     }
 
     @Override
     public boolean deleteProduct(long id) {
-        Product product = productDao.findProduct(id);
-        return productDao.deleteProduct(product);
+        return productDao.deleteProduct(id);
     }
 
     @Override
     public boolean isProductExist(long id) {
-        if (productDao.findProduct(id).equals(null)) {
+        if (productDao.findProduct(id)==null) {
             return false;
         }
         return true;

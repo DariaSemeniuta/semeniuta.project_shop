@@ -2,10 +2,7 @@ package com.semeniuta.view.impl;
 
 import com.semeniuta.domain.Order;
 import com.semeniuta.exceptions.BusinessExceptions;
-import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
-import com.semeniuta.services.ProductService;
-import com.semeniuta.services.impl.OrderServiceImpl;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
