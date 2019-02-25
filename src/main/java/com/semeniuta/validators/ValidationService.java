@@ -60,4 +60,6 @@ public interface ValidationService {
     void validateProductId(long id) throws BusinessExceptions;
 
     void validatePrice(String input) throws BusinessExceptions;
+
+    void validateOrderId(long id) throws BusinessExceptions;
 }

@@ -3,6 +3,7 @@ package com.semeniuta.dao.impl;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,17 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getAllOrders() {
         return new ArrayList<>(orders.values());
+    }
+
+    @Override
+    public List<Order> getAllOrders(long idClient) {
+        List<Order> clientOrders = new ArrayList<>();
+        for (Order order: orders.values()) {
+            if(order.getIdClient()==idClient){
+                clientOrders.add(order);
+            }
+        }
+        return clientOrders;
     }
 
     @Override

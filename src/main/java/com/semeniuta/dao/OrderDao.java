@@ -22,6 +22,8 @@ public interface OrderDao {
      */
     List<Order> getAllOrders();
 
+
+    List<Order> getAllOrders(long idClient);
     /**
      * Change status of order
      *

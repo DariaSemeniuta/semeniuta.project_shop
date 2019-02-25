@@ -42,4 +42,12 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> showOrders() {
         return orderDao.getAllOrders();
     }
+
+    @Override
+    public boolean isOrderExist(long id) {
+        if(orderDao.findOrder(id)==null){
+            return false;
+        }
+        return true;
+    }
 }

@@ -39,4 +39,6 @@ public interface OrderService {
      */
     List<Order> showOrders();
 
+    boolean isOrderExist(long id);
+
 }

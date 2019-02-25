@@ -55,7 +55,7 @@ public class ClientMenuImpl implements Menu {
             }
         }
     }
-    
+
 
     @Override
     public void getUserResponse() throws IOException {
@@ -191,7 +191,7 @@ public class ClientMenuImpl implements Menu {
         return Long.parseLong(input);
     }
 
-    //TODO: add possibility to change all fields of client
+    //TODO: add possibility to change not all fields of client
     protected void updateClient() throws IOException {
         long id = readId();
         try {

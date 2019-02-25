@@ -17,6 +17,22 @@ public class Order {
         this.idClient = idClient;
     }
 
+    public List<Long> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Long> products) {
+        this.products = products;
+    }
+
+    public long getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(long idClient) {
+        this.idClient = idClient;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

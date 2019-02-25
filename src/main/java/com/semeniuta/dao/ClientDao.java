@@ -48,6 +48,6 @@ public interface ClientDao {
      *
      * @return list of all clients in DAO
      */
-    List<Client> returnAllClient();
+    List<Client> getAllClient();
 
 }

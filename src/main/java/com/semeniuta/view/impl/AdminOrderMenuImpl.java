@@ -27,8 +27,6 @@ public class AdminOrderMenuImpl implements Menu {
         this.validationService = validationService;
     }
 
-    //TODO: add implementation for work with order
-    //TODO: add relation with client(add cliend Id)
     @Override
     public void getUserResponse() throws IOException {
         boolean isRunning = true;
@@ -37,7 +35,7 @@ public class AdminOrderMenuImpl implements Menu {
             String input = br.readLine();
             switch (input) {
                 case "1":
-                    createOrder(); // why Idea change menu.createOrder() to ((ClientMenuImpl) menu).createOrder()?
+                    createOrder();
                     break;
                 case "2":
                     editOrderStatus();
@@ -74,58 +72,86 @@ public class AdminOrderMenuImpl implements Menu {
         return Long.parseLong(input);
     }
 
-    public void createOrder() throws IOException {
-        boolean flag = true;
-        List<Long> ids = new ArrayList<>();
-        System.out.println("Enter product ids:");
-        while (br.readLine().equals("")) {
-            long id = readId();
-
-            while (flag) {
-                try {
-                    validationService.validateProductId(id);
-                } catch (BusinessExceptions e) {
-                    e.printStackTrace();
-                }
+    private List<Long> readProductIds() throws IOException {
+        String input;
+        List<Long> productIds = new ArrayList<>();
+        System.out.println("Please enter product ids(use Enter for separating):");
+        while (!(input=br.readLine()).isEmpty()) {
+            while (!(validationService.readInt(input))) {
+                System.out.println("Incorrect format of input value!");
+                System.out.print("Please enter correct Number => ");
             }
-            ids.add(id);
-        }
-        long idClient = readId();
+            long id = Long.parseLong(input);
+            try {
+                    validationService.validateProductId(id);
+                    productIds.add(id);
+                } catch (BusinessExceptions e) {
+                    System.out.println(e.getMessage());
+                System.out.print("Please enter correct product id => ");
 
-        if (orderService.createOrder(ids, idClient)) {
-            System.out.println("Order was added");
-        } else {
-            System.out.println("Order wasn't added");
+            }
         }
+        return productIds;
+    }
+
+    public void createOrder() throws IOException {
+        List<Long> ids = readProductIds();
+        if(ids.size()==0){
+            System.out.println("You didn't put any products to order");
+            return;
+        }
+        System.out.println("Enter client info:");
+        long idClient = readId();
+            try {
+                validationService.validateClientId(idClient);
+                if (orderService.createOrder(ids, idClient)) {
+                    System.out.println("Order was added");
+                } else {
+                    System.out.println("Order wasn't added");
+                }
+            }catch (BusinessExceptions e){
+                System.out.println(e.getMessage());
+
+            }
+
     }
 
     public void showOrders() {
-        System.out.println("All orders");
+        System.out.println("All orders:");
         List<Order> orders = orderService.showOrders();
         orders.forEach(System.out::println);
     }
 
     private void editOrderStatus() throws IOException {
-        System.out.println("Please enter orderId => ");
-
+        System.out.println("Please Order info:");
         long id = readId();
-        System.out.println("Please enter new order status => ");
-        String status = br.readLine();
-        if (orderService.editOrderStatus(id, status)) {
-            System.out.println("Order status was changed");
-        } else {
-            System.out.println("Order status wasn't changed");
+        try{
+            validationService.validateOrderId(id);
+            System.out.println("Please enter new order status => ");
+            String status = br.readLine();
+            if (orderService.editOrderStatus(id, status)) {
+                System.out.println("Order status was changed");
+            } else {
+                System.out.println("Order status wasn't changed");
+            }
+        }catch (BusinessExceptions e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     private void deleteOrder() throws IOException {
-        System.out.println("Please enter orderId => ");
+        System.out.println("Please Order info:");
         long id = readId();
-
-        if (orderService.deleteOrder(id)) {
-            System.out.println("Order was deleted");
-        } else {
-            System.out.println("Order wasn't deleted");
+        try {
+            validationService.validateOrderId(id);
+            if (orderService.deleteOrder(id)) {
+                System.out.println("Order was deleted");
+            } else {
+                System.out.println("Order wasn't deleted");
+            }
+        }catch (BusinessExceptions e){
+            System.out.println(e.getMessage());
         }
     }
 
