@@ -31,8 +31,26 @@ public class AdminMainMenuImpl implements Menu {
         this.adminProductMenu = adminProductMenu;
         this.adminOrderMenu = adminOrderMenu;
     }
+    private final String adminLogName = "admin";
+    private final String adminPwd = "admin";
 
     private final static String[] menuItems = {"1. Admin client side", "2. Admin product side", "3. Admin order side", "4. Return to main menu", "0. Exit"};
+
+    public void logIn() throws IOException{
+        System.out.println("Please enter login or 0 for exit =>");
+        String input;
+        while (!adminLogName.equals(input=br.readLine())){
+            if (input.equals("0")){
+                return;
+            }
+            System.out.println("Please enter correct login");
+        }
+        System.out.println("Please enter password =>");
+        while (!adminPwd.equals(br.readLine())){
+            System.out.println("Please enter correct password!");
+        }
+        getUserResponse();
+    }
 
     @Override
     public void getUserResponse() throws IOException {

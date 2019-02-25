@@ -19,7 +19,7 @@ public class MainMenuImpl implements Menu {
     private final static String[] menuItems = {"1. Admin", "2. Client", "0. Exit"};
 
 
-    private Menu adminMainMenu;
+    private AdminMainMenuImpl adminMainMenu;
     private Menu clientMenu;
     private AdminOrderMenuImpl orderMenu;
     private Menu adminClientMenu;
@@ -51,7 +51,7 @@ public class MainMenuImpl implements Menu {
             String input = br.readLine();
             switch (input) {
                 case "1":
-                    adminMainMenu.getUserResponse();
+                    adminMainMenu.logIn();
                     break;
                 case "2":
                     clientMenu.getUserResponse();

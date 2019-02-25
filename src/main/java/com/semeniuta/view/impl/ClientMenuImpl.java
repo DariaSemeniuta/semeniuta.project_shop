@@ -24,7 +24,6 @@ public class ClientMenuImpl implements Menu {
     private AdminOrderMenuImpl orderMenu;
     private AdminProductMenuImpl adminProductMenu;
 
-    //TODO: remove productService and add productMenu in constructor instead
     public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
         this.br = br;
         this.clientService = clientService;
@@ -177,8 +176,6 @@ public class ClientMenuImpl implements Menu {
         } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     public long readId() throws IOException {
