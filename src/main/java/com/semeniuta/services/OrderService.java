@@ -12,7 +12,7 @@ public interface OrderService {
      * @param products - List<long></> - ids of products that should be ordered
      * @return true if order was created, otherwise - false
      */
-    boolean createOrder(List<Long> products);
+    boolean createOrder(List<Long> products, long idClient);
 
     /**
      * Change status of existent order
@@ -38,5 +38,7 @@ public interface OrderService {
      * @return - list of all orders
      */
     List<Order> showOrders();
+
+    boolean isOrderExist(long id);
 
 }

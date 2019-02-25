@@ -59,7 +59,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public List<Client> returnAllClient() {
+    public List<Client> getAllClient() {
         return new ArrayList<>(clients.values());
     }
 }

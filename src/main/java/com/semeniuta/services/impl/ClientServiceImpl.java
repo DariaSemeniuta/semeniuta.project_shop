@@ -1,7 +1,6 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.ClientDao;
-import com.semeniuta.dao.impl.ClientDaoImpl;
 import com.semeniuta.domain.Client;
 import com.semeniuta.services.ClientService;
 
@@ -32,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> showClients() {
-        return clientDao.returnAllClient();
+        return clientDao.getAllClient();
     }
 
     @Override
@@ -42,7 +41,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean isClientExist(String phone) {
-        List<Client> clients = clientDao.returnAllClient();
+        List<Client> clients = clientDao.getAllClient();
         for (Client client : clients) {
             if (client.getPhone().equals(phone)) {
                 return true;

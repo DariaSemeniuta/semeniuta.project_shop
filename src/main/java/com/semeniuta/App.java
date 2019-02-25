@@ -36,7 +36,7 @@ public class App {
         OrderService orderService = new OrderServiceImpl(orderDao, productDao);
 
 
-        ValidationService validationService = new ValidationServiceImpl(clientService, productService);
+        ValidationService validationService = new ValidationServiceImpl(clientService, productService, orderService);
         Menu menu = new MainMenuImpl(br, clientService, productService, orderService, validationService);
         try {
             menu.getUserResponse();

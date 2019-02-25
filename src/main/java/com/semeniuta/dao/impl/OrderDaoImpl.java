@@ -3,49 +3,62 @@ package com.semeniuta.dao.impl;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.domain.Product;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 
-    private List<Order> orders;
+    private Map<Long, Order> orders;
     private static long generator = 0;
 
     public OrderDaoImpl() {
-        this.orders = new ArrayList<>();
+        orders = new HashMap<>();
     }
 
     @Override
     public boolean addOrder(Order order) {
         order.setId(generator++);
-        orders.add(order);
+        orders.put(order.getId(), order);
         return true;
     }
 
     @Override
     public List<Order> getAllOrders() {
-        return orders;
+        return new ArrayList<>(orders.values());
     }
 
     @Override
-    public boolean editOrderStatus(Order order, String status) {
+    public List<Order> getAllOrders(long idClient) {
+        List<Order> clientOrders = new ArrayList<>();
+        for (Order order: orders.values()) {
+            if(order.getIdClient()==idClient){
+                clientOrders.add(order);
+            }
+        }
+        return clientOrders;
+    }
+
+    @Override
+    public boolean editOrderStatus(long id, String status) {
+        Order order = orders.get(id);
         order.setStatus(status);
         return true;
     }
 
     @Override
-    public boolean deleteOrder(Order order) {
-        orders.remove(order);
+    public boolean deleteOrder(long id) {
+        orders.remove(id);
         return true;
     }
 
     @Override
     public Order findOrder(long id) {
-        for (Order order : orders) {
-            if (order.getId() == id) {
-                return order;
-            }
+        if (orders.containsKey(id)) {
+                return orders.get(id);
         }
         return null;
     }

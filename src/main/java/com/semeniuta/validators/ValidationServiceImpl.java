@@ -2,6 +2,7 @@ package com.semeniuta.validators;
 
 import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
+import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 
 import java.math.BigDecimal;
@@ -10,10 +11,12 @@ public class ValidationServiceImpl implements ValidationService {
 
     private final ClientService clientService;
     private final ProductService productService;
+    private final OrderService orderService;
 
-    public ValidationServiceImpl(ClientService clientService, ProductService productService) {
+    public ValidationServiceImpl(ClientService clientService, ProductService productService, OrderService orderService) {
         this.clientService = clientService;
         this.productService = productService;
+        this.orderService = orderService;
     }
 
     @Override
@@ -86,6 +89,10 @@ public class ValidationServiceImpl implements ValidationService {
         }
     }
 
-
-//TODO: add validation for id  order
+    @Override
+    public void validateOrderId(long id) throws BusinessExceptions {
+        if(orderService.isOrderExist(id)){
+            throw new BusinessExceptions("There is no order with entered id!");
+        }
+    }
 }
