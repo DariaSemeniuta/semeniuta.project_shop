@@ -69,4 +69,6 @@ public interface ClientService {
      * @return true if id is exist, otherwise - false
      */
     boolean isIdExist(long id);
+
+    String getClientEmailByPhone(String phone);
 }

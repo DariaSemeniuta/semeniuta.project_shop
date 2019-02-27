@@ -42,7 +42,6 @@ public class ClientMenuImpl implements Menu {
             switch (input) {
                 case "1":
                     logInClient();
-                    getUserResponse();
                     break;
                 case "2":
                     createClient();
@@ -52,6 +51,9 @@ public class ClientMenuImpl implements Menu {
                     return;
                 case "0":
                     System.exit(0);
+
+                default:
+                    return;
             }
         }
     }
@@ -60,16 +62,14 @@ public class ClientMenuImpl implements Menu {
     private void logInClient() throws IOException{
         String email = inputEmail();
         String phone =  inputPhone();
-        if(clientService.isClientExist(phone)){
-            if(clientService.getClientEmailByPhone(phone) == email) {
+        if(clientService.isClientExist(phone)) {
+            if (clientService.getClientEmailByPhone(phone).equals(email)) {
                 System.out.println("Successfully logged in :)");
                 getUserResponse();
             }
-        }else {
-            System.out.println("There is no client! Incorrect email or phone.");
-            getUser();
         }
-
+        System.out.println("There is no client! Incorrect email or phone.");
+        getUser();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.semeniuta.view.impl;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
+import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class MainMenuImpl implements Menu {
     protected BufferedReader br = null;
-    protected ClientService clientService = null;
+    protected ClientServiceImpl clientService = null;
     protected ProductService productService = null;
     protected OrderService orderService = null;
     public ValidationService validationService = null;
@@ -20,12 +21,12 @@ public class MainMenuImpl implements Menu {
 
 
     private AdminMainMenuImpl adminMainMenu;
-    private Menu clientMenu;
+    private ClientMenuImpl clientMenu;
     private AdminOrderMenuImpl orderMenu;
     private Menu adminClientMenu;
     private AdminProductMenuImpl adminProductMenu;
 
-    public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
+    public MainMenuImpl(BufferedReader br, ClientServiceImpl clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
         this.clientService = clientService;
         this.productService = productService;
@@ -34,9 +35,9 @@ public class MainMenuImpl implements Menu {
         this.orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
         this.adminProductMenu = new AdminProductMenuImpl(br, productService, validationService);
 
-        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
+        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, validationService, orderMenu, adminProductMenu);
         this.adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService, adminClientMenu, adminProductMenu, orderMenu);
-        this.clientMenu = new ClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
+        this.clientMenu = new ClientMenuImpl(br, clientService, validationService, orderMenu, adminProductMenu);
 
     }
 
@@ -54,7 +55,7 @@ public class MainMenuImpl implements Menu {
                     adminMainMenu.logIn();
                     break;
                 case "2":
-                    clientMenu.getUserResponse();
+                    clientMenu.getUser();
                     break;
                 case "0":
                     isRunning = false;
