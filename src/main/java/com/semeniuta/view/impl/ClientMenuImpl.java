@@ -4,6 +4,7 @@ import com.semeniuta.domain.Product;
 import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.ProductService;
+import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
@@ -17,35 +18,35 @@ public class ClientMenuImpl implements Menu {
 
 
     protected final BufferedReader br;
-    protected final ClientService clientService;
-    private final ProductService productService;
+    protected final ClientServiceImpl clientService;
+
     protected final ValidationService validationService;
 
     private AdminOrderMenuImpl orderMenu;
     private AdminProductMenuImpl adminProductMenu;
 
-    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
+    public ClientMenuImpl(BufferedReader br, ClientServiceImpl clientService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
         this.br = br;
         this.clientService = clientService;
-        this.productService = productService;
         this.validationService = validationService;
         this.orderMenu = orderMenu;
         this.adminProductMenu = adminProductMenu;
     }
 
-    private void getUser() throws IOException {
+    public void getUser() throws IOException {
         String[] items = {"1. Log in", "2. Registration", "3. Return to main menu", "0. Exit"};
         this.showMenuItems(items);
         boolean isRunning = true;
         while (isRunning) {
-            this.showMenuItems(menuItems);
             String input = br.readLine();
             switch (input) {
                 case "1":
-
+                    logInClient();
+                    getUserResponse();
                     break;
                 case "2":
                     createClient();
+                    getUserResponse();
                     break;
                 case "3":
                     return;
@@ -55,6 +56,21 @@ public class ClientMenuImpl implements Menu {
         }
     }
 
+
+    private void logInClient() throws IOException{
+        String email = inputEmail();
+        String phone =  inputPhone();
+        if(clientService.isClientExist(phone)){
+            if(clientService.getClientEmailByPhone(phone) == email) {
+                System.out.println("Successfully logged in :)");
+                getUserResponse();
+            }
+        }else {
+            System.out.println("There is no client! Incorrect email or phone.");
+            getUser();
+        }
+
+    }
 
     @Override
     public void getUserResponse() throws IOException {
@@ -77,13 +93,14 @@ public class ClientMenuImpl implements Menu {
                     adminProductMenu.showProducts();
                     break;
                 case "5":
-                    orderMenu.createOrder();
+                    orderMenu.createOrder(clientService.clientId);
                     break;
                 case "6":
-                    orderMenu.showOrders();
+                    orderMenu.showOrders(clientService.clientId);
                     break;
                 case "7":
-                    return;
+                    getUser();
+                    break;
                 case "8":
                     getUser();
                     break;
@@ -190,9 +207,6 @@ public class ClientMenuImpl implements Menu {
 
     //TODO: add possibility to change not all fields of client
     protected void updateClient() throws IOException {
-        long id = readId();
-        try {
-            validationService.validateClientId(id);
             System.out.print("Please enter new name => ");
             String newName = br.readLine();
 
@@ -203,27 +217,17 @@ public class ClientMenuImpl implements Menu {
             String email = inputEmail();
             String phone = inputPhone();
 
-            if (clientService.updateClient(id, newName, surname, age, email, phone)) {
+            if (clientService.updateClient(clientService.clientId, newName, surname, age, email, phone)) {
                 System.out.println("Client was updated");
             } else {
                 System.out.println("Client wasn't updated");
             }
-        } catch (BusinessExceptions e) {
-            System.out.println(e.getMessage());
-        }
 
     }
 
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
-        long id = readId();
-        try {
-            validationService.validateClientId(id);
-            System.out.println(clientService.showClientInfo(id).toString());
-        } catch (BusinessExceptions e) {
-            System.out.println(e.getMessage());
-        }
-
+        System.out.println(clientService.showClientInfo(clientService.clientId).toString());
     }
 
 }
