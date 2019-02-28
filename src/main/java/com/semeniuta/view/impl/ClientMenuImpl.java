@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ClientMenuImpl implements Menu {
 
-    private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "8. Log out", "0. Exit"};
+    private final static String[] menuItems = {"1. Create new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "8. Log out", "0. Exit"};
 
 
     protected final BufferedReader br;
@@ -93,10 +93,10 @@ public class ClientMenuImpl implements Menu {
                     adminProductMenu.showProducts();
                     break;
                 case "5":
-                    orderMenu.createOrder(clientService.clientId);
+                    orderMenu.createOrder(clientService.getClientId());
                     break;
                 case "6":
-                    orderMenu.showOrders(clientService.clientId);
+                    orderMenu.showOrders(clientService.getClientId());
                     break;
                 case "7":
                     getUser();
@@ -217,7 +217,7 @@ public class ClientMenuImpl implements Menu {
             String email = inputEmail();
             String phone = inputPhone();
 
-            if (clientService.updateClient(clientService.clientId, newName, surname, age, email, phone)) {
+            if (clientService.updateClient(clientService.getClientId(), newName, surname, age, email, phone)) {
                 System.out.println("Client was updated");
             } else {
                 System.out.println("Client wasn't updated");
@@ -227,7 +227,7 @@ public class ClientMenuImpl implements Menu {
 
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
-        System.out.println(clientService.showClientInfo(clientService.clientId).toString());
+        System.out.println(clientService.showClientInfo(clientService.getClientId()).toString());
     }
 
 }
