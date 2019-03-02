@@ -27,7 +27,7 @@ public class App {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         ClientDao clientDao = ClientDaoImpl.getInstance();
-        ClientServiceImpl clientService = new ClientServiceImpl(clientDao);
+        ClientService clientService = new ClientServiceImpl(clientDao);
 
         ProductDao productDao = new ProductDaoImpl();
         ProductService productService = new ProductServiceImpl(productDao);

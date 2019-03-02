@@ -9,7 +9,12 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private final ClientDao clientDao;
 
-    public long clientId;
+    private long clientId;
+
+    public long getClientId() {
+        return clientId;
+    }
+
     public ClientServiceImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
     }

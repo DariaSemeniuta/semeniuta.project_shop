@@ -1,16 +1,13 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.domain.Product;
 import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
-import com.semeniuta.services.ProductService;
 import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 public class ClientMenuImpl implements Menu {
 
@@ -18,19 +15,19 @@ public class ClientMenuImpl implements Menu {
 
 
     protected final BufferedReader br;
-    protected final ClientServiceImpl clientService;
+    protected final ClientService clientService;
 
     protected final ValidationService validationService;
 
-    private AdminOrderMenuImpl orderMenu;
-    private AdminProductMenuImpl adminProductMenu;
+    private Menu orderMenu;
+    private Menu productMenu;
 
-    public ClientMenuImpl(BufferedReader br, ClientServiceImpl clientService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
+    public ClientMenuImpl(BufferedReader br, ClientService clientService, ValidationService validationService, Menu orderMenu, Menu productMenu) {
         this.br = br;
         this.clientService = clientService;
         this.validationService = validationService;
         this.orderMenu = orderMenu;
-        this.adminProductMenu = adminProductMenu;
+        this.productMenu = productMenu;
     }
 
     public void getUser() throws IOException {
@@ -90,13 +87,13 @@ public class ClientMenuImpl implements Menu {
                     showClientInfo();
                     break;
                 case "4":
-                    adminProductMenu.showProducts();
+                    ((AdminProductMenuImpl) productMenu).showProducts();
                     break;
                 case "5":
-                    orderMenu.createOrder(clientService.getClientId());
+                    ((AdminOrderMenuImpl)orderMenu).createOrder(((ClientServiceImpl)clientService).getClientId());
                     break;
                 case "6":
-                    orderMenu.showOrders(clientService.getClientId());
+                    ((AdminOrderMenuImpl)orderMenu).showOrders(((ClientServiceImpl)clientService).getClientId());
                     break;
                 case "7":
                     getUser();
@@ -217,7 +214,7 @@ public class ClientMenuImpl implements Menu {
             String email = inputEmail();
             String phone = inputPhone();
 
-            if (clientService.updateClient(clientService.getClientId(), newName, surname, age, email, phone)) {
+            if (clientService.updateClient(((ClientServiceImpl)clientService).getClientId(), newName, surname, age, email, phone)) {
                 System.out.println("Client was updated");
             } else {
                 System.out.println("Client wasn't updated");
@@ -227,7 +224,7 @@ public class ClientMenuImpl implements Menu {
 
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
-        System.out.println(clientService.showClientInfo(clientService.getClientId()).toString());
+        System.out.println(clientService.showClientInfo(((ClientServiceImpl)clientService).getClientId()).toString());
     }
 
 }

@@ -6,6 +6,7 @@ import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.validators.ValidationService;
+import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class AdminClientMenuImpl extends ClientMenuImpl {
 
     private final static String[] menuItems = {"1. Create client", "2. Update client", "3. Delete client", "4. Show all clients", "5. Show info about client", "6. Return to main menu", "0. Exit"};
 
-    public AdminClientMenuImpl(BufferedReader br, ClientServiceImpl clientService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
+    public AdminClientMenuImpl(BufferedReader br, ClientService clientService, ValidationService validationService, Menu orderMenu, Menu adminProductMenu) {
         super(br, clientService, validationService, orderMenu, adminProductMenu);
     }
 

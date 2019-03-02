@@ -16,7 +16,6 @@ public class AdminOrderMenuImpl implements Menu {
 
     private final static String[] menuItems = {"1. Create order", "2. Edit order status", "3. Delete order", "4. Show all orders", "5. Return to main menu", "0. Exit"};
 
-
     private final BufferedReader br;
     private final OrderService orderService;
     private final ValidationService validationService;

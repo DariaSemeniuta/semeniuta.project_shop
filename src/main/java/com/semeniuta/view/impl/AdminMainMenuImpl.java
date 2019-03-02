@@ -12,20 +12,15 @@ import java.io.IOException;
 public class AdminMainMenuImpl implements Menu {
 
     private final BufferedReader br;
-    private final ClientService clientService;
-    private final ProductService productService;
-    private final OrderService orderService;
+
     private final ValidationService validationService;
 
     private Menu adminClientMenu;
     private Menu adminProductMenu;
-    private AdminOrderMenuImpl adminOrderMenu;
+    private Menu adminOrderMenu;
 
-    public AdminMainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService, Menu adminClientMenu, Menu adminProductMenu, AdminOrderMenuImpl adminOrderMenu) {
+    public AdminMainMenuImpl(BufferedReader br, ValidationService validationService, Menu adminClientMenu, Menu adminProductMenu, Menu adminOrderMenu) {
         this.br = br;
-        this.clientService = clientService;
-        this.productService = productService;
-        this.orderService = orderService;
         this.validationService = validationService;
         this.adminClientMenu = adminClientMenu;
         this.adminProductMenu = adminProductMenu;
