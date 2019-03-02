@@ -21,9 +21,9 @@ public class MainMenuImpl implements Menu {
 
     private Menu adminMainMenu;
     private Menu clientMenu;
-    private AdminOrderMenuImpl orderMenu;
+    private Menu orderMenu;
     private Menu adminClientMenu;
-    private AdminProductMenuImpl adminProductMenu;
+    private Menu productMenu;
 
     public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
@@ -32,11 +32,11 @@ public class MainMenuImpl implements Menu {
         this.orderService = orderService;
         this.validationService = validationService;
         this.orderMenu = new AdminOrderMenuImpl(br, orderService, validationService);
-        this.adminProductMenu = new AdminProductMenuImpl(br, productService, validationService);
+        this.productMenu = new AdminProductMenuImpl(br, productService, validationService);
 
-        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
-        this.adminMainMenu = new AdminMainMenuImpl(br, clientService, productService, orderService, validationService, adminClientMenu, adminProductMenu, orderMenu);
-        this.clientMenu = new ClientMenuImpl(br, clientService, productService, validationService, orderMenu, adminProductMenu);
+        this.adminClientMenu = new AdminClientMenuImpl(br, clientService, validationService, orderMenu, productMenu);
+        this.adminMainMenu = new AdminMainMenuImpl(br, validationService, adminClientMenu, productMenu, orderMenu);
+        this.clientMenu = new ClientMenuImpl(br, clientService, validationService, orderMenu, productMenu);
 
     }
 
@@ -51,10 +51,10 @@ public class MainMenuImpl implements Menu {
             String input = br.readLine();
             switch (input) {
                 case "1":
-                    adminMainMenu.getUserResponse();
+                    ((AdminMainMenuImpl)adminMainMenu).logIn();
                     break;
                 case "2":
-                    clientMenu.getUserResponse();
+                    ((ClientMenuImpl)clientMenu).getUser();
                     break;
                 case "0":
                     isRunning = false;

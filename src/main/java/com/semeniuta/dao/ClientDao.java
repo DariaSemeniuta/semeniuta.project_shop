@@ -12,7 +12,7 @@ public interface ClientDao {
      * @param client - Client - object that should to be added
      * @return true if client was successfully added, otherwise - false
      */
-    boolean addClient(Client client);
+    long addClient(Client client);
 
     /**
      * Find client by name // other criterias for search will be implemented later

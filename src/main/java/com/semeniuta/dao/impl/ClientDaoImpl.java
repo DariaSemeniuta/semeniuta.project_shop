@@ -24,13 +24,13 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     private Map<Long, Client> clients = new HashMap<>();
-    private static long generator = 0;
+    private static long generator = 1;
 
     @Override
-    public boolean addClient(Client client) {
+    public long addClient(Client client) {
         client.setId(generator++);
         clients.put(client.getId(), client);
-        return true;
+        return client.getId();
     }
 
     @Override

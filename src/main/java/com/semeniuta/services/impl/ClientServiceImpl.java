@@ -9,6 +9,12 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private final ClientDao clientDao;
 
+    private long clientId;
+
+    public long getClientId() {
+        return clientId;
+    }
+
     public ClientServiceImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
     }
@@ -16,7 +22,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean createClient(String name, String surname, int age, String email, String phone) {
         Client client = new Client(name, surname, age, email, phone);
-        return clientDao.addClient(client);
+        if((clientId=clientDao.addClient(client)) == 0){
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -56,5 +66,18 @@ public class ClientServiceImpl implements ClientService {
             return false;
         }
         return true;
+    }
+
+    //use for client log in
+    @Override
+    public String getClientEmailByPhone(String phone) {
+        List<Client> clients = clientDao.getAllClient();
+        for (Client client : clients) {
+            if (client.getPhone().equals(phone)) {
+                clientId = client.getId();
+                return client.getEmail();
+            }
+        }
+        return null;
     }
 }

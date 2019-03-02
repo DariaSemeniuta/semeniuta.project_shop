@@ -16,7 +16,6 @@ public class AdminOrderMenuImpl implements Menu {
 
     private final static String[] menuItems = {"1. Create order", "2. Edit order status", "3. Delete order", "4. Show all orders", "5. Return to main menu", "0. Exit"};
 
-
     private final BufferedReader br;
     private final OrderService orderService;
     private final ValidationService validationService;
@@ -116,10 +115,29 @@ public class AdminOrderMenuImpl implements Menu {
 
     }
 
+    public void createOrder(long clientId) throws IOException {
+        List<Long> ids = readProductIds();
+        if(ids.size()==0){
+            System.out.println("You didn't put any products to order");
+            return;
+        }
+        if (orderService.createOrder(ids, clientId)) {
+                System.out.println("Order was added");
+            } else {
+                System.out.println("Order wasn't added");
+            }
+    }
+
     public void showOrders() {
         System.out.println("All orders:");
         List<Order> orders = orderService.showOrders();
         orders.forEach(System.out::println);
+    }
+
+    public void showOrders(long clientId) {
+        System.out.println("All orders:");
+        List<Order> orders = orderService.showOrders();
+        orders.stream().filter((order -> order.getIdClient()==clientId)).forEach(System.out::println);
     }
 
     private void editOrderStatus() throws IOException {

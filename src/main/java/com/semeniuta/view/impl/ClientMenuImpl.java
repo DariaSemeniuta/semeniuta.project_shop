@@ -1,61 +1,73 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.domain.Product;
 import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
-import com.semeniuta.services.ProductService;
+import com.semeniuta.services.impl.ClientServiceImpl;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 public class ClientMenuImpl implements Menu {
 
-    private final static String[] menuItems = {"1. Register new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "8. Log out", "0. Exit"};
+    private final static String[] menuItems = {"1. Create new user", "2. Edit your profile", "3. Show user profile", "4. Show all products", "5. Create order", "6. Show all orders", "7. Return to main menu", "8. Log out", "0. Exit"};
 
 
     protected final BufferedReader br;
     protected final ClientService clientService;
-    private final ProductService productService;
+
     protected final ValidationService validationService;
 
-    private AdminOrderMenuImpl orderMenu;
-    private AdminProductMenuImpl adminProductMenu;
+    private Menu orderMenu;
+    private Menu productMenu;
 
-    //TODO: remove productService and add productMenu in constructor instead
-    public ClientMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, ValidationService validationService, AdminOrderMenuImpl orderMenu, AdminProductMenuImpl adminProductMenu) {
+    public ClientMenuImpl(BufferedReader br, ClientService clientService, ValidationService validationService, Menu orderMenu, Menu productMenu) {
         this.br = br;
         this.clientService = clientService;
-        this.productService = productService;
         this.validationService = validationService;
         this.orderMenu = orderMenu;
-        this.adminProductMenu = adminProductMenu;
+        this.productMenu = productMenu;
     }
 
-    private void getUser() throws IOException {
+    public void getUser() throws IOException {
         String[] items = {"1. Log in", "2. Registration", "3. Return to main menu", "0. Exit"};
         this.showMenuItems(items);
         boolean isRunning = true;
         while (isRunning) {
-            this.showMenuItems(menuItems);
             String input = br.readLine();
             switch (input) {
                 case "1":
-
+                    logInClient();
                     break;
                 case "2":
                     createClient();
+                    getUserResponse();
                     break;
                 case "3":
                     return;
                 case "0":
                     System.exit(0);
+
+                default:
+                    return;
             }
         }
     }
 
+
+    private void logInClient() throws IOException{
+        String email = inputEmail();
+        String phone =  inputPhone();
+        if(clientService.isClientExist(phone)) {
+            if (clientService.getClientEmailByPhone(phone).equals(email)) {
+                System.out.println("Successfully logged in :)");
+                getUserResponse();
+            }
+        }
+        System.out.println("There is no client! Incorrect email or phone.");
+        getUser();
+    }
 
     @Override
     public void getUserResponse() throws IOException {
@@ -75,16 +87,17 @@ public class ClientMenuImpl implements Menu {
                     showClientInfo();
                     break;
                 case "4":
-                    adminProductMenu.showProducts();
+                    ((AdminProductMenuImpl) productMenu).showProducts();
                     break;
                 case "5":
-                    orderMenu.createOrder();
+                    ((AdminOrderMenuImpl)orderMenu).createOrder(((ClientServiceImpl)clientService).getClientId());
                     break;
                 case "6":
-                    orderMenu.showOrders();
+                    ((AdminOrderMenuImpl)orderMenu).showOrders(((ClientServiceImpl)clientService).getClientId());
                     break;
                 case "7":
-                    return;
+                    getUser();
+                    break;
                 case "8":
                     getUser();
                     break;
@@ -177,8 +190,6 @@ public class ClientMenuImpl implements Menu {
         } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     public long readId() throws IOException {
@@ -193,9 +204,6 @@ public class ClientMenuImpl implements Menu {
 
     //TODO: add possibility to change not all fields of client
     protected void updateClient() throws IOException {
-        long id = readId();
-        try {
-            validationService.validateClientId(id);
             System.out.print("Please enter new name => ");
             String newName = br.readLine();
 
@@ -206,27 +214,17 @@ public class ClientMenuImpl implements Menu {
             String email = inputEmail();
             String phone = inputPhone();
 
-            if (clientService.updateClient(id, newName, surname, age, email, phone)) {
+            if (clientService.updateClient(((ClientServiceImpl)clientService).getClientId(), newName, surname, age, email, phone)) {
                 System.out.println("Client was updated");
             } else {
                 System.out.println("Client wasn't updated");
             }
-        } catch (BusinessExceptions e) {
-            System.out.println(e.getMessage());
-        }
 
     }
 
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
-        long id = readId();
-        try {
-            validationService.validateClientId(id);
-            System.out.println(clientService.showClientInfo(id).toString());
-        } catch (BusinessExceptions e) {
-            System.out.println(e.getMessage());
-        }
-
+        System.out.println(clientService.showClientInfo(((ClientServiceImpl)clientService).getClientId()).toString());
     }
 
 }
