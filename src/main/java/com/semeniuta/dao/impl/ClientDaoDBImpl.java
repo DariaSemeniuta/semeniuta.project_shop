@@ -2,14 +2,8 @@ package com.semeniuta.dao.impl;
 
 import com.semeniuta.dao.ClientDao;
 import com.semeniuta.domain.Client;
-
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ClientDaoDBImpl implements ClientDao {
@@ -25,7 +19,7 @@ public class ClientDaoDBImpl implements ClientDao {
         try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
             Statement statement = connection.createStatement())
         {
-            statement.execute("CREATE TABLE IF NOT EXISTS " + DB_TABLE + "(ID INT AUTO_INCREMENT PRIMARY KEY, NAME VARCHAR(255), SURNAME VARCHAR(255), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(100));");
+            statement.execute("CREATE TABLE IF NOT EXISTS " + DB_TABLE + "(ID BIGINT AUTO_INCREMENT PRIMARY KEY, NAME VARCHAR(255), SURNAME VARCHAR(255), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(100));");
         }catch (SQLException e){
             System.out.println("Can't create table!");
             e.printStackTrace();

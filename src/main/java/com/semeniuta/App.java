@@ -3,10 +3,7 @@ package com.semeniuta;
 import com.semeniuta.dao.ClientDao;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.dao.ProductDao;
-import com.semeniuta.dao.impl.ClientDaoDBImpl;
-import com.semeniuta.dao.impl.ClientDaoImpl;
-import com.semeniuta.dao.impl.OrderDaoImpl;
-import com.semeniuta.dao.impl.ProductDaoImpl;
+import com.semeniuta.dao.impl.*;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
@@ -30,7 +27,7 @@ public class App {
         ClientDao clientDao = new ClientDaoDBImpl(); //ClientDaoImpl.getInstance();
         ClientService clientService = new ClientServiceImpl(clientDao);
 
-        ProductDao productDao = new ProductDaoImpl();
+        ProductDao productDao = new ProductDaoDBImpl();//new ProductDaoImpl();
         ProductService productService = new ProductServiceImpl(productDao);
 
         OrderDao orderDao = new OrderDaoImpl();
