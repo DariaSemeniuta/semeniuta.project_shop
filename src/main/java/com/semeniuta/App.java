@@ -24,13 +24,13 @@ public class App {
     public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ClientDao clientDao = new ClientDaoDBImpl(); //ClientDaoImpl.getInstance();
+        ClientDao clientDao = new ClientDaoDBImpl();
         ClientService clientService = new ClientServiceImpl(clientDao);
 
-        ProductDao productDao = new ProductDaoDBImpl();//new ProductDaoImpl();
+        ProductDao productDao = new ProductDaoDBImpl();
         ProductService productService = new ProductServiceImpl(productDao);
 
-        OrderDao orderDao = new OrderDaoDBImpl();//new OrderDaoImpl();
+        OrderDao orderDao = new OrderDaoDBImpl();
         OrderService orderService = new OrderServiceImpl(orderDao, productDao);
 
 
