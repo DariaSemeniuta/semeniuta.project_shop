@@ -46,22 +46,65 @@ public class OrderDaoDBImpl implements OrderDao {
 
     @Override
     public List<Order> getAllOrders() {
+
         return null;
     }
 
 
     @Override
     public boolean editOrderStatus(long id, String status) {
+        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE " + DB_TABLE_ORDERS + " SET STATUS = ? WHERE ID = ?;")){
+            preparedStatement.setLong(3, id);
+            preparedStatement.setString(1, status);
+            preparedStatement.execute();
+            return true;
+        }catch (SQLException e){
+            System.out.println("Order status wasn't updated");
+        }
         return false;
     }
 
     @Override
     public boolean deleteOrder(long id) {
+        try (Connection connection = DriverManager.getConnection(DB_URL,DB_USER,"");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE * FROM "+DB_TABLE_ORDER_INFO+" WHERE ORDER_ID = ?;");
+            PreparedStatement preparedStatementInfo = connection.prepareStatement("DELETE * FROM "+ DB_TABLE_ORDERS +" WHERE ID = ?;")){
+            preparedStatementInfo.setLong(1, id);
+            preparedStatementInfo.execute();
+
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            return true;
+        }catch (SQLException e){
+            System.out.println("Order wasn't deleted");
+        }
         return false;
     }
 
     @Override
     public Order findOrder(long id) {
-        return null;
+        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + DB_TABLE_ORDERS + " WHERE ID = ?; ");
+            PreparedStatement preparedStatementProducts = connection.preparedStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")){
+            preparedStatement.setLong(1, id);
+            preparedStatementProducts.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Order order = null;
+            if(resultSet.next()) {
+                String status = resultSet.getString("STATUS");
+                long clientId = resultSet.getLong("CLIENT_ID");
+                order = new Order(null, status, clientId);
+            }
+            List<long> productIds = new ArrayList<>();
+            resultSet = preparedStatementProducts.executeQuery();
+            while(resultSet.next()){
+                productIds.add(resultSet.getLong("PRODUCT_ID"));
+            }
+            order.setProducts(productIds);
+        }catch (SQLException e) {
+            System.out.println("There is no orders");
+        }
+        return order;
     }
 }
