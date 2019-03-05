@@ -130,7 +130,8 @@ public class AdminOrderMenuImpl implements Menu {
 
     public void showOrders() {
         System.out.println("All orders:");
-        if((List<Order> orders = orderService.showOrders())!=null) {
+        List<Order> orders;
+        if((orders = orderService.showOrders())!=null) {
             orders.forEach(System.out::println);
         }else {
             System.out.println("There are no orders!");
@@ -139,13 +140,12 @@ public class AdminOrderMenuImpl implements Menu {
 
     public void showOrders(long clientId) {
         System.out.println("All orders:");
-        if((List<Order> orders = orderService.showOrders())!=null) {
-            List<Order> orders = orderService.showOrders();
+        List<Order> orders;
+        if((orders = orderService.showOrders())!=null) {
             orders.stream().filter((order -> order.getIdClient() == clientId)).forEach(System.out::println);
         } else{
             System.out.println("There are no orders!");
         }
-
     }
 
     private void editOrderStatus() throws IOException {

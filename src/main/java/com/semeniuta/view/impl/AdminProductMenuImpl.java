@@ -144,7 +144,8 @@ public class AdminProductMenuImpl implements Menu {
 
     public void showProducts() {
         System.out.println("All products:");
-        if((List<Product> products = productService.showProducts())!=null) {
+        List<Product> products;
+        if((products = productService.showProducts())!=null) {
             products.forEach(System.out::println);
         }else{
             System.out.println("There are no products!");

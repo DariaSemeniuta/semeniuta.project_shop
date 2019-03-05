@@ -4,6 +4,7 @@ import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoDBImpl implements OrderDao {
@@ -46,8 +47,31 @@ public class OrderDaoDBImpl implements OrderDao {
 
     @Override
     public List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+            Statement statement = connection.createStatement();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")){
+            ResultSet resultSet = statement.executeQuery(("SELECT * FROM " + DB_TABLE_ORDERS + ";"));
 
-        return null;
+            List<Long> productIds = new ArrayList<>();
+            while(resultSet.next()) {
+                long id = resultSet.getLong("ID");
+                String status = resultSet.getString("STATUS");
+                long clientId = resultSet.getLong("CLIENT_ID");
+                Order order = new Order(id, status, productIds, clientId);
+                preparedStatement.setLong(1, id);
+
+                ResultSet resultSetProducts = preparedStatement.executeQuery();
+                while(resultSetProducts.next()){
+                    productIds.add(resultSetProducts.getLong("PRODUCT_ID"));
+                }
+                order.setProducts(productIds);
+                orders.add(order);
+            }
+        }catch (SQLException e) {
+            System.out.println("There is no orders");
+        }
+        return orders ;
     }
 
 
@@ -55,7 +79,7 @@ public class OrderDaoDBImpl implements OrderDao {
     public boolean editOrderStatus(long id, String status) {
         try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE " + DB_TABLE_ORDERS + " SET STATUS = ? WHERE ID = ?;")){
-            preparedStatement.setLong(3, id);
+            preparedStatement.setLong(2, id);
             preparedStatement.setString(1, status);
             preparedStatement.execute();
             return true;
@@ -86,25 +110,26 @@ public class OrderDaoDBImpl implements OrderDao {
     public Order findOrder(long id) {
         try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + DB_TABLE_ORDERS + " WHERE ID = ?; ");
-            PreparedStatement preparedStatementProducts = connection.preparedStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")){
+            PreparedStatement preparedStatementProducts = connection.prepareStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")){
             preparedStatement.setLong(1, id);
             preparedStatementProducts.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             Order order = null;
+            List<Long> productIds = new ArrayList<>();
             if(resultSet.next()) {
                 String status = resultSet.getString("STATUS");
                 long clientId = resultSet.getLong("CLIENT_ID");
-                order = new Order(null, status, clientId);
+                order = new Order(productIds, status, clientId);
+                resultSet = preparedStatementProducts.executeQuery();
+                while(resultSet.next()){
+                    productIds.add(resultSet.getLong("PRODUCT_ID"));
+                }
+                order.setProducts(productIds);
+                return order;
             }
-            List<long> productIds = new ArrayList<>();
-            resultSet = preparedStatementProducts.executeQuery();
-            while(resultSet.next()){
-                productIds.add(resultSet.getLong("PRODUCT_ID"));
-            }
-            order.setProducts(productIds);
         }catch (SQLException e) {
             System.out.println("There is no orders");
         }
-        return order;
+        return null;
     }
 }
