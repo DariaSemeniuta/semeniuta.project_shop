@@ -30,7 +30,7 @@ public class App {
         ProductDao productDao = new ProductDaoDBImpl();//new ProductDaoImpl();
         ProductService productService = new ProductServiceImpl(productDao);
 
-        OrderDao orderDao = new OrderDaoImpl();
+        OrderDao orderDao = new OrderDaoDBImpl();//new OrderDaoImpl();
         OrderService orderService = new OrderServiceImpl(orderDao, productDao);
 
 
