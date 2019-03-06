@@ -17,6 +17,19 @@ public class Order {
         this.idClient = idClient;
     }
 
+    public Order(List<Long> products,String status, long idClient) {
+        this.status = status;
+        this.products = products;
+        this.idClient = idClient;
+    }
+
+    public Order( long id, String status, List<Long> products, long idClient) {
+        this.id = id;
+        this.status = status;
+        this.products = products;
+        this.idClient = idClient;
+    }
+
     public List<Long> getProducts() {
         return products;
     }

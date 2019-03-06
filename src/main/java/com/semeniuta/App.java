@@ -3,9 +3,7 @@ package com.semeniuta;
 import com.semeniuta.dao.ClientDao;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.dao.ProductDao;
-import com.semeniuta.dao.impl.ClientDaoImpl;
-import com.semeniuta.dao.impl.OrderDaoImpl;
-import com.semeniuta.dao.impl.ProductDaoImpl;
+import com.semeniuta.dao.impl.*;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
@@ -26,13 +24,13 @@ public class App {
     public static void main(String[] args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ClientDao clientDao = ClientDaoImpl.getInstance();
+        ClientDao clientDao = new ClientDaoDBImpl();
         ClientService clientService = new ClientServiceImpl(clientDao);
 
-        ProductDao productDao = new ProductDaoImpl();
+        ProductDao productDao = new ProductDaoDBImpl();
         ProductService productService = new ProductServiceImpl(productDao);
 
-        OrderDao orderDao = new OrderDaoImpl();
+        OrderDao orderDao = new OrderDaoDBImpl();
         OrderService orderService = new OrderServiceImpl(orderDao, productDao);
 
 

@@ -1,15 +1,10 @@
 package com.semeniuta.services.impl;
 
-import com.semeniuta.dao.ClientDao;
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.dao.ProductDao;
-import com.semeniuta.dao.impl.OrderDaoImpl;
-import com.semeniuta.dao.impl.ProductDaoImpl;
 import com.semeniuta.domain.Order;
-import com.semeniuta.domain.Product;
 import com.semeniuta.services.OrderService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {

@@ -5,7 +5,7 @@ import com.semeniuta.domain.Product;
 
 import java.util.List;
 
-public interface OrderDao {
+public interface OrderDao extends DaoDB {
 
     /**
      * Add new order to DAO
@@ -22,8 +22,6 @@ public interface OrderDao {
      */
     List<Order> getAllOrders();
 
-
-    List<Order> getAllOrders(long idClient);
     /**
      * Change status of order
      *

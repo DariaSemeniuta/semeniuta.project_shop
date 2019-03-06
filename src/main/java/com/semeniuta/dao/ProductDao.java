@@ -5,7 +5,7 @@ import com.semeniuta.domain.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductDao {
+public interface ProductDao extends DaoDB{
 
     /**
      * Return list of all products
