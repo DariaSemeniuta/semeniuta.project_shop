@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean isProductExist(long id) {
-        if (productDao.findProduct(id)==null) {
+        if (productDao.findProduct(id) == null) {
             return false;
         }
         return true;
