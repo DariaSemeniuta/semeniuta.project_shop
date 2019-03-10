@@ -31,7 +31,7 @@ public class App {
         ProductService productService = new ProductServiceImpl(productDao);
 
         OrderDao orderDao = new OrderDaoDBImpl();
-        OrderService orderService = new OrderServiceImpl(orderDao, productDao);
+        OrderService orderService = new OrderServiceImpl(orderDao);
 
 
         ValidationService validationService = new ValidationServiceImpl(clientService, productService, orderService);

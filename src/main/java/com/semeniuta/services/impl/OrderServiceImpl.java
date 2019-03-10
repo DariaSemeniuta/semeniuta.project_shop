@@ -9,12 +9,9 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
-    private final ProductDao productDao;
 
-
-    public OrderServiceImpl(OrderDao orderDao, ProductDao productDao) {
+    public OrderServiceImpl(OrderDao orderDao) {
         this.orderDao = orderDao;
-        this.productDao = productDao;
     }
 
     @Override

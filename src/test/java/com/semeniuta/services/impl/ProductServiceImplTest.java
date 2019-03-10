@@ -4,15 +4,17 @@ import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.ProductService;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
 
     @Mock
@@ -121,7 +123,6 @@ public class ProductServiceImplTest {
         Assert.assertFalse(result);
     }
 
-    @Ignore
     @Test
     public void isProductExistForExistentProductTest() {
         //given
@@ -133,7 +134,6 @@ public class ProductServiceImplTest {
         Assert.assertTrue(result);
     }
 
-    @Ignore
     @Test
     public void isProductExistForNonExistentProductTest() {
         //given
