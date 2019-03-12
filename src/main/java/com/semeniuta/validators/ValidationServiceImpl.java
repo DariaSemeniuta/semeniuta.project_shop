@@ -85,13 +85,13 @@ public class ValidationServiceImpl implements ValidationService {
             new BigDecimal(input);
         }
         catch ( NumberFormatException e){
-            throw new BusinessExceptions("Price id incorrect!");
+            throw new BusinessExceptions("Price is incorrect!");
         }
     }
 
     @Override
     public void validateOrderId(long id) throws BusinessExceptions {
-        if(orderService.isOrderExist(id)){
+        if(!orderService.isOrderExist(id)){
             throw new BusinessExceptions("There is no order with entered id!");
         }
     }

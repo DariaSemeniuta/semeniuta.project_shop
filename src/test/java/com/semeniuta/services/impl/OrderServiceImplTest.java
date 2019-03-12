@@ -45,7 +45,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void createOrderFailedfullyTest() {
+    public void createOrderFailedTest() {
         //given
         Mockito.when(orderDao.addOrder(order)).thenReturn(false);
         //when
