@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
 
@@ -26,9 +27,9 @@ public class ProductServiceImplTest {
 
 
     @Before
-    public void init(){
+    public void init() {
         productService = new ProductServiceImpl(productDao);
-        product = new Product("name",new BigDecimal(122.3));
+        product = new Product("name", new BigDecimal(122.3));
     }
 
     @Test
@@ -55,8 +56,8 @@ public class ProductServiceImplTest {
     public void showProductsIfExistTest() {
         //given
         List<Product> products = new ArrayList<>();
-        for (int i=0; i<5; i++){
-            Product newProduct = new Product(product.getName()+i, product.getPrice());
+        for (int i = 0; i < 5; i++) {
+            Product newProduct = new Product(product.getName() + i, product.getPrice());
             products.add(newProduct);
         }
         Mockito.when(productDao.getAllProducts()).thenReturn(products);
@@ -80,8 +81,8 @@ public class ProductServiceImplTest {
     @Test
     public void editProductSuccessTest() {
         //given
-        long id=12l;
-        Mockito.when(productDao.editProduct(id,product.getName(),product.getPrice())).thenReturn(true);
+        long id = 12l;
+        Mockito.when(productDao.editProduct(id, product.getName(), product.getPrice())).thenReturn(true);
         //when
         boolean result = productService.editProduct(id, product.getName(), product.getPrice());
         //then
@@ -92,8 +93,8 @@ public class ProductServiceImplTest {
     @Test
     public void editProductFailedTest() {
         //given
-        long id=12l;
-        Mockito.when(productDao.editProduct(id,product.getName(),product.getPrice())).thenReturn(false);
+        long id = 12l;
+        Mockito.when(productDao.editProduct(id, product.getName(), product.getPrice())).thenReturn(false);
         //when
         boolean result = productService.editProduct(id, product.getName(), product.getPrice());
         //then
@@ -103,7 +104,7 @@ public class ProductServiceImplTest {
     @Test
     public void deleteProductSuccessTest() {
         //given
-        long id=12l;
+        long id = 12l;
         Mockito.when(productDao.deleteProduct(id)).thenReturn(true);
         //when
         boolean result = productService.deleteProduct(id);
@@ -115,7 +116,7 @@ public class ProductServiceImplTest {
     @Test
     public void deleteProductFailedTest() {
         //given
-        long id=12l;
+        long id = 12l;
         Mockito.when(productDao.deleteProduct(id)).thenReturn(false);
         //when
         boolean result = productService.deleteProduct(id);
@@ -146,7 +147,7 @@ public class ProductServiceImplTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         productService = null;
     }
 

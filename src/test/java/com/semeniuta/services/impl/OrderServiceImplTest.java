@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
 
@@ -29,9 +30,9 @@ public class OrderServiceImplTest {
     private Order order;
 
     @Before
-    public void init(){
+    public void init() {
         orderService = new OrderServiceImpl(orderDao);
-        order = new Order(new ArrayList<Long>(Arrays.asList(1l, 2l)), 3l );
+        order = new Order(new ArrayList<Long>(Arrays.asList(1l, 2l)), 3l);
     }
 
     @Test
@@ -57,10 +58,10 @@ public class OrderServiceImplTest {
     @Test
     public void editOrderStatusSuccessTest() {
         //given
-        long id =8l;
+        long id = 8l;
         String status = "Done";
         Mockito.when(orderDao.findOrder(id)).thenReturn(order);
-        Mockito.when(orderDao.editOrderStatus(id,status)).thenReturn(true);
+        Mockito.when(orderDao.editOrderStatus(id, status)).thenReturn(true);
         //when
         boolean result = orderService.editOrderStatus(id, status);
         //then
@@ -70,10 +71,10 @@ public class OrderServiceImplTest {
     @Test
     public void editOrderStatusFailedTest() {
         //given
-        long id =8l;
+        long id = 8l;
         String status = "Done";
         Mockito.when(orderDao.findOrder(id)).thenReturn(order);
-        Mockito.when(orderDao.editOrderStatus(id,status)).thenReturn(false);
+        Mockito.when(orderDao.editOrderStatus(id, status)).thenReturn(false);
         //when
         boolean result = orderService.editOrderStatus(id, status);
         //then
@@ -83,7 +84,7 @@ public class OrderServiceImplTest {
     @Test
     public void deleteOrderSuccessTest() {
         //given
-        long id =2l;
+        long id = 2l;
         Mockito.when(orderDao.deleteOrder(id)).thenReturn(true);
         //when
         boolean result = orderService.deleteOrder(id);
@@ -94,7 +95,7 @@ public class OrderServiceImplTest {
     @Test
     public void deleteOrderFailedTest() {
         //given
-        long id =2l;
+        long id = 2l;
         Mockito.when(orderDao.deleteOrder(id)).thenReturn(false);
         //when
         boolean result = orderService.deleteOrder(id);
@@ -106,8 +107,8 @@ public class OrderServiceImplTest {
     public void showOrdersExistentTest() {
         //given
         List<Order> orders = new ArrayList<>();
-        for(int i=0; i< 3; ++i){
-            Order newOrder = new Order(order.getProducts(),order.getIdClient()+i);
+        for (int i = 0; i < 3; ++i) {
+            Order newOrder = new Order(order.getProducts(), order.getIdClient() + i);
             orders.add(newOrder);
         }
         Mockito.when(orderDao.getAllOrders()).thenReturn(orders);
@@ -132,7 +133,7 @@ public class OrderServiceImplTest {
     @Test
     public void isOrderExistForExistentTest() {
         //given
-        long id =9l;
+        long id = 9l;
         Mockito.when(orderDao.findOrder(id)).thenReturn(order);
         //when
         boolean result = orderService.isOrderExist(id);
@@ -143,7 +144,7 @@ public class OrderServiceImplTest {
     @Test
     public void isOrderExistForNonExistentTest() {
         //given
-        long id =9l;
+        long id = 9l;
         Mockito.when(orderDao.findOrder(id)).thenReturn(null);
         //when
         boolean result = orderService.isOrderExist(id);

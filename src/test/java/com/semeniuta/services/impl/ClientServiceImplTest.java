@@ -15,19 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceImplTest {
 
 
     //private ClientDaoDBImpl clientDaoDB = new ClientDaoDBImpl(){
     @Mock
-    private ClientDao clientDaoDB ;//= Mockito.mock(ClientDao.class);
+    private ClientDao clientDaoDB;//= Mockito.mock(ClientDao.class);
 
     private ClientServiceImpl clientService;
 
     @Before
-    public void init(){
-          clientService = new ClientServiceImpl(clientDaoDB);
+    public void init() {
+        clientService = new ClientServiceImpl(clientDaoDB);
     }
 
     @Test
@@ -40,14 +41,15 @@ public class ClientServiceImplTest {
         String phone = "0671236544";
         String email = "test@tt.tt";
         Long id = 12l;
-        Client client = new Client(name,surname,age,email,phone);
+        Client client = new Client(name, surname, age, email, phone);
         Mockito.when(clientDaoDB.addClient(client)).thenReturn(id);
         //when
-        boolean result = clientService.createClient(name,surname,age,email,phone);
+        boolean result = clientService.createClient(name, surname, age, email, phone);
 
         //then
         Assert.assertEquals(true, result);
     }
+
     @Test
     public void createClientWasNotCreatedInDbTest() {
         //given
@@ -58,17 +60,17 @@ public class ClientServiceImplTest {
         String phone = "0671236544";
         String email = "test@tt.tt";
         Long id = 0l;
-        Client client = new Client(name,surname,age,email,phone);
+        Client client = new Client(name, surname, age, email, phone);
         Mockito.when(clientDaoDB.addClient(client)).thenReturn(id);
         //when
-        boolean result = clientService.createClient(name,surname,age,email,phone);
+        boolean result = clientService.createClient(name, surname, age, email, phone);
 
         //then
         Assert.assertEquals(false, result);
     }
 
     @Test
-    public void updateClientSuccessTest(){
+    public void updateClientSuccessTest() {
         //given
         String name = "test";
         String surname = "test";
@@ -76,16 +78,16 @@ public class ClientServiceImplTest {
         String phone = "0671236544";
         String email = "test@tt.tt";
         Long id = 12l;
-        Mockito.when(clientDaoDB.editClient(id, name,surname,age,email,phone)).thenReturn(true);
+        Mockito.when(clientDaoDB.editClient(id, name, surname, age, email, phone)).thenReturn(true);
         //when
-        boolean result = clientService.updateClient(id,name,surname,age,email,phone);
+        boolean result = clientService.updateClient(id, name, surname, age, email, phone);
         //then
         Assert.assertTrue(result);
 
     }
 
     @Test
-    public void updateClientFailedTest(){
+    public void updateClientFailedTest() {
         //given
         String name = "test";
         String surname = "test";
@@ -93,18 +95,18 @@ public class ClientServiceImplTest {
         String phone = "0671236544";
         String email = "test@tt.tt";
         Long id = 12l;
-        Mockito.when(clientDaoDB.editClient(id, name,surname,age,email,phone)).thenReturn(false);
+        Mockito.when(clientDaoDB.editClient(id, name, surname, age, email, phone)).thenReturn(false);
         //when
-        boolean result = clientService.updateClient(id,name,surname,age,email,phone);
+        boolean result = clientService.updateClient(id, name, surname, age, email, phone);
         //then
         Assert.assertFalse(result);
 
     }
 
     @Test
-    public void deleteClientSuccessTest(){
+    public void deleteClientSuccessTest() {
         //given
-        Long id =13l;
+        Long id = 13l;
         Mockito.when(clientDaoDB.deleteClient(id)).thenReturn(true);
         //when
         boolean result = clientService.deleteClient(id);
@@ -113,9 +115,9 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void deleteClientFailedTest(){
+    public void deleteClientFailedTest() {
         //given
-        Long id =13l;
+        Long id = 13l;
         Mockito.when(clientDaoDB.deleteClient(id)).thenReturn(false);
         //when
         boolean result = clientService.deleteClient(id);
@@ -124,10 +126,10 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void showClientsTest(){
+    public void showClientsTest() {
         //given
         List<Client> clients = new ArrayList<>();
-        for (int i=0; i<10; ++i) {
+        for (int i = 0; i < 10; ++i) {
             Client client = new Client(i, "test" + i, "test", 25, "te" + i + "t@tt.tt", "067123445" + i);
             clients.add(client);
         }
@@ -139,7 +141,7 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void showClientsNullTest(){
+    public void showClientsNullTest() {
         //given
         Mockito.when(clientDaoDB.getAllClient()).thenReturn(null);
         //when
@@ -149,7 +151,7 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void showClientInfoTest(){
+    public void showClientInfoTest() {
         //given
         long id = 12l;
         Client client = new Client(id, "test", "test", 25, "test@tt.tt", "067123445");
@@ -157,12 +159,12 @@ public class ClientServiceImplTest {
         //when
         Client result = clientService.showClientInfo(id);
         //then
-        Assert.assertEquals(client,result);
+        Assert.assertEquals(client, result);
     }
 
 
     @Test
-    public void showClientInfoNullTest(){
+    public void showClientInfoNullTest() {
         //given
         long id = 12l;
         Mockito.when(clientService.showClientInfo(id)).thenReturn(null);
@@ -173,40 +175,41 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void isClientExistForExistentClientTest(){
+    public void isClientExistForExistentClientTest() {
         //given
         String phone = "067123445";
         List<Client> clients = new ArrayList<>();
-        for (int i=0; i<3; ++i) {
-            Client client = new Client(i, "test" + i, "test", 25, "te" + i + "t@tt.tt",phone + i);
+        for (int i = 0; i < 3; ++i) {
+            Client client = new Client(i, "test" + i, "test", 25, "te" + i + "t@tt.tt", phone + i);
             clients.add(client);
         }
         Mockito.when(clientDaoDB.getAllClient()).thenReturn(clients);
         //when
-        boolean result = clientService.isClientExist(phone+1);
+        boolean result = clientService.isClientExist(phone + 1);
         //then
         Assert.assertTrue(result);
 
     }
+
     @Test
-    public void isClientExistForNonExistentClientTest(){
+    public void isClientExistForNonExistentClientTest() {
         //given
         String phone = "067123445";
         List<Client> clients = new ArrayList<>();
-        for (int i=0; i<3; ++i) {
-            Client client = new Client(i, "test" + i, "test", 25, "te" + i + "t@tt.tt",phone + i);
+        for (int i = 0; i < 3; ++i) {
+            Client client = new Client(i, "test" + i, "test", 25, "te" + i + "t@tt.tt", phone + i);
             clients.add(client);
         }
         Mockito.when(clientDaoDB.getAllClient()).thenReturn(clients);
         //when
-        boolean result = clientService.isClientExist(phone+9);
+        boolean result = clientService.isClientExist(phone + 9);
         //then
         Assert.assertFalse(result);
 
     }
 
     @Test
-    public void isIdExistForExistentClientTest(){
+    public void isIdExistForExistentClientTest() {
         //given
         long id = 13l;
         Mockito.when(clientDaoDB.findClient(id)).thenReturn(new Client(id, null, null, 1, null, null));
@@ -217,7 +220,7 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void isIdExistForNonExistentClientTest(){
+    public void isIdExistForNonExistentClientTest() {
         //given
         long id = 13l;
         Mockito.when(clientDaoDB.findClient(id)).thenReturn(null);
@@ -228,25 +231,25 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void getClientEmailByPhoneForExistentClientTest(){
+    public void getClientEmailByPhoneForExistentClientTest() {
         //given
         String phone = "067123445";
         String email = "tt@tt.t";
         List<Client> clients = new ArrayList<>();
-        for (int i=0; i<3; ++i) {
-            Client client = new Client(i, "test" + i, "test", 25, email+i,phone + i);
+        for (int i = 0; i < 3; ++i) {
+            Client client = new Client(i, "test" + i, "test", 25, email + i, phone + i);
             clients.add(client);
         }
         Mockito.when(clientDaoDB.getAllClient()).thenReturn(clients);
         //when
         int suf = 2;
-        String result = clientService.getClientEmailByPhone(phone+suf);
+        String result = clientService.getClientEmailByPhone(phone + suf);
         //then
-        Assert.assertEquals(email+suf, result);
+        Assert.assertEquals(email + suf, result);
     }
 
     @Test
-    public void getClientEmailByPhoneForNonExistentClientTest(){
+    public void getClientEmailByPhoneForNonExistentClientTest() {
         //given
         String phone = "0671234456";
         Mockito.when(clientDaoDB.getAllClient()).thenReturn(null);
@@ -257,7 +260,7 @@ public class ClientServiceImplTest {
     }
 
     @Test
-    public void getClientIdTest(){
+    public void getClientIdTest() {
         //when
         long result = clientService.getClientId();
         //then
@@ -265,7 +268,7 @@ public class ClientServiceImplTest {
     }
 
     @After
-    public void tearDown(){
-        clientService=null;
+    public void tearDown() {
+        clientService = null;
     }
 }
