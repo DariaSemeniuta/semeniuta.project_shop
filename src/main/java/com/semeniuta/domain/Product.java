@@ -1,6 +1,7 @@
 package com.semeniuta.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
     private long id;
@@ -50,5 +51,21 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return getId() == product.getId() &&
+                Objects.equals(getName(), product.getName()) &&
+                Objects.equals(getPrice(), product.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getName(), getPrice());
     }
 }

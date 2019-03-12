@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 //TODO add enum for order statuses
 public class Order {
     private long id;
@@ -72,4 +74,20 @@ public class Order {
         this.status = status;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return getId() == order.getId() &&
+                getIdClient() == order.getIdClient() &&
+                Objects.equals(getStatus(), order.getStatus()) &&
+                Objects.equals(getProducts(), order.getProducts());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getStatus(), getProducts(), getIdClient());
+    }
 }

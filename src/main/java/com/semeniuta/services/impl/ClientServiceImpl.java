@@ -72,10 +72,12 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public String getClientEmailByPhone(String phone) {
         List<Client> clients = clientDao.getAllClient();
-        for (Client client : clients) {
-            if (client.getPhone().equals(phone)) {
-                clientId = client.getId();
-                return client.getEmail();
+        if(clients != null) {
+            for (Client client : clients) {
+                if (client.getPhone().equals(phone)) {
+                    clientId = client.getId();
+                    return client.getEmail();
+                }
             }
         }
         return null;
