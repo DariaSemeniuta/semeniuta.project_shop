@@ -15,10 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//@WebServlet(urlPatterns = "/clients")
 public class ClientServlet extends HttpServlet {
 
-//    private ClientDao clientDao = new ClientDaoDBImpl();
     private ClientService clientService; // = new ClientServiceImpl(clientDao);
 
     public ClientServlet(ClientService clientService) {
@@ -28,7 +26,6 @@ public class ClientServlet extends HttpServlet {
     @Override
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        clientService.showClients();
         String path = req.getPathInfo();
         if("/delete".equals(path)){
             doDelete(req,resp);
@@ -41,9 +38,8 @@ public class ClientServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         for (Client client:clientService.showClients()) {
-            writer.println("<h1>"+client+"</h1>");
+            writer.println("<p>"+client.toString()+"</p>");
             writer.println("<br>");
-
         }
     }
 
@@ -55,6 +51,9 @@ public class ClientServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
         clientService.createClient(name, surname,Integer.parseInt(age),email,phone);
+        PrintWriter writer = resp.getWriter();
+        writer.println("<h2>Successfully</h2><br><a href=\"client/clientMenu.html\">continue...</a>");
+
         doGet(req,resp);
     }
 
@@ -74,4 +73,6 @@ public class ClientServlet extends HttpServlet {
         String email = req.getParameter("email");
         clientService.updateClient(Long.parseLong(id), name,surname,Integer.parseInt(age),email,phone);
     }
+
+
 }
