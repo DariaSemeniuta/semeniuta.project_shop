@@ -34,6 +34,10 @@ public class ClientServlet extends HttpServlet {
             doDelete(req,resp);
             return;
         }
+        if("/update".equals(path)){
+            doPut(req,resp);
+            return;
+        }
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         for (Client client:clientService.showClients()) {
@@ -58,5 +62,16 @@ public class ClientServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         String id = req.getParameter("id");
         clientService.deleteClient(Long.parseLong(id));
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp){
+        String id = req.getParameter("id");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String age = req.getParameter("age");
+        String phone = req.getParameter("phone");
+        String email = req.getParameter("email");
+        clientService.updateClient(Long.parseLong(id), name,surname,Integer.parseInt(age),email,phone);
     }
 }

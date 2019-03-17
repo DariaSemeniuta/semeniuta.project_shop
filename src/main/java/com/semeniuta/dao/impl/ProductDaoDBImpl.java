@@ -69,7 +69,7 @@ public class ProductDaoDBImpl implements ProductDao {
     @Override
     public boolean deleteProduct(long id) {
         try (Connection connection = DriverManager.getConnection(DB_URL,DB_USER,"");
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE * FROM "+DB_TABLE_PRODUCTS+" WHERE ID = ?;")){
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM "+DB_TABLE_PRODUCTS+" WHERE ID = ?;")){
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
             return true;

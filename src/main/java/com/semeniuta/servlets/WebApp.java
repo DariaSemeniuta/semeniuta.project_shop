@@ -19,11 +19,13 @@ public class WebApp implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ClientDao clientDao = new ClientDaoDBImpl();
         ClientService clientService = new ClientServiceImpl(clientDao);
-
        ServletContext servletContext =  sce.getServletContext();
        servletContext
                .addServlet("ClientServlet", new ClientServlet(clientService))
                .addMapping("/clients/*");
+        servletContext
+                .addServlet("AdminServlet", new AdminServlet())
+                .addMapping("/adminLogIn");
 
     }
 

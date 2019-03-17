@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-@WebFilter(urlPatterns = "/clients")
+//@WebFilter(urlPatterns = "/clients")
 public class ClientFilter implements Filter {
 
 

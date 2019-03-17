@@ -89,7 +89,10 @@ public class ClientDaoDBImpl implements ClientDao {
     @Override
     public boolean deleteClient(long id) {
         try (Connection connection = DriverManager.getConnection(DB_URL,DB_USER,"");
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE * FROM "+DB_TABLE_CLIENTS+" WHERE ID = ?;")){
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM "+DB_TABLE_CLIENTS+" WHERE ID = ?;");
+             PreparedStatement preparedStatementOrders = connection.prepareStatement("DELETE FROM "+DB_TABLE_ORDERS+" WHERE CLIENT_ID = ?;")){
+            preparedStatementOrders.setLong(1, id);
+            preparedStatementOrders.execute();
             preparedStatement.setLong(1, id);
              preparedStatement.execute();
              return true;
