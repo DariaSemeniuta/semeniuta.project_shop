@@ -34,6 +34,9 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getPathInfo();
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
+
         if("/delete".equals(path)){
             doDelete(req,resp);
             return;
@@ -42,8 +45,14 @@ public class ProductServlet extends HttpServlet {
             doPut(req,resp);
             return;
         }
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+        if("/getForOrder".equals(path)){
+            String response = "<select size=\"3\">";
+            for (Product product: productService.showProducts()) {
+                response +="<option value=\""+product.getId()+"\">"+product.getName()+"  "+product.getPrice()+"</option>";
+            }
+            response +="<\\select>";
+            writer.println(response);
+        }
         for (Product product: productService.showProducts()) {
             writer.println("<p>"+product.toString()+"</p>");
         }

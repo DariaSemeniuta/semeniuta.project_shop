@@ -53,13 +53,14 @@ public class OrderDaoDBImpl implements OrderDao {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")){
             ResultSet resultSet = statement.executeQuery(("SELECT * FROM " + DB_TABLE_ORDERS + ";"));
 
-            List<Long> productIds = new ArrayList<>();
             while(resultSet.next()) {
                 long id = resultSet.getLong("ID");
                 String status = resultSet.getString("STATUS");
                 long clientId = resultSet.getLong("CLIENT_ID");
+                List<Long> productIds = new ArrayList<>();
                 Order order = new Order(id, status, productIds, clientId);
                 preparedStatement.setLong(1, id);
+
 
                 ResultSet resultSetProducts = preparedStatement.executeQuery();
                 while(resultSetProducts.next()){

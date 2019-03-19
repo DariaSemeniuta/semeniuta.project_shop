@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UpdateProduct</title>
+</head>
+<body>
+<h2>Please fill form</h2><br>
+<form action="/products/update" method="post" id="order">
+    <input type="text" value="Id" readonly="readonly"><input type="text" name="id"><br>
+    <input type="text" value="Status" readonly="readonly"><select name="status" form="order">
+        <option value="New">New</option>
+        <option value="In progress">In progress</option>
+        <option value="Done">Opel</option>
+        <option value="Canceled">Canceled</option>
+
+    </select>
+    <br>
+    <input type="submit" value="Update product">
+</form><br>
+<iframe src="/orders"></iframe>
+</body>
+</html>
