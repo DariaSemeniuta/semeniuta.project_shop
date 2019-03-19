@@ -93,8 +93,8 @@ public class OrderDaoDBImpl implements OrderDao {
     @Override
     public boolean deleteOrder(long id) {
         try (Connection connection = DriverManager.getConnection(DB_URL,DB_USER,"");
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE * FROM "+DB_TABLE_ORDER_INFO+" WHERE ORDER_ID = ?;");
-            PreparedStatement preparedStatementInfo = connection.prepareStatement("DELETE * FROM "+ DB_TABLE_ORDERS +" WHERE ID = ?;")){
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM "+DB_TABLE_ORDER_INFO+" WHERE ORDER_ID = ?;");
+            PreparedStatement preparedStatementInfo = connection.prepareStatement("DELETE FROM "+ DB_TABLE_ORDERS +" WHERE ID = ?;")){
             preparedStatementInfo.setLong(1, id);
             preparedStatementInfo.execute();
 

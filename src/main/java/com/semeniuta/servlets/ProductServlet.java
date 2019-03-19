@@ -59,7 +59,7 @@ public class ProductServlet extends HttpServlet {
     }
 
 
-    public BigDecimal checkPrice (String input, PrintWriter writer){
+    /*public BigDecimal checkPrice (String input, PrintWriter writer){
         try {
                 validationService.validatePrice(input);
             }
@@ -67,7 +67,7 @@ public class ProductServlet extends HttpServlet {
                 writer.println(errorMessage);
             }
         return new BigDecimal(input);
-    }
+    }*/
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
@@ -75,7 +75,7 @@ public class ProductServlet extends HttpServlet {
 
         String name = req.getParameter("name");
         String inputPrice = req.getParameter("price");
-        BigDecimal price = checkPrice(inputPrice, writer);
+        BigDecimal price = new BigDecimal(inputPrice); //checkPrice(inputPrice, writer);
 
         productService.addProduct(name, price);
         writer.println("<iframe src=\"/products\"></iframe>");

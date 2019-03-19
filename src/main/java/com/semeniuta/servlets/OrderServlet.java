@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,15 +59,22 @@ public class OrderServlet extends HttpServlet{
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp){
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
         orderService.deleteOrder(Long.parseLong(id));
+        writer.println("<h2>Successfully</h2><br><a href=\"admin/adminOrderMenu.html\">continue...</a>");
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp){
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)throws IOException{
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
+
         String id = req.getParameter("id");
         String status = req.getParameter("status");
         orderService.editOrderStatus(Long.parseLong(id),status);
+        writer.println("<h2>Successfully</h2><br><a href=\"admin/adminOrderMenu.html\">continue...</a>");
     }
 }
