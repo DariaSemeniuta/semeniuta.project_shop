@@ -34,7 +34,7 @@ public class OrderServlet extends HttpServlet{
             doPut(req,resp);
             return;
         }
-        resp.setContentType("text/html");
+        //resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
         Object sessionClientId = req.getSession().getAttribute("userId");
@@ -70,7 +70,7 @@ public class OrderServlet extends HttpServlet{
         }
 
         orderService.createOrder(products, Long.parseLong(clientId));
-        writer.println("<h2>Successfully</h2><br><a href=\"admin/adminOrderMenu.html\">continue...</a>");
+        writer.println("<h2>Successfully</h2><br><iframe src=\"/orders\"></iframe>");
 
     }
 
