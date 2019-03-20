@@ -9,7 +9,7 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private final ClientDao clientDao;
 
-    private long clientId;
+    private long clientId = -1l;
 
     public long getClientId() {
         return clientId;
@@ -22,7 +22,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean createClient(String name, String surname, int age, String email, String phone) {
         Client client = new Client(name, surname, age, email, phone);
-        if((clientId=clientDao.addClient(client)) == 0){
+        if((clientId=clientDao.addClient(client)) == -1){
             return false;
         }
 
@@ -77,6 +77,19 @@ public class ClientServiceImpl implements ClientService {
                 if (client.getPhone().equals(phone)) {
                     clientId = client.getId();
                     return client.getEmail();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Client getClientByPhone(String phone) {
+        List<Client> clients = clientDao.getAllClient();
+        if(clients != null) {
+            for (Client client : clients) {
+                if (client.getPhone().equals(phone)) {
+                    return client;
                 }
             }
         }

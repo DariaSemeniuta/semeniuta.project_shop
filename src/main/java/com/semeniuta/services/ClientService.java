@@ -71,4 +71,6 @@ public interface ClientService {
     boolean isIdExist(long id);
 
     String getClientEmailByPhone(String phone);
+
+    Client getClientByPhone(String phone);
 }
