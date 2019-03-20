@@ -59,7 +59,7 @@ public class ClientServiceImplTest {
         int age = 43;
         String phone = "0671236544";
         String email = "test@tt.tt";
-        Long id = 0l;
+        Long id = -1l;
         Client client = new Client(name, surname, age, email, phone);
         Mockito.when(clientDaoDB.addClient(client)).thenReturn(id);
         //when

@@ -44,7 +44,7 @@ public class ClientDaoDBImpl implements ClientDao {
                 }catch (SQLException e){
             System.out.println("Can't insert client!");
             }
-        return 0;
+        return -1;
     }
 
     @Override

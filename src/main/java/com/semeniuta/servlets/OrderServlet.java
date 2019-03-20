@@ -36,6 +36,16 @@ public class OrderServlet extends HttpServlet{
         }
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
+
+        Object sessionClientId = req.getSession().getAttribute("userId");
+        if(sessionClientId !=null) {
+            List<Order> orders;
+            if ((orders = orderService.showOrders()) != null) {
+                orders.stream().filter((order -> order.getIdClient() == Long.parseLong(sessionClientId.toString()))).forEach(writer::println);
+                return;
+            }
+        }
+
         for (Order order:orderService.showOrders()) {
             writer.println("<p>"+order.toString()+"</p>");
             writer.println("<br>");
@@ -53,6 +63,12 @@ public class OrderServlet extends HttpServlet{
         for (String id:Arrays.asList(productIds.trim().split(" "))) {
             products.add(Long.parseLong(id));
         }
+
+        Object sessionClientId = req.getSession().getAttribute("userId");
+        if(sessionClientId !=null){
+            clientId = sessionClientId.toString();
+        }
+
         orderService.createOrder(products, Long.parseLong(clientId));
         writer.println("<h2>Successfully</h2><br><a href=\"admin/adminOrderMenu.html\">continue...</a>");
 
