@@ -27,7 +27,7 @@ public class ProductServlet extends HttpServlet {
 
     public ProductServlet(ProductService productService, ValidationService validationService) {
         this.productService = productService;
-        this.validationService=validationService;
+        this.validationService = validationService;
 
     }
 
@@ -37,24 +37,24 @@ public class ProductServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
-        if("/delete".equals(path)){
-            doDelete(req,resp);
+        if ("/delete".equals(path)) {
+            doDelete(req, resp);
             return;
         }
-        if("/update".equals(path)){
-            doPut(req,resp);
+        if ("/update".equals(path)) {
+            doPut(req, resp);
             return;
         }
-        if("/getForOrder".equals(path)){
+        if ("/getForOrder".equals(path)) {
             String response = "<select size=\"3\">";
-            for (Product product: productService.showProducts()) {
-                response +="<option value=\""+product.getId()+"\">"+product.getName()+"  "+product.getPrice()+"</option>";
+            for (Product product : productService.showProducts()) {
+                response += "<option value=\"" + product.getId() + "\">" + product.getName() + "  " + product.getPrice() + "</option>";
             }
-            response +="<\\select>";
+            response += "<\\select>";
             writer.println(response);
         }
-        for (Product product: productService.showProducts()) {
-            writer.println("<p>"+product.toString()+"</p>");
+        for (Product product : productService.showProducts()) {
+            writer.println("<p>" + product.toString() + "</p>");
         }
     }
 
@@ -83,16 +83,16 @@ public class ProductServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp){
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         String id = req.getParameter("id");
         productService.deleteProduct(Long.parseLong(id));
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp){
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String price = req.getParameter("price");
-        productService.editProduct(Long.parseLong(id),name,new BigDecimal(price));
+        productService.editProduct(Long.parseLong(id), name, new BigDecimal(price));
     }
 }

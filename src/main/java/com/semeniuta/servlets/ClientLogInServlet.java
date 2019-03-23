@@ -32,7 +32,7 @@ public class ClientLogInServlet extends HttpServlet {
 
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
-        if(clientService.isClientExist(phone)) {
+        if (clientService.isClientExist(phone)) {
             if (clientService.getClientEmailByPhone(phone).equals(email)) {
                 //Todo: user should be taken from session
                 HttpSession session = req.getSession();
@@ -40,8 +40,7 @@ public class ClientLogInServlet extends HttpServlet {
                 writer.println("<h2>Successfully</h2><br><a href=\"client/clientMenu.html\">continue...</a>");
 
             }
-        }
-        else{
+        } else {
             writer.println(errorMessage);
         }
 

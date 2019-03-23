@@ -4,12 +4,18 @@ import com.semeniuta.dao.OrderDao;
 import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
+    @Autowired
     private final OrderDao orderDao;
 
+    @Autowired
     public OrderServiceImpl(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
@@ -29,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean deleteOrder(long orderId) {
-       return orderDao.deleteOrder(orderId);
+        return orderDao.deleteOrder(orderId);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean isOrderExist(long id) {
-        if(orderDao.findOrder(id)==null){
+        if (orderDao.findOrder(id) == null) {
             return false;
         }
         return true;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OrderServlet extends HttpServlet{
+public class OrderServlet extends HttpServlet {
 
     private OrderService orderService;
 
@@ -24,21 +24,21 @@ public class OrderServlet extends HttpServlet{
 
     @Override
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getPathInfo();
-        if("/delete".equals(path)){
-            doDelete(req,resp);
+        if ("/delete".equals(path)) {
+            doDelete(req, resp);
             return;
         }
-        if("/update".equals(path)){
-            doPut(req,resp);
+        if ("/update".equals(path)) {
+            doPut(req, resp);
             return;
         }
         //resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
         Object sessionClientId = req.getSession().getAttribute("userId");
-        if(sessionClientId !=null) {
+        if (sessionClientId != null) {
             List<Order> orders;
             if ((orders = orderService.showOrders()) != null) {
                 orders.stream().filter((order -> order.getIdClient() == Long.parseLong(sessionClientId.toString()))).forEach(writer::println);
@@ -46,8 +46,8 @@ public class OrderServlet extends HttpServlet{
             }
         }
 
-        for (Order order:orderService.showOrders()) {
-            writer.println("<p>"+order.toString()+"</p>");
+        for (Order order : orderService.showOrders()) {
+            writer.println("<p>" + order.toString() + "</p>");
             writer.println("<br>");
         }
     }
@@ -60,12 +60,12 @@ public class OrderServlet extends HttpServlet{
         String productIds = req.getParameter("productIds");
         productIds = productIds.replaceAll("[^0-9]+", " ");
         List<Long> products = new ArrayList<>();
-        for (String id:Arrays.asList(productIds.trim().split(" "))) {
+        for (String id : Arrays.asList(productIds.trim().split(" "))) {
             products.add(Long.parseLong(id));
         }
 
         Object sessionClientId = req.getSession().getAttribute("userId");
-        if(sessionClientId !=null){
+        if (sessionClientId != null) {
             clientId = sessionClientId.toString();
         }
 
@@ -75,7 +75,7 @@ public class OrderServlet extends HttpServlet{
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
@@ -84,13 +84,13 @@ public class OrderServlet extends HttpServlet{
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp)throws IOException{
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
         String id = req.getParameter("id");
         String status = req.getParameter("status");
-        orderService.editOrderStatus(Long.parseLong(id),status);
+        orderService.editOrderStatus(Long.parseLong(id), status);
         writer.println("<h2>Successfully</h2><br><a href=\"admin/adminOrderMenu.html\">continue...</a>");
     }
 }

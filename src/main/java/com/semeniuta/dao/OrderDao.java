@@ -25,7 +25,7 @@ public interface OrderDao extends DaoDB {
     /**
      * Change status of order
      *
-     * @param id  - long - id of order object that should be changed
+     * @param id     - long - id of order object that should be changed
      * @param status - String - new status of order
      * @return true if status was successfully changed, otherwise - false
      */

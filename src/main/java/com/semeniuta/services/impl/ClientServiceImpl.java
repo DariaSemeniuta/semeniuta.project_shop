@@ -3,10 +3,15 @@ package com.semeniuta.services.impl;
 import com.semeniuta.dao.ClientDao;
 import com.semeniuta.domain.Client;
 import com.semeniuta.services.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ClientServiceImpl implements ClientService {
+    @Autowired
     private final ClientDao clientDao;
 
     private long clientId = -1l;
@@ -15,6 +20,7 @@ public class ClientServiceImpl implements ClientService {
         return clientId;
     }
 
+    @Autowired
     public ClientServiceImpl(ClientDao clientDao) {
         this.clientDao = clientDao;
     }
@@ -22,7 +28,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean createClient(String name, String surname, int age, String email, String phone) {
         Client client = new Client(name, surname, age, email, phone);
-        if((clientId=clientDao.addClient(client)) == -1){
+        if ((clientId = clientDao.addClient(client)) == -1) {
             return false;
         }
 
@@ -72,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public String getClientEmailByPhone(String phone) {
         List<Client> clients = clientDao.getAllClient();
-        if(clients != null) {
+        if (clients != null) {
             for (Client client : clients) {
                 if (client.getPhone().equals(phone)) {
                     clientId = client.getId();
@@ -86,7 +92,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getClientByPhone(String phone) {
         List<Client> clients = clientDao.getAllClient();
-        if(clients != null) {
+        if (clients != null) {
             for (Client client : clients) {
                 if (client.getPhone().equals(phone)) {
                     return client;

@@ -75,17 +75,17 @@ public class AdminOrderMenuImpl implements Menu {
         String input;
         List<Long> productIds = new ArrayList<>();
         System.out.println("Please enter product ids(use Enter for separating):");
-        while (!(input=br.readLine()).isEmpty()) {
+        while (!(input = br.readLine()).isEmpty()) {
             while (!(validationService.readInt(input))) {
                 System.out.println("Incorrect format of input value!");
                 System.out.print("Please enter correct Number => ");
             }
             long id = Long.parseLong(input);
             try {
-                    validationService.validateProductId(id);
-                    productIds.add(id);
-                } catch (BusinessExceptions e) {
-                    System.out.println(e.getMessage());
+                validationService.validateProductId(id);
+                productIds.add(id);
+            } catch (BusinessExceptions e) {
+                System.out.println(e.getMessage());
                 System.out.print("Please enter correct product id => ");
 
             }
@@ -95,45 +95,45 @@ public class AdminOrderMenuImpl implements Menu {
 
     public void createOrder() throws IOException {
         List<Long> ids = readProductIds();
-        if(ids.size()==0){
+        if (ids.size() == 0) {
             System.out.println("You didn't put any products to order");
             return;
         }
         System.out.println("Enter client info:");
         long idClient = readId();
-            try {
-                validationService.validateClientId(idClient);
-                if (orderService.createOrder(ids, idClient)) {
-                    System.out.println("Order was added");
-                } else {
-                    System.out.println("Order wasn't added");
-                }
-            }catch (BusinessExceptions e){
-                System.out.println(e.getMessage());
-
+        try {
+            validationService.validateClientId(idClient);
+            if (orderService.createOrder(ids, idClient)) {
+                System.out.println("Order was added");
+            } else {
+                System.out.println("Order wasn't added");
             }
+        } catch (BusinessExceptions e) {
+            System.out.println(e.getMessage());
+
+        }
 
     }
 
     public void createOrder(long clientId) throws IOException {
         List<Long> ids = readProductIds();
-        if(ids.size()==0){
+        if (ids.size() == 0) {
             System.out.println("You didn't put any products to order");
             return;
         }
         if (orderService.createOrder(ids, clientId)) {
-                System.out.println("Order was added");
-            } else {
-                System.out.println("Order wasn't added");
-            }
+            System.out.println("Order was added");
+        } else {
+            System.out.println("Order wasn't added");
+        }
     }
 
     public void showOrders() {
         System.out.println("All orders:");
         List<Order> orders;
-        if((orders = orderService.showOrders())!=null) {
+        if ((orders = orderService.showOrders()) != null) {
             orders.forEach(System.out::println);
-        }else {
+        } else {
             System.out.println("There are no orders!");
         }
     }
@@ -141,9 +141,9 @@ public class AdminOrderMenuImpl implements Menu {
     public void showOrders(long clientId) {
         System.out.println("All orders:");
         List<Order> orders;
-        if((orders = orderService.showOrders())!=null) {
+        if ((orders = orderService.showOrders()) != null) {
             orders.stream().filter((order -> order.getIdClient() == clientId)).forEach(System.out::println);
-        } else{
+        } else {
             System.out.println("There are no orders!");
         }
     }
@@ -151,7 +151,7 @@ public class AdminOrderMenuImpl implements Menu {
     private void editOrderStatus() throws IOException {
         System.out.println("Please Order info:");
         long id = readId();
-        try{
+        try {
             validationService.validateOrderId(id);
             System.out.println("Please enter new order status => ");
             String status = br.readLine();
@@ -160,7 +160,7 @@ public class AdminOrderMenuImpl implements Menu {
             } else {
                 System.out.println("Order status wasn't changed");
             }
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 
@@ -176,7 +176,7 @@ public class AdminOrderMenuImpl implements Menu {
             } else {
                 System.out.println("Order wasn't deleted");
             }
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
     }

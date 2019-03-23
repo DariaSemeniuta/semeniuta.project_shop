@@ -32,7 +32,7 @@ public class ValidationServiceImplTest {
     private ValidationService validationService;
 
     @Before
-    public void init(){
+    public void init() {
         validationService = new ValidationServiceImpl(clientService, productService, orderService);
     }
 
@@ -341,7 +341,7 @@ public class ValidationServiceImplTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         validationService = null;
     }
 

@@ -4,7 +4,7 @@ import com.semeniuta.domain.Client;
 
 import java.util.List;
 
-public interface ClientDao extends DaoDB{
+public interface ClientDao extends DaoDB {
 
     /**
      * Add new client to dao

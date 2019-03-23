@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 //@WebServlet(urlPatterns = "/adminLogIn")
-public class AdminServlet extends HttpServlet{
+public class AdminServlet extends HttpServlet {
     private final String adminLogName = "admin";
     private final String adminPwd = "admin";
     private String errorMessage = "<div id=\"error\" class=\"modalbackground\">\n" +
@@ -26,10 +26,9 @@ public class AdminServlet extends HttpServlet{
         PrintWriter writer = resp.getWriter();
         String user = req.getParameter("user");
         String pwd = req.getParameter("password");
-        if((adminLogName.equals(user))&&(adminPwd.equals(pwd))){
+        if ((adminLogName.equals(user)) && (adminPwd.equals(pwd))) {
             writer.println("<h2>Successfully</h2><br><a href=\"admin/adminMenu.html\">continue...</a>");
-        }
-        else{
+        } else {
             writer.println(errorMessage);
         }
 

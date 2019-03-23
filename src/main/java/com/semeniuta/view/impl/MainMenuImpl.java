@@ -5,10 +5,13 @@ import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
+@Component
 public class MainMenuImpl implements Menu {
     protected BufferedReader br = null;
     protected ClientService clientService = null;
@@ -24,6 +27,7 @@ public class MainMenuImpl implements Menu {
     private Menu orderMenu;
     private Menu adminClientMenu;
     private Menu productMenu;
+
 
     public MainMenuImpl(BufferedReader br, ClientService clientService, ProductService productService, OrderService orderService, ValidationService validationService) {
         this.br = br;
@@ -51,10 +55,10 @@ public class MainMenuImpl implements Menu {
             String input = br.readLine();
             switch (input) {
                 case "1":
-                    ((AdminMainMenuImpl)adminMainMenu).logIn();
+                    ((AdminMainMenuImpl) adminMainMenu).logIn();
                     break;
                 case "2":
-                    ((ClientMenuImpl)clientMenu).getUser();
+                    ((ClientMenuImpl) clientMenu).getUser();
                     break;
                 case "0":
                     isRunning = false;

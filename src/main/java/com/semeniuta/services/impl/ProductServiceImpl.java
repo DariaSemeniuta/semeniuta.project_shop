@@ -3,13 +3,19 @@ package com.semeniuta.services.impl;
 import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements ProductService {
+    @Autowired
     private final ProductDao productDao;
 
+    @Autowired
     public ProductServiceImpl(ProductDao productDao) {
         this.productDao = productDao;
     }

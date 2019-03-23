@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:constant id="in" static-field="java.lang.System.in"/>
+    <!-- bean definitions here -->
+    <bean id="reader" class="java.io.InputStreamReader">
+        <constructor-arg name="in" ref="in"/>
+    </bean>
+
+    <bean id="bufferedReader" class="java.io.BufferedReader">
+        <constructor-arg name="reader" ref="reader"/>
+    </bean>
+
+    <bean id="clientDao" class="com.semeniuta.dao.impl.ClientDaoDBImpl"/>
+
+    <bean id="clientService" class="com.semeniuta.services.impl.ClientServiceImpl">
+        <constructor-arg name="clientDao" ref="clientDao"/>
+    </bean>
+
+    <bean id="productDao" class="com.semeniuta.dao.impl.ProductDaoDBImpl"/>
+
+    <bean id="productService" class="com.semeniuta.services.impl.ProductServiceImpl">
+        <constructor-arg name="productDao" ref="productDao"/>
+    </bean>
+    <bean id="orderDao" class="com.semeniuta.dao.impl.OrderDaoDBImpl"/>
+
+    <bean id="orderService" class="com.semeniuta.services.impl.OrderServiceImpl">
+        <constructor-arg name="orderDao" ref="orderDao"/>
+    </bean>
+
+    <bean name="validationService" class="com.semeniuta.validators.ValidationServiceImpl" autowire="constructor">
+    </bean>
+
+    <bean id="clientMenu" class="com.semeniuta.view.impl.ClientMenuImpl" autowire="constructor">
+
+    </bean>
+
+    <bean id="mainMenu" class="com.semeniuta.view.impl.MainMenuImpl" autowire="constructor">
+
+    </bean>
+
+</beans>
