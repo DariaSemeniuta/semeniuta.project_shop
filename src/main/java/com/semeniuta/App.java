@@ -14,6 +14,7 @@ import com.semeniuta.validators.ValidationService;
 import com.semeniuta.validators.ValidationServiceImpl;
 import com.semeniuta.view.Menu;
 import com.semeniuta.view.impl.MainMenuImpl;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.math.BigDecimal;
 
 public class App {
     public static void main(String[] args) {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       /* BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         ClientDao clientDao = new ClientDaoDBImpl();
         ClientService clientService = new ClientServiceImpl(clientDao);
@@ -35,7 +36,12 @@ public class App {
 
 
         ValidationService validationService = new ValidationServiceImpl(clientService, productService, orderService);
+
         Menu menu = new MainMenuImpl(br, clientService, productService, orderService, validationService);
+        */
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(("app.xml"));
+        Menu menu = (MainMenuImpl) context.getBean("mainMenu");
+       //Menu menu = new MainMenuImpl(br, clientService, productService, orderService, validationService);
         try {
             menu.getUserResponse();
         } catch (IOException e) {
