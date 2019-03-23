@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 //@WebFilter(urlPatterns = "/clients")
 public class ClientFilter implements Filter {
 
@@ -21,14 +22,14 @@ public class ClientFilter implements Filter {
 
 
         String age = servletRequest.getParameter("age");
-        try{
+        try {
             Integer.parseInt(age);
 
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             PrintWriter printWriter = servletResponse.getWriter();
             printWriter.println("<h2>Wrong Age</h2>");
             return;
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

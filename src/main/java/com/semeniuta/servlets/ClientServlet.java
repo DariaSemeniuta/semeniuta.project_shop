@@ -20,32 +20,33 @@ import java.util.List;
 public class ClientServlet extends HttpServlet {
 
     private ClientService clientService;
+
     public ClientServlet(ClientService clientService) {
         this.clientService = clientService;
     }
 
     @Override
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getPathInfo();
-        if("/delete".equals(path)){
-            doDelete(req,resp);
+        if ("/delete".equals(path)) {
+            doDelete(req, resp);
             return;
         }
-        if("/update".equals(path)){
-            doPut(req,resp);
+        if ("/update".equals(path)) {
+            doPut(req, resp);
             return;
         }
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         Object clientId = req.getSession().getAttribute("userId");
-        if(clientId !=null){
+        if (clientId != null) {
             Client client = clientService.showClientInfo(Long.parseLong(clientId.toString()));
-            writer.println("<p>"+client.toString()+"</p>");
+            writer.println("<p>" + client.toString() + "</p>");
             writer.println("<br>");
         }
-        for (Client client:clientService.showClients()) {
-            writer.println("<p>"+client.toString()+"</p>");
+        for (Client client : clientService.showClients()) {
+            writer.println("<p>" + client.toString() + "</p>");
             writer.println("<br>");
         }
     }
@@ -58,14 +59,14 @@ public class ClientServlet extends HttpServlet {
         String age = req.getParameter("age");
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
-        clientService.createClient(name, surname,Integer.parseInt(age),email,phone);
+        clientService.createClient(name, surname, Integer.parseInt(age), email, phone);
 
         String path = req.getPathInfo();
-        if("/registration".equals(path)) {
+        if ("/registration".equals(path)) {
             registerUser(req, resp);
         }
 
-        doGet(req,resp);
+        doGet(req, resp);
     }
 
     private void registerUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -74,7 +75,7 @@ public class ClientServlet extends HttpServlet {
         String age = req.getParameter("age");
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
-        clientService.createClient(name, surname,Integer.parseInt(age),email,phone);
+        clientService.createClient(name, surname, Integer.parseInt(age), email, phone);
         HttpSession session = req.getSession();
         session.setAttribute("userId", clientService.getClientByPhone(phone).getId());
         resp.setContentType("text/html");
@@ -89,7 +90,7 @@ public class ClientServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp){
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
@@ -97,10 +98,10 @@ public class ClientServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
         Object clientId = req.getSession().getAttribute("userId");
-        if(clientId !=null){
+        if (clientId != null) {
             id = clientId.toString();
         }
-        clientService.updateClient(Long.parseLong(id), name,surname,Integer.parseInt(age),email,phone);
+        clientService.updateClient(Long.parseLong(id), name, surname, Integer.parseInt(age), email, phone);
     }
 
 

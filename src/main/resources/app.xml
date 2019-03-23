@@ -15,7 +15,7 @@
     </bean>
 
     <bean id="bufferedReader" class="java.io.BufferedReader">
-        <constructor-arg name="reader" ref="reader" />
+        <constructor-arg name="reader" ref="reader"/>
     </bean>
 
     <bean id="clientDao" class="com.semeniuta.dao.impl.ClientDaoDBImpl"/>
@@ -36,7 +36,7 @@
     </bean>
 
     <bean name="validationService" class="com.semeniuta.validators.ValidationServiceImpl" autowire="constructor">
-            </bean>
+    </bean>
 
     <bean id="clientMenu" class="com.semeniuta.view.impl.ClientMenuImpl" autowire="constructor">
 

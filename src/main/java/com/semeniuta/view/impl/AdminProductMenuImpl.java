@@ -62,16 +62,15 @@ public class AdminProductMenuImpl implements Menu {
         System.exit(0);
     }
 
-    private BigDecimal readPrice() throws IOException{
+    private BigDecimal readPrice() throws IOException {
         boolean flag = true;
-        String input="0";
-        while (flag){
+        String input = "0";
+        while (flag) {
             System.out.println("Please enter price of the product => ");
             try {
                 validationService.validatePrice(input = br.readLine());
                 flag = false;
-            }
-            catch (BusinessExceptions e){
+            } catch (BusinessExceptions e) {
                 System.out.println("Please enter correct price!");
             }
         }
@@ -118,8 +117,7 @@ public class AdminProductMenuImpl implements Menu {
             } else {
                 System.out.println("Product wasn't changed");
             }
-        }
-        catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 
@@ -128,7 +126,7 @@ public class AdminProductMenuImpl implements Menu {
     private void deleteProduct() throws IOException {
         System.out.println("Please enter id of the product that should be deleted => ");
         long id = readId();
-        try{
+        try {
             validationService.validateProductId(id);
             if (productService.deleteProduct(id)) {
                 System.out.println("Product was deleted");
@@ -136,7 +134,7 @@ public class AdminProductMenuImpl implements Menu {
                 System.out.println("Product wasn't deleted");
             }
 
-        }catch (BusinessExceptions e){
+        } catch (BusinessExceptions e) {
             System.out.println(e.getMessage());
         }
 
@@ -145,9 +143,9 @@ public class AdminProductMenuImpl implements Menu {
     public void showProducts() {
         System.out.println("All products:");
         List<Product> products;
-        if((products = productService.showProducts())!=null) {
+        if ((products = productService.showProducts()) != null) {
             products.forEach(System.out::println);
-        }else{
+        } else {
             System.out.println("There are no products!");
         }
     }

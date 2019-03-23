@@ -56,10 +56,10 @@ public class ClientMenuImpl implements Menu {
     }
 
 
-    private void logInClient() throws IOException{
+    private void logInClient() throws IOException {
         String email = inputEmail();
-        String phone =  inputPhone();
-        if(clientService.isClientExist(phone)) {
+        String phone = inputPhone();
+        if (clientService.isClientExist(phone)) {
             if (clientService.getClientEmailByPhone(phone).equals(email)) {
                 System.out.println("Successfully logged in :)");
                 getUserResponse();
@@ -90,10 +90,10 @@ public class ClientMenuImpl implements Menu {
                     ((AdminProductMenuImpl) productMenu).showProducts();
                     break;
                 case "5":
-                    ((AdminOrderMenuImpl)orderMenu).createOrder(((ClientServiceImpl)clientService).getClientId());
+                    ((AdminOrderMenuImpl) orderMenu).createOrder(((ClientServiceImpl) clientService).getClientId());
                     break;
                 case "6":
-                    ((AdminOrderMenuImpl)orderMenu).showOrders(((ClientServiceImpl)clientService).getClientId());
+                    ((AdminOrderMenuImpl) orderMenu).showOrders(((ClientServiceImpl) clientService).getClientId());
                     break;
                 case "7":
                     getUser();
@@ -204,27 +204,27 @@ public class ClientMenuImpl implements Menu {
 
     //TODO: add possibility to change not all fields of client
     protected void updateClient() throws IOException {
-            System.out.print("Please enter new name => ");
-            String newName = br.readLine();
+        System.out.print("Please enter new name => ");
+        String newName = br.readLine();
 
-            System.out.print("Please enter new second name => ");
-            String surname = br.readLine();
+        System.out.print("Please enter new second name => ");
+        String surname = br.readLine();
 
-            int age = inputAge();
-            String email = inputEmail();
-            String phone = inputPhone();
+        int age = inputAge();
+        String email = inputEmail();
+        String phone = inputPhone();
 
-            if (clientService.updateClient(((ClientServiceImpl)clientService).getClientId(), newName, surname, age, email, phone)) {
-                System.out.println("Client was updated");
-            } else {
-                System.out.println("Client wasn't updated");
-            }
+        if (clientService.updateClient(((ClientServiceImpl) clientService).getClientId(), newName, surname, age, email, phone)) {
+            System.out.println("Client was updated");
+        } else {
+            System.out.println("Client wasn't updated");
+        }
 
     }
 
     protected void showClientInfo() throws IOException {
         System.out.println("Info about client:");
-        System.out.println(clientService.showClientInfo(((ClientServiceImpl)clientService).getClientId()).toString());
+        System.out.println(clientService.showClientInfo(((ClientServiceImpl) clientService).getClientId()).toString());
     }
 
 }

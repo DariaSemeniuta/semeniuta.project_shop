@@ -32,11 +32,11 @@ public class WebApp implements ServletContextListener {
         OrderDao orderDao = new OrderDaoDBImpl();
         OrderService orderService = new OrderServiceImpl(orderDao);
 
-        ValidationService validationService = new ValidationServiceImpl(clientService,productService,orderService);
-       ServletContext servletContext =  sce.getServletContext();
-       servletContext
-               .addServlet("ClientServlet", new ClientServlet(clientService))
-               .addMapping("/clients/*");
+        ValidationService validationService = new ValidationServiceImpl(clientService, productService, orderService);
+        ServletContext servletContext = sce.getServletContext();
+        servletContext
+                .addServlet("ClientServlet", new ClientServlet(clientService))
+                .addMapping("/clients/*");
         servletContext
                 .addServlet("AdminServlet", new AdminServlet())
                 .addMapping("/adminLogIn");

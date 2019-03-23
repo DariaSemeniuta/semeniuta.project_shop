@@ -5,7 +5,7 @@ import com.semeniuta.domain.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductDao extends DaoDB{
+public interface ProductDao extends DaoDB {
 
     /**
      * Return list of all products
@@ -25,9 +25,9 @@ public interface ProductDao extends DaoDB{
     /**
      * Change existent product
      *
-     * @param id - long - id of product object that should to changed
-     * @param name    - String - new name of product
-     * @param price   - BigDecimal - new price of product
+     * @param id    - long - id of product object that should to changed
+     * @param name  - String - new name of product
+     * @param price - BigDecimal - new price of product
      * @return true if product was changed, otherwise - false
      */
     boolean editProduct(long id, String name, BigDecimal price);

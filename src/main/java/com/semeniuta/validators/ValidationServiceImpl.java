@@ -4,15 +4,22 @@ import com.semeniuta.exceptions.BusinessExceptions;
 import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class ValidationServiceImpl implements ValidationService {
+
 
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
 
+    @Autowired
     public ValidationServiceImpl(ClientService clientService, ProductService productService, OrderService orderService) {
         this.clientService = clientService;
         this.productService = productService;
@@ -80,18 +87,17 @@ public class ValidationServiceImpl implements ValidationService {
     }
 
     @Override
-   public void validatePrice(String input) throws BusinessExceptions {
-        try{
+    public void validatePrice(String input) throws BusinessExceptions {
+        try {
             new BigDecimal(input);
-        }
-        catch ( NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new BusinessExceptions("Price is incorrect!");
         }
     }
 
     @Override
     public void validateOrderId(long id) throws BusinessExceptions {
-        if(!orderService.isOrderExist(id)){
+        if (!orderService.isOrderExist(id)) {
             throw new BusinessExceptions("There is no order with entered id!");
         }
     }
