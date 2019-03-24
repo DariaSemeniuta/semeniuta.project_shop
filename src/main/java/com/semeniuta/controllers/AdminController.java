@@ -5,9 +5,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminController {
@@ -23,13 +20,13 @@ public class AdminController {
             "</div>";
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
-    public String start(@RequestParam String user, ModelMap modelMap){
+    public String start(@RequestParam String user, ModelMap modelMap) {
         //ModelAndView modelAndView = new ModelAndView("client");
-        if("client".equals(user)){
+        if ("client".equals(user)) {
             //modelAndView=new ModelAndView("/client/clientStartPage");
             return "/client/clientStartPage";
         }
-        if("admin".equals(user)){
+        if ("admin".equals(user)) {
             //modelAndView=new ModelAndView("/admin/logIn");
             modelMap.addAttribute("message", errorMessage);
             return "/admin/logIn";
@@ -38,11 +35,11 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/adminLogIn", method = RequestMethod.POST)
-    public String  adminLogIn(
-        @RequestParam String user,
-        @RequestParam String password,
-        ModelMap modelMap) {
-        String message=null;
+    public String adminLogIn(
+            @RequestParam String user,
+            @RequestParam String password,
+            ModelMap modelMap) {
+        String message = null;
         if ((adminLogName.equals(user)) && (adminPwd.equals(password))) {
             return "/admin/adminMenu";
         } else {
@@ -53,9 +50,9 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "/menu",  method = RequestMethod.GET)
-    public String getMenu(@RequestParam String menu){
-        switch (menu){
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String getMenu(@RequestParam String menu) {
+        switch (menu) {
             case "Client menu":
                 return "/admin/adminClientMenu";
 
@@ -70,11 +67,21 @@ public class AdminController {
                 return "/admin/deleteProduct";
             case "Update product":
                 return "/admin/updateProduct";
+            case "Create order":
+                return "/admin/createOrder";
+            case "Delete order":
+                return "/admin/deleteOrder";
+            case "Update order":
+                return "/admin/updateOrderStatus";
+            case "Create client":
+                return "/admin/createClient";
+            case "Delete client":
+                return "/admin/deleteClient";
+            case "Update client":
+                return "/admin/updateClient";
         }
         return "/admin/adminMenu";
     }
-
-
 
 
 }

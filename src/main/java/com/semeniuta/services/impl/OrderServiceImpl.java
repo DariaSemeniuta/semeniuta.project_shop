@@ -1,11 +1,9 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.OrderDao;
-import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Please fill form</h2><br>
-<form action="/orders/update" method="get" id="order">
+<form action="/orders/update" method="post">
     <input type="text" value="Id" readonly="readonly"><input type="text" name="id"><br>
     <input type="text" value="Status" readonly="readonly"><select name="status" form="order">
     <option value="New">New</option>

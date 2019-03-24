@@ -1,8 +1,5 @@
 package com.semeniuta.view.impl;
 
-import com.semeniuta.services.ClientService;
-import com.semeniuta.services.OrderService;
-import com.semeniuta.services.ProductService;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 

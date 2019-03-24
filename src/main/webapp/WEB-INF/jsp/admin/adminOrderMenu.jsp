@@ -10,17 +10,12 @@
     <input type="submit" value="Show all orders">
 </form>
 <br>
-<form action="/admin/createOrder.html">
-    <input type="submit" value="Create orders">
+<form action="/menu" method="get">
+    <input type="submit" name="menu" value="Create order">
+    <br><br>
+    <input type="submit" name="menu" value="Delete order">
+    <br><br>
+    <input type="submit" name="menu" value="Update order">
 </form>
-<br>
-<form action="/admin/deleteOrder.html">
-    <input type="submit" value="Delete orders">
-</form>
-<br>
-<form action="/admin/updateOrderStatus.html">
-    <input type="submit" value="Update orders">
-</form>
-<br>
 </body>
 </html>

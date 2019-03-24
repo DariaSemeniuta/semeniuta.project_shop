@@ -6,12 +6,12 @@
 </head>
 <body>
 <h2>Please Log in or register for continue</h2>
-<form action="/client/clientRegistration.jsp">
-    <input type="submit" value="Registration">
+<form action="/clientMenu" method="get">
+    <input type="submit" name ="menu"  value="Registration">
 </form>
 <br>
-<form action="/client/clientLogIn.jsp">
-    <input type="submit" value="   Log in   ">
+<form action="/clientMenu" method="get">
+    <input type="submit"  name ="menu"  value="Log in">
 </form>
 
 

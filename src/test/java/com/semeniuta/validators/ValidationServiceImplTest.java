@@ -13,10 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
-
 @RunWith(MockitoJUnitRunner.class)
 public class ValidationServiceImplTest {
 

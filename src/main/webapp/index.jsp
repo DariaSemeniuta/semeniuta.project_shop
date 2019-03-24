@@ -8,7 +8,7 @@
 <br>
 <p>Please choose user</p>
 <form action="/start" method="get">
-    <input type="submit" name="user" value="client"><br>
-    <input type="submit" name="user" value="admin"><br>
+    <input type="submit" name="user" value="client"/><br><br>
+    <input type="submit" name="user" value="admin"/><br><br>
 </form>
 </body>

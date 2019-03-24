@@ -1,28 +1,12 @@
 package com.semeniuta;
 
-import com.semeniuta.dao.ClientDao;
-import com.semeniuta.dao.OrderDao;
-import com.semeniuta.dao.ProductDao;
-import com.semeniuta.dao.impl.*;
-import com.semeniuta.services.ClientService;
-import com.semeniuta.services.OrderService;
-import com.semeniuta.services.ProductService;
-import com.semeniuta.services.impl.ClientServiceImpl;
-import com.semeniuta.services.impl.OrderServiceImpl;
-import com.semeniuta.services.impl.ProductServiceImpl;
-import com.semeniuta.validators.ValidationService;
-import com.semeniuta.validators.ValidationServiceImpl;
 import com.semeniuta.view.Menu;
 import com.semeniuta.view.impl.MainMenuImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.math.BigDecimal;
 
 @Controller
 public class App {

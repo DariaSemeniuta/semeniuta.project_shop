@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
     <title>UpdateProfile</title>
@@ -16,4 +15,6 @@
     <input type="submit" value="Update profile">
 </form>
 </body>
+<iframe src="/clients"></iframe>
+
 </html>

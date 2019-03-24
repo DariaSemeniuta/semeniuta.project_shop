@@ -1,20 +1,18 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.ClientDao;
-import com.semeniuta.dao.impl.ClientDaoDBImpl;
 import com.semeniuta.domain.Client;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceImplTest {

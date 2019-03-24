@@ -8,16 +8,12 @@
 <body>
 
 <h2>Admin menu for work with client</h2>
-<form action="/client/clientRegistration">
-    <input type="submit" value="Create client">
-</form>
-<br>
-<form action="/admin/deleteClient.html">
-    <input type="submit" value="Delete client">
-</form>
-<br>
-<form action="/admin/updateClient.html">
-    <input type="submit" value="Update">
+<form action="/menu" method="get">
+    <input type="submit" name="menu" value="Create client">
+    <br><br>
+    <input type="submit" name="menu" value="Delete client">
+    <br><br>
+    <input type="submit" name="menu" value="Update client">
 </form>
 <br>
 <form action="/clients" method="get">

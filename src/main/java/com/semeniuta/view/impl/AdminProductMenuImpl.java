@@ -2,7 +2,7 @@ package com.semeniuta.view.impl;
 
 import com.semeniuta.domain.Product;
 import com.semeniuta.exceptions.BusinessExceptions;
-import com.semeniuta.services.ProductService;;
+import com.semeniuta.services.ProductService;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
 
@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+
+;
 
 public class AdminProductMenuImpl implements Menu {
 

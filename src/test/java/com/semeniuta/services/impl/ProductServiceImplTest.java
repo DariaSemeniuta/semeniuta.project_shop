@@ -3,7 +3,10 @@ package com.semeniuta.services.impl;
 import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.ProductService;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -12,8 +15,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {

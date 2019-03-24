@@ -13,9 +13,9 @@
 <br>
 <form action="/menu" method="get">
     <input type="submit" name="menu" value="Create product">
-    <br>
+    <br><br>
     <input type="submit" name="menu" value="Delete product">
-    <br>
+    <br><br>
     <input type="submit" name="menu" value="Update product">
 </form>
 </body>

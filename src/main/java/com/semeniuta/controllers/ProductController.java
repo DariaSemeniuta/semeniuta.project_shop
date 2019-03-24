@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.print.DocFlavor;
 import java.math.BigDecimal;
 
 @Controller
@@ -20,7 +19,7 @@ public class ProductController {
     private ProductService productService;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String showProducts(ModelMap modelMap){
+    public String showProducts(ModelMap modelMap) {
         String message = "All products";
         String source = "";
         for (Product product : productService.showProducts()) {
@@ -35,7 +34,7 @@ public class ProductController {
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public String createProducts(@RequestParam String name,
                                  @RequestParam String price,
-                                 ModelMap modelMap){
+                                 ModelMap modelMap) {
         productService.addProduct(name, new BigDecimal(price));
         String message = "Product was successfully created";
         modelMap.addAttribute("message", message);
@@ -45,7 +44,7 @@ public class ProductController {
 
     @RequestMapping(value = "/products/delete", method = RequestMethod.POST)
     public String deleteProduct(@RequestParam String id,
-                                ModelMap modelMap){
+                                ModelMap modelMap) {
         productService.deleteProduct(Long.parseLong(id));
         String message = "Product was successfully updated";
         modelMap.addAttribute("message", message);
@@ -58,14 +57,11 @@ public class ProductController {
     public String updateProduct(@RequestParam String id,
                                 @RequestParam String name,
                                 @RequestParam String price,
-                                ModelMap modelMap){
+                                ModelMap modelMap) {
         productService.editProduct(Long.parseLong(id), name, new BigDecimal(price));
         showProducts(modelMap);
         return "out";
     }
-
-
-
 
 
 }
