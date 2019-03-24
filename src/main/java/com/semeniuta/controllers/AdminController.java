@@ -18,25 +18,64 @@ public class AdminController {
             "\t<div class=\"modalwindow\">\n" +
             "\t\t<h3>Error!</h3>\n" +
             "\t\t<p>Please enter valid user or password</p>\n" +
-            //"\t\t<a href=\"/admin/logIn.jsp\">Ok</a>\n" +
+            //"\t\t<a href=\"/WEB-INF/jsp/admin/logIn.jsp\">Ok</a>\n" +
             "\t</div>\n" +
             "</div>";
 
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
+    public String start(@RequestParam String user, ModelMap modelMap){
+        //ModelAndView modelAndView = new ModelAndView("client");
+        if("client".equals(user)){
+            //modelAndView=new ModelAndView("/client/clientStartPage");
+            return "/client/clientStartPage";
+        }
+        if("admin".equals(user)){
+            //modelAndView=new ModelAndView("/admin/logIn");
+            modelMap.addAttribute("message", errorMessage);
+            return "/admin/logIn";
+        }
+        return "redirect: /admin/logIn";
+    }
+
     @RequestMapping(value = "/adminLogIn", method = RequestMethod.POST)
-    public ModelAndView  adminLogIn(
+    public String  adminLogIn(
         @RequestParam String user,
         @RequestParam String password,
-        ModelMap modelMap, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("client");
-        String message;
+        ModelMap modelMap) {
+        String message=null;
         if ((adminLogName.equals(user)) && (adminPwd.equals(password))) {
-            message = "Successfully";//<br><a href=\"admin/adminMenu.html\">continue...</a>";
+            return "/admin/adminMenu";
         } else {
-            message = "error";
+            message = errorMessage;
+            modelMap.put("message", message);
+            return "/admin/logIn";
         }
-        modelMap.put("message", message);
-        return modelAndView;
+
     }
+
+    @RequestMapping(value = "/menu",  method = RequestMethod.GET)
+    public String getMenu(@RequestParam String menu){
+        switch (menu){
+            case "Client menu":
+                return "/admin/adminClientMenu";
+
+            case "Product menu":
+                return "/admin/adminProductMenu";
+
+            case "Order menu":
+                return "/admin/adminOrderMenu";
+            case "Create product":
+                return "/admin/createProduct";
+            case "Delete product":
+                return "/admin/deleteProduct";
+            case "Update product":
+                return "/admin/updateProduct";
+        }
+        return "/admin/adminMenu";
+    }
+
+
+
 
 }
 

@@ -22,7 +22,7 @@ public class ClientController {
     @RequestMapping(method = RequestMethod.GET)
     public String showClients(ModelMap modelMap) {
         modelMap.put("message", clientService.showClients());
-        return "clients";
+        return "client";
     }
 
     @RequestMapping(method = RequestMethod.POST)

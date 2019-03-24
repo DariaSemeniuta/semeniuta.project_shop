@@ -4,6 +4,7 @@
 		<title>Simple JSP Application</title>
 	</head>
 	<body>
-		<p>${message}</p>
+	    <h2>${message}</h2>
+		<p>${source}></p>
 	</body>
 </html>

@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -8,12 +7,8 @@
 <h1>Welcome to shop</h1>
 <br>
 <p>Please choose user</p>
-<form action="/client/clientStartPage.jsp">
-    <input type="submit" value=" Go as User "><br>
-</form>
-<br>
-<form action="/admin/logIn.jsp">
-    <input type="submit" value="Go as Admin"><br>
+<form action="/start" method="get">
+    <input type="submit" name="user" value="client"><br>
+    <input type="submit" name="user" value="admin"><br>
 </form>
 </body>
-</html>
