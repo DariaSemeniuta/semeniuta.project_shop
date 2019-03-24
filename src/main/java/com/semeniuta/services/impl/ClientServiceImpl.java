@@ -4,7 +4,6 @@ import com.semeniuta.dao.ClientDao;
 import com.semeniuta.domain.Client;
 import com.semeniuta.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.OrderDao;
-import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Order;
 import com.semeniuta.services.OrderService;
 import org.junit.Assert;
@@ -10,15 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Or;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {

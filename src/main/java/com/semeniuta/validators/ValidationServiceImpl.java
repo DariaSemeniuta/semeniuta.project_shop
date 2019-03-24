@@ -5,8 +5,6 @@ import com.semeniuta.services.ClientService;
 import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

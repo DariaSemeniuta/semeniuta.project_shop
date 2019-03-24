@@ -4,7 +4,6 @@ import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Product;
 import com.semeniuta.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

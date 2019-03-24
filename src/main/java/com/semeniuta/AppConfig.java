@@ -1,6 +1,5 @@
 package com.semeniuta;
 
-import com.semeniuta.dao.ClientDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

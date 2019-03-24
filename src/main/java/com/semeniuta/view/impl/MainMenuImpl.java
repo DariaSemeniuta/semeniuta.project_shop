@@ -5,7 +5,6 @@ import com.semeniuta.services.OrderService;
 import com.semeniuta.services.ProductService;
 import com.semeniuta.validators.ValidationService;
 import com.semeniuta.view.Menu;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;

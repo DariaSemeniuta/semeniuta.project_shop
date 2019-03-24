@@ -2,7 +2,6 @@ package com.semeniuta.dao.impl;
 
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
