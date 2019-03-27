@@ -1,12 +1,31 @@
 package com.semeniuta.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
+  //  @ManyToOne
+   // @JoinColumn(name="product_id", nullable=false)
+
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "PRICE")
     private BigDecimal price;
+
+    public Product() {
+    }
 
     public Product(String name, BigDecimal price) {
         this.name = name;

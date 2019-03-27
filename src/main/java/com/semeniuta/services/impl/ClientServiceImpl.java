@@ -4,13 +4,17 @@ import com.semeniuta.dao.ClientDao;
 import com.semeniuta.domain.Client;
 import com.semeniuta.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
+    @Qualifier("clientEMDao")
     private final ClientDao clientDao;
 
     private long clientId = -1l;
