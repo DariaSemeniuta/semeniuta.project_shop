@@ -26,6 +26,7 @@ public class OrderEMDao implements OrderDao{
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(order);
+            entityManager.flush();
             entityManager.getTransaction().commit();
             return true;
         }catch (Exception e){

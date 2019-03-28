@@ -1,8 +1,10 @@
 package com.semeniuta.domain;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,16 +20,22 @@ public class Order {
     @Column(name = "status")
     private String status;
 
-    /*@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(name = "order_info",
-            joinColumns={@JoinColumn(name = "order_id")},
-            inverseJoinColumns={@JoinColumn(name = "product_id")})*/
-    //@OneToMany(mappedBy = "product_id", orphanRemoval = true)
-    @OneToMany
-    @JoinTable(name = "order_info", joinColumns = {@JoinColumn(name="order_id")},
-            inverseJoinColumns = {@JoinColumn(name="product_id")} )
+    @JoinTable(
+            name = "ORDER_INFO",
+            joinColumns = @JoinColumn(
+                    name = "order_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "product_id",
+                    referencedColumnName = "id"
+            )
+    )
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
     private List<Long> products;
-    @ManyToOne(targetEntity = Client.class)
+
+    @Column(name = "client_id")
     private long idClient;
 
     public Order() {
@@ -51,7 +59,6 @@ public class Order {
         this.products = products;
         this.idClient = idClient;
     }
-
     public List<Long> getProducts() {
         return products;
     }
@@ -73,7 +80,7 @@ public class Order {
         return "Order{" +
                 "\nid=" + id +
                 ", \nstatus=" + status +
-                ", \nproducts=" + products.toString() +
+                ", \nproducts=" + getProducts().toString() +
                 ", \nclientId=" + idClient +
                 "}";
     }
@@ -82,7 +89,7 @@ public class Order {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

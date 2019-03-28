@@ -1,9 +1,11 @@
 package com.semeniuta.domain;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +13,10 @@ import java.util.Objects;
 public class Product {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
-  //  @ManyToOne
-   // @JoinColumn(name="product_id", nullable=false)
-
 
     @Column(name = "NAME")
     private String name;
@@ -47,7 +47,7 @@ public class Product {
                 "\n}";
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -59,7 +59,7 @@ public class Product {
         return price;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
 
         this.id = id;
     }

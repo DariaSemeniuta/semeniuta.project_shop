@@ -18,7 +18,7 @@ public class AppConfig {
         return new BufferedReader(new InputStreamReader(System.in));
     }
     @Bean(name = "entityManagerFactory")
-    public EntityManagerFactory getEntityManagerEntity() {
+    public EntityManagerFactory getEntityManagerFactory() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence-unit");
         return factory;
     }

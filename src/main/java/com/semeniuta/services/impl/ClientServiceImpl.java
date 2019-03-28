@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    @Qualifier("clientEMDao")
     private final ClientDao clientDao;
 
     private long clientId = -1l;

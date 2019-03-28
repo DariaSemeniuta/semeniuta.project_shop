@@ -14,7 +14,6 @@ public class Client {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
-    //@OneToMany( fetch = FetchType.LAZY, mappedBy = "client")
     private long id;
 
     @Column(name = "NAME")
@@ -88,7 +87,6 @@ public class Client {
         this.phone = phone;
     }
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     public long getId() {
 
         return id;
