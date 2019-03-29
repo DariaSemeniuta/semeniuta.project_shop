@@ -31,6 +31,7 @@ public class App {
         Menu menu = (MainMenuImpl) context.getBean("mainMenu");*/
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
         Menu menu = (MainMenuImpl) context.getBean(MainMenuImpl.class);
         try {
             menu.getUserResponse();

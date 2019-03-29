@@ -48,4 +48,6 @@ public interface ProductService {
      * @return true if product is exist, otherwise - false
      */
     boolean isProductExist(long id);
+
+    Product findProduct(long id);
 }

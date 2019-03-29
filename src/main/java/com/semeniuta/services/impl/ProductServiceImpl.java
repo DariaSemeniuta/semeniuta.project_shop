@@ -48,4 +48,10 @@ public class ProductServiceImpl implements ProductService {
         return true;
     }
 
+    @Override
+    public Product findProduct(long id) {
+        Product product = null;
+        product = productDao.findProduct(id);
+        return product;
+    }
 }

@@ -1,7 +1,9 @@
 package com.semeniuta.services.impl;
 
 import com.semeniuta.dao.OrderDao;
+import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Order;
+import com.semeniuta.domain.Product;
 import com.semeniuta.services.OrderService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,13 +23,16 @@ public class OrderServiceImplTest {
     @Mock
     private OrderDao orderDao;
 
+    @Mock
+    private ProductDao productDao;
+
     private OrderService orderService;
     private Order order;
 
     @Before
     public void init() {
-        orderService = new OrderServiceImpl(orderDao);
-        order = new Order(new ArrayList<Long>(Arrays.asList(1l, 2l)), 3l);
+        orderService = new OrderServiceImpl(orderDao, productDao );
+        order = new Order(new ArrayList<Product>(Arrays.asList(null)), 3l);
     }
 
     @Test
@@ -35,7 +40,7 @@ public class OrderServiceImplTest {
         //given
         Mockito.when(orderDao.addOrder(order)).thenReturn(true);
         //when
-        boolean result = orderService.createOrder(order.getProducts(), order.getIdClient());
+        boolean result = orderService.createOrder(null, order.getIdClient());
         //then
         Assert.assertTrue(result);
     }
@@ -45,7 +50,7 @@ public class OrderServiceImplTest {
         //given
         Mockito.when(orderDao.addOrder(order)).thenReturn(false);
         //when
-        boolean result = orderService.createOrder(order.getProducts(), order.getIdClient());
+        boolean result = orderService.createOrder(null, order.getIdClient());
         //then
         Assert.assertFalse(result);
     }

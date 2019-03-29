@@ -1,39 +1,69 @@
 package com.semeniuta.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 //TODO add enum for order statuses
+@Entity
+@Table(name="ORDERS")
 public class Order {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
+    @Column(name = "status")
     private String status;
-    private List<Long> products;
+
+    @JoinTable(
+            name = "ORDER_INFO",
+            joinColumns = @JoinColumn(
+                    name = "order_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "product_id",
+                    referencedColumnName = "id"
+            )
+    )
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
+    private List<Product> products;
+
+    @Column(name = "client_id")
     private long idClient;
 
-    public Order(List<Long> products, long idClient) {
+    public Order() {
+    }
+
+    public Order(List<Product> products, long idClient) {
         this.status = "New";
         this.products = products;
         this.idClient = idClient;
     }
 
-    public Order(List<Long> products, String status, long idClient) {
+    public Order(List<Product> products, String status, long idClient) {
         this.status = status;
         this.products = products;
         this.idClient = idClient;
     }
 
-    public Order(long id, String status, List<Long> products, long idClient) {
+    public Order(long id, String status, List<Product> products, long idClient) {
         this.id = id;
         this.status = status;
         this.products = products;
         this.idClient = idClient;
     }
-
-    public List<Long> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Long> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -59,7 +89,7 @@ public class Order {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

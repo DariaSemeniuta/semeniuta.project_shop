@@ -1,14 +1,30 @@
 package com.semeniuta.domain;
 
-import java.util.Objects;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.util.Objects;
+@Entity
+@Table(name="CLIENTS")
 public class Client {
 
+    public Client() {
+    }
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     private long id;
+
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "SURNAME")
     private String surname;
+    @Column(name = "AGE")
     private int age;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "PHONE")
     private String phone;
 
     @Override
