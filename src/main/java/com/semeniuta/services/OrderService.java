@@ -1,6 +1,7 @@
 package com.semeniuta.services;
 
 import com.semeniuta.domain.Order;
+import com.semeniuta.domain.Product;
 
 import java.util.List;
 

@@ -31,9 +31,9 @@ public class Order {
                     referencedColumnName = "id"
             )
     )
-    @OneToMany(targetEntity = Product.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn
-    private List<Long> products;
+    private List<Product> products;
 
     @Column(name = "client_id")
     private long idClient;
@@ -41,29 +41,29 @@ public class Order {
     public Order() {
     }
 
-    public Order(List<Long> products, long idClient) {
+    public Order(List<Product> products, long idClient) {
         this.status = "New";
         this.products = products;
         this.idClient = idClient;
     }
 
-    public Order(List<Long> products, String status, long idClient) {
+    public Order(List<Product> products, String status, long idClient) {
         this.status = status;
         this.products = products;
         this.idClient = idClient;
     }
 
-    public Order(long id, String status, List<Long> products, long idClient) {
+    public Order(long id, String status, List<Product> products, long idClient) {
         this.id = id;
         this.status = status;
         this.products = products;
         this.idClient = idClient;
     }
-    public List<Long> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Long> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -80,7 +80,7 @@ public class Order {
         return "Order{" +
                 "\nid=" + id +
                 ", \nstatus=" + status +
-                ", \nproducts=" + getProducts().toString() +
+                ", \nproducts=" + products.toString() +
                 ", \nclientId=" + idClient +
                 "}";
     }

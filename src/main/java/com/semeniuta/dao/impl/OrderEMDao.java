@@ -26,7 +26,6 @@ public class OrderEMDao implements OrderDao{
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(order);
-            entityManager.flush();
             entityManager.getTransaction().commit();
             return true;
         }catch (Exception e){
@@ -76,7 +75,7 @@ public class OrderEMDao implements OrderDao{
     @Override
     public Order findOrder(long id) {
         Order order = null;
-        order = entityManager.find(Order.class,order);
+        order = entityManager.find(Order.class,id);
         return order;
     }
 }

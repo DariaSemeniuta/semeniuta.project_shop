@@ -2,6 +2,7 @@ package com.semeniuta.dao.impl;
 
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
+import com.semeniuta.domain.Product;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -34,8 +35,8 @@ public class OrderDaoDBImpl implements OrderDao {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 long orderId = resultSet.getInt("ID");
-                for (long productId : order.getProducts()) {
-                    statement.execute("INSERT INTO " + DB_TABLE_ORDER_INFO + " (ORDER_ID, PRODUCT_ID) VALUES(" + orderId + "," + productId + ")");
+                for (Product productId : order.getProducts()) {
+                    statement.execute("INSERT INTO " + DB_TABLE_ORDER_INFO + " (ORDER_ID, PRODUCT_ID) VALUES(" + orderId + "," + productId.getId() + ")");
                 }
             }
 
@@ -46,10 +47,10 @@ public class OrderDaoDBImpl implements OrderDao {
         return false;
     }
 
-    @Override
+   @Override
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+        /*try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
              Statement statement = connection.createStatement();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")) {
             ResultSet resultSet = statement.executeQuery(("SELECT * FROM " + DB_TABLE_ORDERS + ";"));
@@ -58,7 +59,7 @@ public class OrderDaoDBImpl implements OrderDao {
                 long id = resultSet.getLong("ID");
                 String status = resultSet.getString("STATUS");
                 long clientId = resultSet.getLong("CLIENT_ID");
-                List<Long> productIds = new ArrayList<>();
+                List<Product> productIds = new ArrayList<>();
                 Order order = new Order(id, status, productIds, clientId);
                 preparedStatement.setLong(1, id);
 
@@ -72,14 +73,14 @@ public class OrderDaoDBImpl implements OrderDao {
             }
         } catch (SQLException e) {
             System.out.println("There is no orders");
-        }
+        }*/
         return orders;
     }
 
 
     @Override
     public boolean editOrderStatus(long id, String status) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+      /*  try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE " + DB_TABLE_ORDERS + " SET STATUS = ? WHERE ID = ?;")) {
             preparedStatement.setLong(2, id);
             preparedStatement.setString(1, status);
@@ -87,7 +88,7 @@ public class OrderDaoDBImpl implements OrderDao {
             return true;
         } catch (SQLException e) {
             System.out.println("Order status wasn't updated");
-        }
+        }*/
         return false;
     }
 
@@ -110,7 +111,7 @@ public class OrderDaoDBImpl implements OrderDao {
 
     @Override
     public Order findOrder(long id) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
+        /*try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, "");
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + DB_TABLE_ORDERS + " WHERE ID = ?; ");
              PreparedStatement preparedStatementProducts = connection.prepareStatement("SELECT PRODUCT_ID FROM " + DB_TABLE_ORDER_INFO + " WHERE ORDER_ID = ?; ")) {
             preparedStatement.setLong(1, id);
@@ -131,7 +132,7 @@ public class OrderDaoDBImpl implements OrderDao {
             }
         } catch (SQLException e) {
             System.out.println("There is no orders");
-        }
+        }*/
         return null;
     }
 }
