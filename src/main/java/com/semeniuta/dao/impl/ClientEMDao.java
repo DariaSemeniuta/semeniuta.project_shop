@@ -48,7 +48,7 @@ public class ClientEMDao  implements ClientDao{
         try{
             Client client = entityManager.find(Client.class,id);
             return client;
-        }catch (Exception e){
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return null;
@@ -66,7 +66,7 @@ public class ClientEMDao  implements ClientDao{
             client.setPhone(phone);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class ClientEMDao  implements ClientDao{
             entityManager.remove(client);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }

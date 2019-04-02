@@ -2,6 +2,7 @@ package com.semeniuta.dao.impl;
 
 import com.semeniuta.dao.OrderDao;
 import com.semeniuta.domain.Order;
+import org.hibernate.HibernateException;
 import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -28,7 +29,7 @@ public class OrderEMDao implements OrderDao{
             entityManager.persist(order);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -50,7 +51,7 @@ public class OrderEMDao implements OrderDao{
             order.setStatus(status);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -65,7 +66,7 @@ public class OrderEMDao implements OrderDao{
             entityManager.remove(order);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }

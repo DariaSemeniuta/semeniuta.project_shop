@@ -31,7 +31,7 @@ public class Order {
                     referencedColumnName = "id"
             )
     )
-    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(targetEntity = Product.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private List<Product> products;
 

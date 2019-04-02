@@ -2,6 +2,7 @@ package com.semeniuta.dao.impl;
 
 import com.semeniuta.dao.ProductDao;
 import com.semeniuta.domain.Product;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class ProductEMDao implements ProductDao {
             entityManager.persist(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -53,7 +54,7 @@ public class ProductEMDao implements ProductDao {
             product.setPrice(price);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -68,7 +69,7 @@ public class ProductEMDao implements ProductDao {
             entityManager.remove(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch (HibernateException e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
         }
